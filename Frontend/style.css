@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+	/*Colors*/
+
+	/*Fonts*/
+	--font: 'Poppins', sans-serif;
+	--font-s: 14px;
+	--font-l: 16px;
+	--font-xl: 20px;
+
+	/*Spacing*/
+	--s-margin: 5%;
+	--l-margin: 10%;
+	--xl-margin: 20%;
+	--px-3: 3px;
+	--px-5: 5px;
+	--px-10: 10px;
+	--px-20: 20px;
+	--px-30: 30px;
+	--px-40: 40px;
+	--px-50: 50px;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: var(--font);
+}
+
+main {
+	padding-left: var(--xl-margin);
+	padding-right: var(--xl-margin);
+	padding-top: var(--px-30);
+	padding-bottom: var(--px-30);
+}
+
+#nav {
+	padding: var(--px-20);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	max-width: 65%;
+	margin: auto;
+	display: flex;
+	list-style-type: none;
+	gap: var(--px-50);
+	font-size: var(--font-xl);
+	align-items: center;
+}
+
+#nav li {
+	position: relative;
+	cursor: pointer;
+}
+
+#nav li::after {
+	transition: all 0.2s ease-out;
+	content: '';
+	position: absolute;
+	left: 50%;
+	bottom: -10px;
+	width: 0px;
+	height: 3px;
+	background-color: blue;
+	transform: translateX(-50%);
+}
+
+#nav .active::after {
+	width: 120%;
+}
+
+#link_access {
+	margin-left: auto;
+	display: flex;
+	gap: var(--px-10);
+}
+
+#link_access .text {
+	position: relative;
+	z-index: 2;
+}
+
+#link_login {
+	background-color: blue;
+	border: 1px solid blue;
+	color: white;
+	transition: all 0.2s ease-out;
+	position: relative;
+	padding: var(--px-10);
+	border-radius: var(--px-5);
+	overflow: hidden;
+
+	&::after {
+		transition: all 0.2s ease-out;
+		content: '';
+		width: 100%;
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		height: 0px;
+		z-index: 1;
+	}
+
+	&:hover::after {
+		height: 100%;
+		background-color: white;
+	}
+
+	&:hover {
+		color: black;
+	}
+}
+
+@media (max-width: 1000px) {
+	main {
+		padding-left: var(--l-margin);
+		padding-right: var(--l-margin);
+	}
+}
+
+@media (max-width: 500px) {
+	main {
+		padding-left: var(--s-margin);
+		padding-right: var(--s-margin);
+	}
+}
