@@ -1,10 +1,11 @@
 const User = require('../models/User');
+const Event = require('../models/Event');
 const bcrypt = require('bcrypt');
 const { generarToken } = require('../../utils/jwt');
 
 const getAllUsers = async (req, res, next) => {
 	try {
-		const users = await User.find();
+		const users = await User.find().select('-password');
 		return res.status(200).json(users);
 	} catch (error) {
 		return res.status(500).json(`Error (getAllUsers): ${error}`);
@@ -14,7 +15,7 @@ const getAllUsers = async (req, res, next) => {
 const getUserById = async (req, res, next) => {
 	try {
 		const { id } = req.params;
-		const user = await User.findById(id);
+		const user = await User.findById(id).select('-password');
 		return res.status(200).json(user);
 	} catch (error) {
 		return res.status(500).json(`Error (getUserById): ${error}`);
@@ -23,11 +24,11 @@ const getUserById = async (req, res, next) => {
 
 const register = async (req, res, next) => {
 	try {
-		if (!req.body.username) return res.status(404).json('Necesitas un nombre de usuario.');
+		if (!req.body.usuario) return res.status(404).json('Necesitas un nombre de usuario.');
 
 		if (!req.body.password) return res.status(404).json('Necesitas una contraseña.');
 
-		const check = await User.findOne({ username: req.body.username });
+		const check = await User.findOne({ usuario: req.body.usuario });
 		if (check) return res.status(404).json('El nombre de usuario no está disponible.');
 
 		const user = new User(req.body);
@@ -41,7 +42,7 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
 	try {
-		const user = User.findOne({ username: req.body.username });
+		const user = await User.findOne({ usuario: req.body.usuario });
 		if (!user) return res.status(404).json('No hay ningún usuario con ese nombre.');
 
 		const passCheck = bcrypt.compareSync(req.body.password, user.password);
@@ -63,11 +64,18 @@ const editUser = async (req, res, next) => {
 
 		if (req.user.id == oldUser.id) {
 			const change = {
-				username: req.body.username || oldUser.username,
+				usuario: req.body.usuario || oldUser.usuario,
 				email: req.body.email || oldUser.email,
 			};
 
-			const newUser = await User.findByIdAndUpdate(id, change, { new: true });
+			//Comprobamos que el nuevo nombre de usuario no esté en uso.
+			if (change.usuario != oldUser.usuario) {
+				const check = await User.findOne({ usuario: change.usuario });
+				if (check) return res.status(404).json('Ese nombre de usuario ya está en uso.');
+			}
+
+			const newUser = await User.findByIdAndUpdate(id, change, { new: true }).select('-password');
+
 			return res.status(200).json(newUser);
 		}
 
@@ -82,6 +90,9 @@ const deleteUser = async (req, res, next) => {
 		const { id } = req.params;
 		if (req.user.id == id) {
 			await User.findByIdAndDelete(id);
+			const events = await Event.find({ creador: id });
+			if (events) await Event.deleteMany(events);
+
 			return res.status(200).json('Usuario borrado correctamente.');
 		}
 		return res.status(200).json('No puedes borrar este usuario.');
