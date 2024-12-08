@@ -25,4 +25,4 @@ linkLogin.addEventListener('click', () => {
 	linkEvents.classList.remove('active');
 });
 
-Events();
+linkLogin.click();

@@ -34,6 +34,7 @@ main {
 	padding-right: var(--xl-margin);
 	padding-top: var(--px-30);
 	padding-bottom: var(--px-30);
+	position: relative;
 }
 
 #nav {
