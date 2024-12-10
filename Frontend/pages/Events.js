@@ -19,14 +19,20 @@ const template = () => {
 };
 
 const getEvents = async () => {
-	const request = await fetch('http://localhost:3000/api/events');
-	const events = await request.json();
+	const url = 'http://localhost:3000/api/events';
+	const options = {
+		method: 'GET',
+	};
 
-	const container = $('#event-container');
+	const response = await makeRequest(url, options);
+	if (response.success) {
+		const container = $('#event-container');
+		const events = response.json;
 
-	for (const event of events) {
-		const element = eventElement(event);
-		container.appendChild(element);
+		for (const event of events) {
+			const element = eventElement(event);
+			container.appendChild(element);
+		}
 	}
 };
 

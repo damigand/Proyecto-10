@@ -3,6 +3,7 @@ const $ = (el) => document.querySelector(el);
 const $$ = (els) => document.querySelectorAll(els);
 import Events from './Events';
 import handleResponse from '../components/handleResponse.js';
+import makeRequest from '../components/makeRequest.js';
 import createMessage from '../components/createMessage.js';
 
 const template = () => {
@@ -131,18 +132,20 @@ const reqRegister = async () => {
 		email: email,
 	};
 
-	const request = new Request('http://localhost:3000/api/users/register', {
+	const url = 'http://localhost:3000/api/users/register';
+
+	const options = {
 		method: 'POST',
 		body: JSON.stringify(reqBody),
 		headers: {
 			'Content-type': 'application/json',
 		},
-	});
+	};
 
-	const response = await fetch(request);
-	const obj = await handleResponse(response);
-	if (obj.success) {
-		reqLogin(usuario, password);
+	const response = await makeRequest(url, options);
+
+	if (response.success) {
+		await reqLogin(usuario, password);
 	}
 };
 
@@ -156,27 +159,26 @@ const reqLogin = async (regUsuario, regPassword) => {
 		password: password,
 	};
 
-	const request = new Request('http://localhost:3000/api/users/login', {
+	const url = 'http://localhost:3000/api/users/login';
+
+	const options = {
 		method: 'POST',
 		body: JSON.stringify(reqBody),
 		headers: {
 			'Content-type': 'application/json',
 		},
-	});
+	};
 
-	$('body').classList.add('loading');
-	const response = await fetch(request);
-	const obj = await handleResponse(response);
+	const response = await makeRequest(url, options);
 
-	if (obj.success) {
+	if (response.success) {
 		//Usaría cookies para guardar esta info pero no tengo ni idea de cómo usarlas
-		localStorage.setItem('user', JSON.stringify(obj.json.user));
-		localStorage.setItem('jwt', JSON.stringify(obj.json.token));
+		localStorage.setItem('user', JSON.stringify(response.json.user));
+		localStorage.setItem('jwt', JSON.stringify(response.json.token));
 		Events();
 		$('#link_access').classList.add('hidden');
 		$('#link_profile').classList.remove('hidden');
 	}
-	$('body').classList.remove('loading');
 };
 
 export default Access;
