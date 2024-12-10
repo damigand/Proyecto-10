@@ -1,0 +1,43 @@
+#messages {
+	top: 5px;
+	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 3;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--px-5);
+}
+
+.message {
+	position: relative;
+	padding: var(--px-5) var(--px-10);
+	border-radius: var(--px-5);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.message i {
+	cursor: pointer;
+}
+
+.message span {
+	padding-right: var(--px-20);
+}
+
+.message.red {
+	background-color: red;
+	color: white;
+}
+
+.message.green {
+	background-color: lightgreen;
+	color: black;
+}
+
+.message.hiding {
+	transition: all 2s ease;
+	opacity: 0%;
+}

@@ -5,7 +5,14 @@ import Profile from './pages/Profile.js';
 
 const linkEvents = document.querySelector('#link_events');
 const linkProfile = document.querySelector('#link_profile');
-const linkLogin = document.querySelector('#link_login');
+const linkAccess = document.querySelector('#link_access');
+
+const jwt = localStorage.getItem('jwt');
+if (jwt) {
+	linkProfile.classList.remove('hidden');
+} else {
+	linkAccess.classList.remove('hidden');
+}
 
 linkEvents.addEventListener('click', () => {
 	Events();
@@ -19,10 +26,8 @@ linkProfile.addEventListener('click', () => {
 	linkEvents.classList.remove('active');
 });
 
-linkLogin.addEventListener('click', () => {
+linkAccess.addEventListener('click', () => {
 	Access();
-	linkProfile.classList.remove('active');
-	linkEvents.classList.remove('active');
 });
 
-linkLogin.click();
+Events();

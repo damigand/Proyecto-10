@@ -11,12 +11,19 @@
 		<title>Vite App</title>
 	</head>
 	<body>
+		<div class="isLoading">
+			<div class="text">
+				Cargando <span>.</span> <span>.</span> <span>.</span>
+			</div>
+		</div>
+		<div id="modal" class="hidden"></div>
+		<div id="messages"></div>
 		<div id="app">
 			<header>
 				<ul id="nav">
 					<li id="link_events" class="active">Eventos</li>
-					<li id="link_profile">Perfil</li>
-					<li id="link_access">
+					<li id="link_profile" class="hidden">Perfil</li>
+					<li id="link_access" class="hidden">
 						<div id="link_login">
 							<span class="text">Acceso</span>
 						</div>

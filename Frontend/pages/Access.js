@@ -1,10 +1,13 @@
 import './Access.css';
 const $ = (el) => document.querySelector(el);
 const $$ = (els) => document.querySelectorAll(els);
+import Events from './Events';
+import handleResponse from '../components/handleResponse.js';
+import createMessage from '../components/createMessage.js';
 
 const template = () => {
+	$('#link_events').classList.remove('active');
 	return `
-        <div id="messages"></div>
         <section id="access">
             <div id="register">
                 <h1>REGISTRO</h1>
@@ -15,7 +18,7 @@ const template = () => {
                         <input type="text" id="register-usuario" />
                     </div>
                     <div class="input-email">
-                        <label for="register-email">Correo electrónico (opcional)</label>
+                        <label for="register-email">Correo electrónico <span class="optional">(opcional)</span></label>
                         <input type="email" id="register-email" />
                     </div>
                     <div class="input-password">
@@ -74,8 +77,7 @@ const Access = () => {
 	});
 };
 
-const reqRegister = () => {
-	const messageDiv = $('#messages');
+const reqRegister = async () => {
 	const usuario = $('#register-usuario').value;
 	const password = $('#register-password').value;
 	const repeatPassword = $('#verify-password').value;
@@ -84,77 +86,97 @@ const reqRegister = () => {
 	if (!usuario) {
 		const color = 'red';
 		const text = 'Necesitas un nombre de usuario.';
-		const message = createMessage(color, text);
+		createMessage(color, text);
+		return;
+	}
 
-		messageDiv.insertBefore(message, messageDiv.firstChild);
+	if (usuario.length < 5) {
+		const color = 'red';
+		const text = 'El usuario debe tener al menos 6 caracteres.';
+		createMessage(color, text);
 		return;
 	}
 
 	if (!password) {
 		const color = 'red';
 		const text = 'Introduce una contraseña.';
-		const message = createMessage(color, text);
+		createMessage(color, text);
+		return;
+	}
 
-		messageDiv.insertBefore(message, messageDiv.firstChild);
+	if (password.length < 7) {
+		const color = 'red';
+		const text = 'La contraseña debe tener al menos 8 caracteres.';
+		createMessage(color, text);
 		return;
 	}
 
 	if (!repeatPassword) {
 		const color = 'red';
 		const text = 'Repite la contraseña.';
-		const message = createMessage(color, text);
-
-		messageDiv.insertBefore(message, messageDiv.firstChild);
+		createMessage(color, text);
 		return;
 	}
 
 	if (password !== repeatPassword) {
 		const color = 'red';
 		const text = 'Las contraseñas no coinciden.';
-		const message = createMessage(color, text);
-
-		messageDiv.insertBefore(message, messageDiv.firstChild);
+		createMessage(color, text);
 		return;
 	}
 
-	const body = {
+	const reqBody = {
 		usuario: usuario,
 		password: password,
 		email: email,
 	};
+
+	const request = new Request('http://localhost:3000/api/users/register', {
+		method: 'POST',
+		body: JSON.stringify(reqBody),
+		headers: {
+			'Content-type': 'application/json',
+		},
+	});
+
+	const response = await fetch(request);
+	const obj = await handleResponse(response);
+	if (obj.success) {
+		reqLogin(usuario, password);
+	}
 };
 
-const reqLogin = () => {};
+//Parámetros opcionales que vienen cuando se registra un usuario para un log-in automático.
+const reqLogin = async (regUsuario, regPassword) => {
+	const usuario = regUsuario || $('#usuario').value;
+	const password = regPassword || $('#password').value;
 
-const createMessage = (color, text) => {
-	const div = document.createElement('div');
-	div.classList.add('message');
-	div.classList.add(color);
+	const reqBody = {
+		usuario: usuario,
+		password: password,
+	};
 
-	const i = document.createElement('i');
-	i.classList.add('bx');
-	i.classList.add('bx-x');
+	const request = new Request('http://localhost:3000/api/users/login', {
+		method: 'POST',
+		body: JSON.stringify(reqBody),
+		headers: {
+			'Content-type': 'application/json',
+		},
+	});
 
-	const span = document.createElement('span');
-	span.innerText = text;
+	$('body').classList.add('loading');
+	const response = await fetch(request);
+	const obj = await handleResponse(response);
 
-	div.appendChild(span);
-	div.appendChild(i);
-
-	i.addEventListener('click', () => div.parentElement.removeChild(div));
-
-	removeTimer(div);
-	return div;
-};
-
-const removeTimer = (element) => {
-	setTimeout(function () {
-		element.classList.add('hiding');
-	}, 2000);
-
-	setTimeout(function () {
-		element.parentElement.removeChild(element);
-	}, 4000);
+	if (obj.success) {
+		//Usaría cookies para guardar esta info pero no tengo ni idea de cómo usarlas
+		localStorage.setItem('user', JSON.stringify(obj.json.user));
+		localStorage.setItem('jwt', JSON.stringify(obj.json.token));
+		Events();
+		$('#link_access').classList.add('hidden');
+		$('#link_profile').classList.remove('hidden');
+	}
+	$('body').classList.remove('loading');
 };
 
 export default Access;

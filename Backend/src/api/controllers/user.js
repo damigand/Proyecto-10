@@ -24,17 +24,22 @@ const getUserById = async (req, res, next) => {
 
 const register = async (req, res, next) => {
 	try {
-		if (!req.body.usuario) return res.status(404).json('Necesitas un nombre de usuario.');
+		if (!req.body.usuario)
+			return res.status(404).json('Necesitas un nombre de usuario.');
 
-		if (!req.body.password) return res.status(404).json('Necesitas una contraseña.');
+		if (!req.body.password)
+			return res.status(404).json('Necesitas una contraseña.');
 
 		const check = await User.findOne({ usuario: req.body.usuario });
-		if (check) return res.status(404).json('El nombre de usuario no está disponible.');
+		if (check)
+			return res
+				.status(404)
+				.json('El nombre de usuario no está disponible.');
 
 		const user = new User(req.body);
 		user.save();
 
-		return res.status(201).json(user);
+		return res.status(201).json('Usuario registrado con éxito.');
 	} catch (error) {
 		return res.status(500).json(`Error (register): ${error}`);
 	}
@@ -42,13 +47,23 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
 	try {
-		const user = await User.findOne({ usuario: req.body.usuario });
-		if (!user) return res.status(404).json('No hay ningún usuario con ese nombre.');
+		const userCheck = await User.findOne({ usuario: req.body.usuario });
+		if (!userCheck)
+			return res.status(404).json('No hay ningún usuario con ese nombre.');
 
-		const passCheck = bcrypt.compareSync(req.body.password, user.password);
+		const passCheck = bcrypt.compareSync(
+			req.body.password,
+			userCheck.password
+		);
 		if (passCheck) {
-			const token = generarToken(user._id);
-			return res.status(200).json(token);
+			const token = generarToken(userCheck._id);
+			//Devolvemos solo la informacion que queremos guardar en localStorage.
+			const user = {
+				usuario: userCheck.usuario,
+				email: userCheck.email,
+				userId: userCheck._id,
+			};
+			return res.status(200).json({ user: user, token: token });
 		}
 
 		return res.status(404).json('Contraseña incorrecta.');
@@ -71,12 +86,17 @@ const editUser = async (req, res, next) => {
 			//Comprobamos que el nuevo nombre de usuario no esté en uso.
 			if (change.usuario != oldUser.usuario) {
 				const check = await User.findOne({ usuario: change.usuario });
-				if (check) return res.status(404).json('Ese nombre de usuario ya está en uso.');
+				if (check)
+					return res
+						.status(404)
+						.json('Ese nombre de usuario ya está en uso.');
 			}
 
-			const newUser = await User.findByIdAndUpdate(id, change, { new: true }).select('-password');
+			const newUser = await User.findByIdAndUpdate(id, change, {
+				new: true,
+			}).select('-password');
 
-			return res.status(200).json(newUser);
+			return res.status(201).json(newUser);
 		}
 
 		return res.status(404).json('No puedes editar este usuario.');
@@ -91,7 +111,7 @@ const deleteUser = async (req, res, next) => {
 		if (req.user.id == id) {
 			await User.findByIdAndDelete(id);
 			const events = await Event.find({ creador: id });
-			if (events) await Event.deleteMany(events);
+			if (events.length > 1) await Event.deleteMany(events);
 
 			return res.status(200).json('Usuario borrado correctamente.');
 		}

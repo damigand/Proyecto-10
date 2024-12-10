@@ -1,11 +1,14 @@
 import eventDetails from './eventDetails';
+import Access from './Access';
+import './Events.css';
+import createMessage from '../components/createMessage';
+
 const $ = (el) => document.querySelector(el);
 const $$ = (els) => document.querySelectorAll(els);
 
-import './Events.css';
-
 const template = () => {
-	const user = localStorage.getItem('user');
+	$('#link_events').classList.add('active');
+	$('#link_profile').classList.remove('active');
 	return `
         <section id="events">
             <div id="event-container">  
@@ -23,24 +26,23 @@ const getEvents = async () => {
 
 	for (const event of events) {
 		const element = eventElement(event);
-		element.addEventListener('click', () => eventDetails(event));
 		container.appendChild(element);
 	}
 };
 
-const eventElement = (element) => {
+const eventElement = (event) => {
 	const div = document.createElement('div');
 	div.classList.add('event');
 
 	const title = document.createElement('h1');
 	title.classList.add('title');
-	title.innerText = element.titulo;
+	title.innerText = event.titulo;
 
 	const dateDiv = document.createElement('div');
 	dateDiv.classList.add('date');
 	const dateText = document.createElement('span');
 	const dateIcon = document.createElement('i');
-	const dateObject = new Date(element.fecha);
+	const dateObject = new Date(event.fecha);
 
 	const options = {
 		weekday: 'long',
@@ -62,10 +64,12 @@ const eventElement = (element) => {
 	const detailsButton = document.createElement('button');
 	detailsButton.classList.add('details');
 	detailsButton.textContent = 'Ver detalles';
+	detailsButton.addEventListener('click', () => eventDetails(event));
 
 	const attendButton = document.createElement('button');
 	attendButton.classList.add('attend');
 	attendButton.textContent = 'Atender evento';
+	attendButton.addEventListener('click', () => attendEvent(event));
 
 	actionsDiv.appendChild(detailsButton);
 	actionsDiv.appendChild(attendButton);
@@ -74,6 +78,14 @@ const eventElement = (element) => {
 	div.appendChild(dateDiv);
 	div.appendChild(actionsDiv);
 	return div;
+};
+
+const attendEvent = (event) => {
+	const token = localStorage.getItem('jwt');
+	if (!token) {
+		Access();
+		createMessage('red', 'Necesitas acceso para atender un evento.');
+	}
 };
 
 const Events = () => {
