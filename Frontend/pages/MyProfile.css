@@ -79,3 +79,59 @@
 		background-color: red;
 	}
 }
+
+.profile-info {
+	padding: var(--px-20);
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	justify-content: center;
+	align-items: center;
+}
+
+.avatar {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--px-40);
+}
+
+.no-avatar {
+	width: 100%;
+	max-width: 200px;
+	min-width: 150px;
+	border-radius: 50%;
+	background-color: gray;
+	color: white;
+	aspect-ratio: 1 / 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 72px;
+}
+
+.profile-info .text span {
+	color: black;
+}
+
+.profile-info .text {
+	height: 100%;
+	padding: var(--px-40);
+	justify-content: space-around;
+	gap: var(--px-20);
+	display: flex;
+	flex-direction: column;
+	font-size: 36px;
+}
+
+.profile-info .text div {
+	display: flex;
+	align-items: center;
+	gap: var(--px-10);
+}
+
+.profile-info i {
+	color: rgba(0, 0, 0, 0.2);
+	font-size: 30px;
+}

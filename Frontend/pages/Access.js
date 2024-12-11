@@ -2,7 +2,6 @@ import './Access.css';
 const $ = (el) => document.querySelector(el);
 const $$ = (els) => document.querySelectorAll(els);
 import Events from './Events';
-import handleResponse from '../components/handleResponse.js';
 import makeRequest from '../components/makeRequest.js';
 import createMessage from '../components/createMessage.js';
 
@@ -31,7 +30,7 @@ const template = () => {
                     <button type="submit" id="register-submit">Registrarse</button>
                 </form>
             </div>
-            <div id="login">
+            <div id="login" class="active">
                 <h1>ENTRAR</h1>
                 <form id="login-form" novalidate>
                     <div class="input-usuario">

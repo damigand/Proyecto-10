@@ -2,6 +2,7 @@ import eventDetails from './eventDetails';
 import Access from './Access';
 import './Events.css';
 import createMessage from '../components/createMessage';
+import makeRequest from '../components/makeRequest';
 
 const $ = (el) => document.querySelector(el);
 const $$ = (els) => document.querySelectorAll(els);

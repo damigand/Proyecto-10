@@ -1,7 +1,7 @@
 //Pages
 import Events from './pages/Events.js';
 import Access from './pages/Access.js';
-import Profile from './pages/Profile.js';
+import MyProfile from './pages/MyProfile.js';
 
 const linkEvents = document.querySelector('#link_events');
 const linkProfile = document.querySelector('#link_profile');
@@ -21,7 +21,7 @@ linkEvents.addEventListener('click', () => {
 });
 
 linkProfile.addEventListener('click', () => {
-	Profile();
+	MyProfile();
 	linkProfile.classList.add('active');
 	linkEvents.classList.remove('active');
 });
