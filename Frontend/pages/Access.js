@@ -1,9 +1,9 @@
 import './Access.css';
 const $ = (el) => document.querySelector(el);
-const $$ = (els) => document.querySelectorAll(els);
+
 import Events from './Events';
 import makeRequest from '../components/makeRequest.js';
-import createMessage from '../components/createMessage.js';
+import * as formCheck from '../components/formCheck';
 
 const template = () => {
 	$('#link_events').classList.remove('active');
@@ -78,52 +78,17 @@ const Access = () => {
 };
 
 const reqRegister = async () => {
+	let check;
 	const usuario = $('#register-usuario').value;
 	const password = $('#register-password').value;
 	const repeatPassword = $('#verify-password').value;
 	const email = $('#register-email').value;
 
-	if (!usuario) {
-		const color = 'red';
-		const text = 'Necesitas un nombre de usuario.';
-		createMessage(color, text);
-		return;
-	}
+	check = formCheck.checkTextInput(usuario, 'Usuario', 6);
+	if (!check) return;
 
-	if (usuario.length < 5) {
-		const color = 'red';
-		const text = 'El usuario debe tener al menos 6 caracteres.';
-		createMessage(color, text);
-		return;
-	}
-
-	if (!password) {
-		const color = 'red';
-		const text = 'Introduce una contraseña.';
-		createMessage(color, text);
-		return;
-	}
-
-	if (password.length < 7) {
-		const color = 'red';
-		const text = 'La contraseña debe tener al menos 8 caracteres.';
-		createMessage(color, text);
-		return;
-	}
-
-	if (!repeatPassword) {
-		const color = 'red';
-		const text = 'Repite la contraseña.';
-		createMessage(color, text);
-		return;
-	}
-
-	if (password !== repeatPassword) {
-		const color = 'red';
-		const text = 'Las contraseñas no coinciden.';
-		createMessage(color, text);
-		return;
-	}
+	check = formCheck.checkPassInput(password, repeatPassword, 'Contraseña', 8);
+	if (!check) return;
 
 	const reqBody = {
 		usuario: usuario,
@@ -152,6 +117,13 @@ const reqRegister = async () => {
 const reqLogin = async (regUsuario, regPassword) => {
 	const usuario = regUsuario || $('#usuario').value;
 	const password = regPassword || $('#password').value;
+	let check;
+
+	check = formCheck.checkTextInput(usuario, 'Usuario');
+	if (!check) return;
+
+	check = formCheck.checkPassInput(password, password, 'Contraseña');
+	if (!check) return;
 
 	const reqBody = {
 		usuario: usuario,
