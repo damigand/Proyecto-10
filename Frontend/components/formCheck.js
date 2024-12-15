@@ -51,3 +51,17 @@ export const checkPassInput = (pass, repeatPass, field, minLength) => {
 
 	return true;
 };
+
+export const checkEmailInput = (input) => {
+	//Créditos de este RegEx: https://medium.com/@ryan_forrester_
+	const regExPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	const check = regExPattern.test(input);
+
+	if (!check) {
+		const color = 'red';
+		const message = 'El correo no es válido. (ejemplo@gmail.com)';
+		createMessage(color, message);
+	}
+
+	return check;
+};

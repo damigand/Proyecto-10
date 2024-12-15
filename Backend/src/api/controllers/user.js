@@ -80,7 +80,7 @@ const editUser = async (req, res, next) => {
 		if (req.user.id == oldUser.id) {
 			const change = {
 				usuario: req.body.usuario || oldUser.usuario,
-				email: req.body.email || oldUser.email,
+				email: req.body.email,
 			};
 
 			//Comprobamos que el nuevo nombre de usuario no esté en uso.

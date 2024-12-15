@@ -6,6 +6,7 @@ import createMessage from '../components/createMessage';
 import * as formCheck from '../components/formCheck';
 
 const $ = (el) => document.querySelector(el);
+let localUser;
 
 const template = () => {
 	return `
@@ -19,11 +20,14 @@ const template = () => {
                 </div>
 				<form id="edit-form" class="hidden">
 					<div class="edit-usuario">
-						<label for="usuario-input">Nuevo usuario:</label>
+						<label for="usuario-input">Usuario</label>
 						<input type="text" id="usuario-input" />
 					</div>
 					<div class="edit-email">
-						<label for="email-input">Nuevo email:</label>
+						<label for="email-input">
+							Email
+							<span class="optional">(Opcional)</span>
+						</label>
 						<input type="text" id="email-input" />
 					</div>
 					<div class="edit-actions">
@@ -42,13 +46,11 @@ const template = () => {
 };
 
 const getProfile = () => {
-	const user = JSON.parse(localStorage.getItem('user'));
-
 	const avatarDiv = $('.profile-avatar');
 	const textDiv = $('.profile-text');
-	if (!user.avatar) {
+	if (!localUser.avatar) {
 		avatarDiv.innerHTML = `
-			<div class="no-avatar">${user.usuario[0]}</div>
+			<div class="no-avatar">${localUser.usuario[0]}</div>
 		`;
 	} else {
 		// Añadir avatar en un futuro
@@ -60,11 +62,11 @@ const getProfile = () => {
 		</div>
 		<div class="profile-usuario">
 			<i class="bx bx-at"></i>
-			<span>${user.usuario}</span>
+			<span>${localUser.usuario}</span>
 		</div>
 		<div class="profile-email">
 			<i class="bx bx-envelope"></i>
-			<span>${user.email || '-'}</span>
+			<span>${localUser.email || '-'}</span>
 		</div>
 	`;
 
@@ -78,25 +80,65 @@ const getProfile = () => {
 };
 
 const editInfo = () => {
-	const profile = $('.profile-text');
-	const form = $('#edit-form');
-	profile.classList.add('hidden');
-	form.classList.remove('hidden');
+	$('.profile-text').classList.add('hidden');
+	$('#edit-form').classList.remove('hidden');
 
-	const save = $('#save-edit');
-	const cancel = $('#cancel-edit');
-
-	save.addEventListener('click', async () => {
-		await saveEdit();
-		closeEdit(profile, form);
-	});
-
-	cancel.addEventListener('click', () => closeEdit(profile, form));
+	$('#usuario-input').value = localUser?.usuario;
+	$('#email-input').value = localUser?.email;
 };
 
-const saveEdit = async () => {
-	//CAMBIAR LOGIN Y REGISTER PARA USAR FORMCHECK.
-	//formCheck.checkTextInput();
+const saveEdit = async (profile, form) => {
+	const newUsuario = $('#usuario-input').value;
+	const newEmail = $('#email-input').value;
+
+	//Si el usuario no ha cambiado nada, no hacemos nada.
+	if (localUser?.usuario == newUsuario && localUser?.email == newEmail) {
+		closeEdit(profile, form);
+		return;
+	}
+
+	let check;
+	check = formCheck.checkTextInput(newUsuario, 'Usuario', 8);
+	if (!check) return;
+
+	if (newEmail) {
+		check = formCheck.checkEmailInput(newEmail);
+		if (!check) return;
+	}
+
+	const token = 'Bearer ' + JSON.parse(localStorage.getItem('jwt'));
+	const url = `http://localhost:3000/api/users/edit/${localUser.userId}`;
+	const reqBody = {
+		usuario: newUsuario,
+		email: newEmail,
+	};
+	const options = {
+		method: 'PUT',
+		body: JSON.stringify(reqBody),
+		headers: {
+			'Content-type': 'application/json',
+			Authorization: token,
+		},
+	};
+
+	const response = await makeRequest(url, options);
+	if (response.success) {
+		const color = 'green';
+		const message = 'Usuario editado correctamente.';
+		createMessage(color, message);
+
+		const newUser = {
+			usuario: response.json.usuario,
+			email: response.json.email,
+			userId: response.json._id,
+		};
+		localStorage.setItem('user', JSON.stringify(newUser));
+		localUser = newUser;
+		closeEdit(profile, form);
+
+		$('.profile-usuario span').textContent = newUser.usuario;
+		$('.profile-email span').textContent = newUser.email || '-';
+	}
 };
 
 const closeEdit = (profile, form) => {
@@ -146,15 +188,26 @@ const removeAccount = async () => {
 	}
 };
 
-const Profile = (user) => {
+const Profile = () => {
 	document.querySelector('main').innerHTML = template();
 
-	//Cancelar la recarga de página al editar la información de usuario.
-	$('#edit-form').addEventListener('submit', (event) =>
-		event.preventDefault()
-	);
+	localUser = JSON.parse(localStorage.getItem('user'));
+	const form = $('#edit-form');
 
-	getProfile(user);
+	//Cancelar la recarga de página al editar la información de usuario.
+	form.addEventListener('submit', (event) => event.preventDefault());
+
+	const profile = $('.profile-text');
+	const save = $('#save-edit');
+	const cancel = $('#cancel-edit');
+
+	save.addEventListener('click', async () => {
+		await saveEdit(profile, form);
+	});
+
+	cancel.addEventListener('click', () => closeEdit(profile, form));
+
+	getProfile();
 };
 
 export default Profile;
