@@ -2,14 +2,27 @@ import createMessage from './createMessage';
 import loading from './loading';
 
 const makeRequest = async (url, options) => {
-	loading(true);
+	let error = false;
+	try {
+		loading(true);
 
-	const request = new Request(url, options);
-	const response = await fetch(request);
-	const status = await handleResponse(response);
+		const request = new Request(url, options);
+		const response = await fetch(request);
+		const status = await handleResponse(response);
 
-	loading(false);
-	return status;
+		return status;
+	} catch (error) {
+		console.log(`Error fetching: ${error}`);
+		error = true;
+	} finally {
+		loading(false);
+		if (error) {
+			const color = 'red';
+			const message =
+				'Ha habido un error, inténtalo de nuevo en unos momentos.';
+			createMessage(color, message);
+		}
+	}
 };
 
 //Crea mensajes de advertencia y devuelve un objeto
@@ -21,9 +34,6 @@ const handleResponse = async (response) => {
 		json: json,
 	};
 	switch (response.status) {
-		case 400:
-			createMessage('red', json);
-			break;
 		case 404:
 			createMessage('red', json);
 			break;

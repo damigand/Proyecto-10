@@ -3,10 +3,9 @@ const User = require('../models/User');
 
 const getAllEvents = async (req, res, next) => {
 	try {
-		const events = await Event.find().populate(
-			'creador',
-			'usuario email -_id'
-		);
+		const events = await Event.find()
+			.populate('creador', 'usuario email -_id')
+			.populate('asistentes', 'usuario -_id');
 		return res.status(200).json(events);
 	} catch (error) {
 		return res.status(500).json(`Error (getAllEvents): ${error}`);
@@ -16,10 +15,9 @@ const getAllEvents = async (req, res, next) => {
 const getEventById = async (req, res, next) => {
 	try {
 		const { id } = req.params;
-		const event = await Event.findById(id).populate(
-			'creador',
-			'usuario email -_id'
-		);
+		const event = await Event.findById(id)
+			.populate('creador', 'usuario email -_id')
+			.populate('asistentes', 'usuario -_id');
 		return res.status(200).json(event);
 	} catch (error) {
 		return res.status(500).json(`Error (getEventById): ${error}`);
@@ -70,11 +68,16 @@ const attendEvent = async (req, res, next) => {
 		if (event.asistentes.includes(req.user.id)) {
 			event.asistentes = event.asistentes.filter((a) => a != req.user.id);
 			await event.save();
-			return res.status(200).json('Ya no atenderás este evento.');
+			return res.status(200).json({
+				message: 'Ya no atenderás este evento.',
+				attending: false,
+			});
 		} else {
 			event.asistentes.push(req.user.id);
 			await event.save();
-			return res.status(200).json('Atenderás este evento.');
+			return res
+				.status(200)
+				.json({ message: 'Atenderás este evento.', attending: true });
 		}
 	} catch (error) {
 		return res.status(500).json(`Error (attendEvent): ${error}`);

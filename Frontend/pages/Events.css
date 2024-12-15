@@ -1,6 +1,6 @@
 #event-container {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: repeat(2, minmax(100px, 500px));
 	flex-wrap: wrap;
 	gap: var(--px-20);
 	justify-content: center;
@@ -15,6 +15,16 @@
 	gap: var(--px-10);
 	padding: var(--px-30);
 	border-radius: var(--px-5);
+}
+
+.event h1 {
+	--max-lines: 2;
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: var(--max-lines);
+	line-clamp: var(--max-lines);
+	word-wrap: break-word;
 }
 
 .event:hover {
@@ -38,15 +48,64 @@
 
 .details,
 .attend {
+	height: 40px;
+	width: 40px;
+	display: flex;
+	align-items: center;
+	gap: var(--px-10);
 	transition: all 0.2s ease;
 	background: none;
 	border: 1px solid black;
 	padding: var(--px-10);
 	cursor: pointer;
 
-	&:hover {
-		color: white;
-		background-color: blue;
-		border-color: blue;
+	& i {
+		transition: all 0.2s ease;
+		font-size: 18px;
 	}
+}
+
+.attending {
+	border: none;
+	background-color: lightgreen;
+	color: black;
+}
+
+@keyframes fade {
+	0% {
+		opacity: 0;
+	}
+	40% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.details:hover {
+	width: 130px;
+}
+
+.details:hover::after {
+	content: 'Ver detalles';
+	animation: fade 0.4s;
+}
+
+.attend:not(.attending):hover {
+	width: 105px;
+}
+
+.attend:not(.attending):hover::after {
+	content: 'Atender';
+	animation: fade 0.4s;
+}
+
+.attend.attending:hover {
+	width: 130px;
+}
+
+.attend.attending:hover::after {
+	content: 'No atender';
+	animation: fade 0.4s;
 }

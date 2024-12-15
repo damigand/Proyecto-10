@@ -37,6 +37,11 @@
 	color: black;
 }
 
+.message.yellow {
+	background-color: gold;
+	color: black;
+}
+
 .message.hiding {
 	transition: all 2s ease;
 	opacity: 0%;

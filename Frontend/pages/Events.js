@@ -70,13 +70,29 @@ const eventElement = (event) => {
 
 	const detailsButton = document.createElement('button');
 	detailsButton.classList.add('details');
-	detailsButton.textContent = 'Ver detalles';
 	detailsButton.addEventListener('click', () => eventDetails(event));
 
+	const detailsIcon = document.createElement('i');
+	detailsIcon.classList.add('bx');
+	detailsIcon.classList.add('bx-info-circle');
+	detailsButton.insertAdjacentElement('afterbegin', detailsIcon);
+
+	//Variables usadas para controlar el aspecto de los botones al cargar.
+	const user = localStorage.getItem('user');
+	const usuario = JSON.parse(user)?.usuario;
+	const attending = event.asistentes.some((e) => e.usuario == usuario);
+
 	const attendButton = document.createElement('button');
+	if (attending) attendButton.classList.add('attending');
 	attendButton.classList.add('attend');
-	attendButton.textContent = 'Atender evento';
-	attendButton.addEventListener('click', () => attendEvent(event));
+	attendButton.addEventListener('click', () =>
+		attendEvent(event, attendButton)
+	);
+
+	const attendIcon = document.createElement('i');
+	attendIcon.classList.add('bx');
+	attendIcon.classList.add(attending ? 'bx-user-minus' : 'bx-user-plus');
+	attendButton.insertAdjacentElement('afterbegin', attendIcon);
 
 	actionsDiv.appendChild(detailsButton);
 	actionsDiv.appendChild(attendButton);
@@ -87,11 +103,46 @@ const eventElement = (event) => {
 	return div;
 };
 
-const attendEvent = (event) => {
-	const token = localStorage.getItem('jwt');
+const attendEvent = async (event, button) => {
+	const token = JSON.parse(localStorage.getItem('jwt'));
 	if (!token) {
 		Access();
 		createMessage('red', 'Necesitas acceso para atender un evento.');
+	}
+
+	const url = `http://localhost:3000/api/events/attend/${event._id}`;
+
+	const options = {
+		method: 'POST',
+		headers: {
+			Authorization: token,
+		},
+	};
+
+	const response = await makeRequest(url, options);
+	if (response.success) {
+		const json = response.json;
+
+		//Si el usuario atiende, cambiamos todos
+		//los aspectos visuales y mostramos mensaje.
+		if (json.attending) {
+			const color = 'green';
+			const message = json.message;
+			createMessage(color, message);
+
+			button.classList.add('attending');
+			const i = button.querySelector('i');
+			i.classList.add('bx-user-minus');
+			i.classList.remove('bx-user-plus');
+		} else {
+			const color = 'yellow';
+			const message = json.message;
+			createMessage(color, message);
+			button.classList.remove('attending');
+			const i = button.querySelector('i');
+			i.classList.remove('bx-user-minus');
+			i.classList.add('bx-user-plus');
+		}
 	}
 };
 
