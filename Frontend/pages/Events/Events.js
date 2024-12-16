@@ -1,8 +1,8 @@
-import eventDetails from './eventDetails';
-import Access from './Access';
+import eventDetails from '../EventDetails/eventDetails.js';
+import Access from '../Access/Access.js';
 import './Events.css';
-import createMessage from '../components/createMessage';
-import makeRequest from '../components/makeRequest';
+import createMessage from '../../components/createMessage';
+import makeRequest from '../../components/makeRequest';
 
 const $ = (el) => document.querySelector(el);
 const $$ = (els) => document.querySelectorAll(els);
@@ -70,7 +70,7 @@ const eventElement = (event) => {
 
 	const detailsButton = document.createElement('button');
 	detailsButton.classList.add('details');
-	detailsButton.addEventListener('click', () => eventDetails(event));
+	detailsButton.addEventListener('click', () => eventDetails(event._id));
 
 	const detailsIcon = document.createElement('i');
 	detailsIcon.classList.add('bx');

@@ -1,9 +1,9 @@
 import './Access.css';
 const $ = (el) => document.querySelector(el);
 
-import Events from './Events';
-import makeRequest from '../components/makeRequest.js';
-import * as formCheck from '../components/formCheck';
+import Events from '../Events/Events.js';
+import makeRequest from '../../components/makeRequest.js';
+import * as formCheck from '../../components/formCheck';
 
 const template = () => {
 	$('#link_events').classList.remove('active');

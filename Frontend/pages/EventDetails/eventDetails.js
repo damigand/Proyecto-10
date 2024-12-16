@@ -1,5 +1,8 @@
-import Events from './Events';
+import makeRequest from '../../components/makeRequest.js';
+import Events from '../Events/Events.js';
+import Profile from '../Profile/Profile.js';
 import './eventDetails.css';
+
 const $ = (el) => document.querySelector(el);
 const $$ = (els) => document.querySelector(els);
 
@@ -23,13 +26,11 @@ const getDetails = (event) => {
 
 	$('#event-details').appendChild(div);
 	$('#event-details').appendChild(attendants);
-};
 
-const eventDetails = (event) => {
-	$('main').innerHTML = template();
-	$('#back').addEventListener('click', () => Events());
-
-	getDetails(event);
+	const creador = $('.creador-usuario');
+	creador.addEventListener('click', () => {
+		Profile(event.creador._id);
+	});
 };
 
 const eventHTML = (event) => {
@@ -43,7 +44,7 @@ const eventHTML = (event) => {
 	const date = new Date(event.fecha).toLocaleDateString('es-ES', options);
 	return `
         <h1>${event.titulo}</h1>
-        <div class="creador">Creado por <span>${
+        <div class="creador">Creado por <span class="creador-usuario">${
 				event.creador.usuario
 			}</span></div>
         <p>${
@@ -60,6 +61,22 @@ const eventHTML = (event) => {
             <span>${event.ubicacion}</span>
         </div>
     `;
+};
+
+const eventDetails = async (eventId) => {
+	$('main').innerHTML = template();
+	$('#back').addEventListener('click', () => Events());
+
+	const url = `http://localhost:3000/api/events/${eventId}`;
+	const options = {
+		method: 'GET',
+	};
+
+	const response = await makeRequest(url, options);
+	if (response.success) {
+		const event = response.json;
+		getDetails(event);
+	}
 };
 
 export default eventDetails;
