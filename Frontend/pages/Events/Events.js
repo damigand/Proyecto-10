@@ -1,8 +1,8 @@
 import eventDetails from '../EventDetails/eventDetails.js';
 import Access from '../Access/Access.js';
 import './Events.css';
-import createMessage from '../../components/createMessage';
-import makeRequest from '../../components/makeRequest';
+import createMessage from '../../components/createMessage/createMessage.js';
+import makeRequest from '../../components/makeRequest/makeRequest.js';
 
 const $ = (el) => document.querySelector(el);
 const $$ = (els) => document.querySelectorAll(els);

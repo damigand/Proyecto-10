@@ -1,8 +1,7 @@
-import createMessage from './createMessage';
-import loading from './loading';
+import createMessage from '../createMessage/createMessage.js';
+import loading from '../loading/loading.js';
 
 const makeRequest = async (url, options) => {
-	let error = false;
 	try {
 		loading(true);
 
@@ -13,15 +12,12 @@ const makeRequest = async (url, options) => {
 		return status;
 	} catch (error) {
 		console.log(`Error fetching: ${error}`);
-		error = true;
+		const color = 'red';
+		const message =
+			'Ha habido un error, inténtalo de nuevo en unos momentos.';
+		createMessage(color, message);
 	} finally {
 		loading(false);
-		if (error) {
-			const color = 'red';
-			const message =
-				'Ha habido un error, inténtalo de nuevo en unos momentos.';
-			createMessage(color, message);
-		}
 	}
 };
 

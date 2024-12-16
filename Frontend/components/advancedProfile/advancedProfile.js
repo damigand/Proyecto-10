@@ -1,9 +1,9 @@
 import './advancedProfile.css';
-import Events from '../pages/Events/Events.js';
-import confirm from './confirm.js';
-import makeRequest from './makeRequest.js';
-import createMessage from './createMessage.js';
-import * as formCheck from './formCheck.js';
+import Events from '../../pages/Events/Events.js';
+import confirm from '../confirm/confirm.js';
+import makeRequest from '../makeRequest/makeRequest.js';
+import createMessage from '../createMessage/createMessage.js';
+import * as formCheck from '../formCheck/formCheck.js';
 
 const $ = (el) => document.querySelector(el);
 

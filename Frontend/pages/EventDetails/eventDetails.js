@@ -1,4 +1,5 @@
-import makeRequest from '../../components/makeRequest.js';
+import makeRequest from '../../components/makeRequest/makeRequest.js';
+import backButton from '../../components/backButton/backButton.js';
 import Events from '../Events/Events.js';
 import Profile from '../Profile/Profile.js';
 import './eventDetails.css';
@@ -9,7 +10,7 @@ const $$ = (els) => document.querySelector(els);
 const template = () => {
 	return `
         <div id="event-details">
-            <i id="back" class="bx bx-arrow-back"></i>
+            
             
         </div>
     `;
@@ -29,7 +30,7 @@ const getDetails = (event) => {
 
 	const creador = $('.creador-usuario');
 	creador.addEventListener('click', () => {
-		Profile(event.creador._id);
+		Profile(event.creador._id, { url: 'Event', id: event._id });
 	});
 };
 
@@ -63,9 +64,11 @@ const eventHTML = (event) => {
     `;
 };
 
-const eventDetails = async (eventId) => {
+const eventDetails = async (eventId, backNav) => {
 	$('main').innerHTML = template();
-	$('#back').addEventListener('click', () => Events());
+	const back = backButton(backNav);
+	console.log(back);
+	$('#event-details').insertAdjacentElement('afterbegin', back);
 
 	const url = `http://localhost:3000/api/events/${eventId}`;
 	const options = {

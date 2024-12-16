@@ -1,11 +1,11 @@
 const removeTimer = (element) => {
 	setTimeout(function () {
 		element.classList.add('hiding');
-	}, 2000);
+	}, 2500);
 
 	setTimeout(function () {
 		element.parentElement?.removeChild(element);
-	}, 4000);
+	}, 4500);
 };
 
 export default removeTimer;

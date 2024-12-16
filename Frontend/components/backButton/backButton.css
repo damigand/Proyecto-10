@@ -1,0 +1,21 @@
+#backButton {
+	transition: all 0.2s ease;
+	border: 1px solid transparent;
+	cursor: pointer;
+	padding: var(--px-5);
+	border-radius: 3px;
+	color: blue;
+	align-self: flex-start;
+	display: flex;
+	padding: var(--px-5) var(--px-10);
+	gap: var(--px-10);
+	align-items: center;
+
+	&:hover {
+		border: 1px solid rgba(0, 0, 255, 0.2);
+	}
+}
+
+#backButton i {
+	font-size: var(--font-s);
+}

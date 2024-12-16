@@ -1,4 +1,4 @@
-import createMessage from './createMessage';
+import createMessage from '../createMessage/createMessage.js';
 
 //input es el valor del input.
 //Field es el nombre del campo para el mensaje de error.

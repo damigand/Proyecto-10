@@ -1,11 +1,12 @@
 import './Profile.css';
-import advancedProfile from '../../components/advancedProfile';
-import createMessage from '../../components/createMessage';
-import makeRequest from '../../components/makeRequest';
+import advancedProfile from '../../components/advancedProfile/advancedProfile.js';
+import makeRequest from '../../components/makeRequest/makeRequest.js';
+import backButton from '../../components/backButton/backButton.js';
 
 const $ = (el) => document.querySelector(el);
 const template = () => {
 	return `
+	<div class="profile-container">
         <div id="profile">
             <div class="profile-info">
                 <div class="profile-avatar">
@@ -14,6 +15,7 @@ const template = () => {
                 </div>
             </div>
         </div>
+	</div>
     `;
 };
 
@@ -39,8 +41,13 @@ const getProfile = (user) => {
 	`;
 };
 
-const Profile = async (id) => {
+const Profile = async (id, backNav) => {
 	document.querySelector('main').innerHTML = template();
+	if (backNav) {
+		const back = backButton(backNav);
+		$('.profile-container').insertAdjacentElement('afterbegin', back);
+	}
+
 	const user = JSON.parse(localStorage.getItem('user'));
 
 	//Si no pasa ID pero hay usuario, carga el propio usuario.
