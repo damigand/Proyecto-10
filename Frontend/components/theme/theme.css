@@ -1,0 +1,23 @@
+#theme {
+    padding-left: 25px;
+    margin-right: auto;
+    display: flex;
+    gap: var(--px-5);
+    position: relative;
+}
+
+.theme-text {
+    font-size: var(--font-s);
+}
+
+.theme-icon {
+    transition: all 0.5s ease, color 1ms;
+    position: absolute;
+    left: 0;
+}
+
+.theme-icon.active {
+    left: calc(100% + 5px);
+    rotate: 360deg;
+    transform-origin: 50% 50%;
+}

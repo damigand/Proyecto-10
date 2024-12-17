@@ -1,99 +1,100 @@
 #access {
-	margin: auto;
-	height: 500px;
-	color: black;
-	overflow: hidden;
-	position: relative;
-	width: 100%;
-	max-width: 400px;
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	border-radius: 25px;
+    margin: auto;
+    height: 500px;
+    color: var(--lightdark-text);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+    border-radius: 25px;
 }
 
 #login,
 #register {
-	width: 100%;
-	text-align: center;
+    background-color: var(--lightdark-bg);
+    width: 100%;
+    text-align: center;
 
-	& h1 {
-		cursor: pointer;
-		padding-top: 15px;
-		padding-bottom: 15px;
-	}
+    & h1 {
+        cursor: pointer;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
 }
 
 #register {
-	height: 500px;
-	z-index: 1;
+    height: 500px;
+    z-index: 1;
 }
 
 #login {
-	background-color: white;
-	border-top: 1px solid rgb(0, 0, 0, 0.2);
-	border-top-left-radius: 25%;
-	border-top-right-radius: 25%;
-	height: 435px;
-	transition: all 0.5s ease-in-out;
-	z-index: 2;
-	transform: translateY(-65px);
+    border-top: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+    border-top-left-radius: 25%;
+    border-top-right-radius: 25%;
+    height: 435px;
+    transition: all 0.5s ease-in-out;
+    z-index: 2;
+    transform: translateY(-65px);
 }
 
 #login.active {
-	transition: all 0.5s ease-in-out;
-	transform: translateY(-440px);
-	border-radius: 25px;
+    transition: all 0.5s ease-in-out;
+    transform: translateY(-440px);
+    border-radius: 25px;
 }
 
 #register-form,
 #login-form {
-	display: flex;
-	flex-direction: column;
-	gap: var(--px-10);
-	width: 80%;
-	margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--px-10);
+    width: 80%;
+    margin: auto;
 }
 
 #register-form div,
 #login-form div {
-	text-align: left;
-	display: flex;
-	flex-direction: column;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
 }
 
 input {
-	outline: none;
-	border: 1px solid rgb(0, 0, 0, 0.2);
-	border-radius: var(--px-5);
-	padding: var(--px-3);
-	font-size: var(--font-l);
+    outline: none;
+    border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+    border-radius: var(--px-5);
+    padding: var(--px-3);
+    font-size: var(--font-l);
+    background-color: var(--lightdark-bg);
 }
 
-button[type='submit'] {
-	transition: all 0.3s ease;
-	background-color: transparent;
-	border: 1px solid rgba(0, 0, 255, 0.5);
-	color: rgba(0, 0, 255, 0.5);
-	padding: var(--px-10);
-	border-radius: var(--px-5);
-	cursor: pointer;
-	text-transform: uppercase;
-	font-size: var(--font-l);
+button[type="submit"] {
+    transition: all 0.3s ease;
+    background-color: transparent;
+    border: 1px solid light-dark(rgba(0, 0, 255, 0.5), var(--dark-orange));
+    color: light-dark(rgba(0, 0, 255, 0.5), var(--dark-orange));
+    padding: var(--px-10);
+    border-radius: var(--px-5);
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: var(--font-l);
 
-	&:hover {
-		color: white;
-		background-color: blue;
-	}
+    &:hover {
+        color: white;
+        background-color: light-dark(blue, var(--dark-orange));
+    }
 }
 
-input[type='reset'] {
-	all: unset;
-	cursor: pointer;
-	font-size: var(--font-s);
-	align-self: end;
-	color: rgb(0, 0, 0, 0.5);
+input[type="reset"] {
+    all: unset;
+    cursor: pointer;
+    font-size: var(--font-s);
+    align-self: end;
+    color: light-dark(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.5));
 }
 
 .optional {
-	font-size: var(--font-s);
-	opacity: 0.4;
+    font-size: var(--font-s);
+    opacity: 0.4;
 }
