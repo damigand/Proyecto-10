@@ -1,0 +1,26 @@
+.no-avatar {
+	width: 100%;
+	max-width: 200px;
+	min-width: 150px;
+	border-radius: 50%;
+	background-color: gray;
+	color: white;
+	aspect-ratio: 1 / 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 72px;
+}
+
+.small-no-avatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: gray;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 16px;
+	border: 1px solid white;
+	color: white;
+}

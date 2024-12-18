@@ -1,113 +1,113 @@
 #event-container {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(100px, 500px));
-    flex-wrap: wrap;
-    gap: var(--px-20);
-    justify-content: center;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(100px, 500px));
+	flex-wrap: wrap;
+	gap: var(--px-20);
+	justify-content: center;
 }
 
 .event {
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
-    box-shadow: 0px 0px 15px 3px light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.05));
-    display: flex;
-    flex-direction: column;
-    gap: var(--px-10);
-    padding: var(--px-30);
-    border-radius: var(--px-5);
-    color: var(--lightdark-text);
+	transition: all 0.2s ease;
+	border: 1px solid transparent;
+	box-shadow: 0px 0px 10px 2px var(--lightdark-shadow-05);
+	display: flex;
+	flex-direction: column;
+	gap: var(--px-10);
+	padding: var(--px-30);
+	border-radius: var(--px-5);
+	color: var(--lightdark-text);
 }
 
 .event h1 {
-    --max-lines: 2;
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: var(--max-lines);
-    line-clamp: var(--max-lines);
-    word-wrap: break-word;
+	--max-lines: 2;
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: var(--max-lines);
+	line-clamp: var(--max-lines);
+	word-wrap: break-word;
 }
 
 .event:hover {
-    border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+	border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
 }
 
 .date {
-    display: flex;
-    gap: var(--px-5);
-    text-transform: capitalize;
+	display: flex;
+	gap: var(--px-5);
+	text-transform: capitalize;
 }
 
 .date i {
-    font-size: var(--font-xl);
+	font-size: var(--font-xl);
 }
 
 .actions {
-    display: flex;
-    gap: var(--px-10);
+	display: flex;
+	gap: var(--px-10);
 }
 
 .details,
 .attend {
-    height: 40px;
-    width: 40px;
-    display: flex;
-    align-items: center;
-    gap: var(--px-10);
-    transition: all 0.2s ease, color 1ms, background-color 1ms;
-    background: none;
-    border: 2px solid light-dark(blue, var(--dark-orange));
-    color: light-dark(blue, var(--dark-orange));
-    padding: var(--px-10);
-    cursor: pointer;
+	height: 40px;
+	width: 40px;
+	display: flex;
+	align-items: center;
+	gap: var(--px-10);
+	transition: all 0.2s ease, color 1ms, background-color 1ms;
+	background: none;
+	border: 2px solid light-dark(blue, var(--dark-orange));
+	color: light-dark(blue, var(--dark-orange));
+	padding: var(--px-10);
+	cursor: pointer;
 
-    & i {
-        transition: all 0.2s ease;
-        font-size: 18px;
-    }
+	& i {
+		transition: all 0.2s ease;
+		font-size: 18px;
+	}
 }
 
 .attending {
-    border: 2px solid lightgreen;
-    background-color: lightgreen;
-    color: black;
+	border: 2px solid lightgreen;
+	background-color: lightgreen;
+	color: black;
 }
 
 @keyframes fade {
-    0% {
-        opacity: 0;
-    }
-    40% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+	0% {
+		opacity: 0;
+	}
+	40% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
 .details:hover {
-    width: 130px;
+	width: 135px;
 }
 
 .details:hover::after {
-    content: "Ver detalles";
-    animation: fade 0.4s;
+	content: 'Ver detalles';
+	animation: fade 0.4s;
 }
 
 .attend:not(.attending):hover {
-    width: 110px;
+	width: 110px;
 }
 
 .attend:not(.attending):hover::after {
-    content: "Atender";
-    animation: fade 0.4s;
+	content: 'Atender';
+	animation: fade 0.4s;
 }
 
 .attend.attending:hover {
-    width: 130px;
+	width: 130px;
 }
 
 .attend.attending:hover::after {
-    content: "No atender";
-    animation: fade 0.4s;
+	content: 'No atender';
+	animation: fade 0.4s;
 }

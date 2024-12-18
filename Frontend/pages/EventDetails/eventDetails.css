@@ -1,45 +1,133 @@
 #event-details {
-    display: flex;
-    flex-direction: column;
-    gap: var(--px-10);
+	display: flex;
+	flex-direction: column;
+	gap: var(--px-10);
 }
 
 i {
-    font-size: var(--font-xl);
+	font-size: var(--font-xl);
 }
 
 .event-info {
-    color: var(--lightdark-text);
-    border: 1px solid transparent;
-    transition: all 0.2s ease;
-    height: 300px;
-    padding: var(--px-20);
-    box-shadow: 0px 0px 15px 3px light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.05));
-    border-radius: 3px;
-    display: flex;
-    flex-direction: column;
+	color: var(--lightdark-text);
+	border: 1px solid transparent;
+	transition: all 0.2s ease, color 1ms;
+	height: 300px;
+	padding: var(--px-20);
+	box-shadow: 0px 0px 5px 2px var(--lightdark-shadow-05);
+	border-radius: 3px;
+	display: flex;
+	flex-direction: column;
 }
 
 .event-info:hover,
 .attendants:hover {
-    border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+	border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
 }
 
 .date {
-    margin-top: auto;
+	margin-top: auto;
 }
 
 .attendants {
-    border: 1px solid transparent;
-    transition: all 0.2s ease;
-    height: 100px;
-    max-width: 400px;
-    box-shadow: 0px 0px 15px 3px light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.05));
-    border-radius: 3px;
+	overflow: hidden;
+	transition: all 0.5s ease, color 0ms;
+	border: 1px solid transparent;
+	height: 100px;
+	width: 100%;
+	max-width: 400px;
+	box-shadow: 0px 0px 5px 2px var(--lightdark-shadow-05);
+	border-radius: 3px;
+	display: flex;
+	align-items: center;
+	padding: var(--px-20) var(--px-30);
+}
+
+.attendants .more {
+	height: 50px;
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+	color: light-dark(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.5));
+	text-decoration: underline;
+	cursor: pointer;
+	margin-right: var(--px-30);
+	align-self: flex-start;
+}
+
+.attendants .users {
+	display: flex;
+	transition: all 0.5s ease, color 1ms;
+}
+
+.attendants:not(.active) .attendant:nth-child(n + 6) {
+	display: none;
+}
+
+.attendant {
+	transition: margin 0.1s ease;
+}
+
+.attendants:not(.active) .attendant {
+	cursor: default;
+	margin-right: -15px;
+}
+
+.attendants:not(.active) .attendant:not(div:last-child):hover {
+	margin-right: -5px;
 }
 
 .creador span {
-    font-weight: 600;
-    text-decoration: underline;
-    cursor: pointer;
+	font-weight: 600;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+@keyframes attendantAnim {
+	20% {
+		height: 100px;
+	}
+
+	100% {
+		height: 300px;
+	}
+}
+
+.attendants.active {
+	max-width: 100%;
+	max-height: fit-content;
+	animation-name: attendantAnim;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease-out;
+	align-items: flex-start;
+}
+
+.attendants.active .users {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: var(--px-20);
+	row-gap: var(--px-40);
+}
+
+.attendants:not(.active) .attendant span {
+	display: block;
+	display: none;
+	opacity: 0;
+}
+
+.attendants.active .attendant span {
+	animation-name: spanAnim;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+	width: auto;
+	display: inline;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.attendants.active .attendant {
+	display: flex;
+	align-items: center;
+	gap: var(--px-10);
 }

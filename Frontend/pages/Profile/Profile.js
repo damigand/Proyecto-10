@@ -2,6 +2,7 @@ import './Profile.css';
 import advancedProfile from '../../components/advancedProfile/advancedProfile.js';
 import makeRequest from '../../components/makeRequest/makeRequest.js';
 import backButton from '../../components/backButton/backButton.js';
+import userAvatar from '../../components/userAvatar/userAvatar.js';
 
 const $ = (el) => document.querySelector(el);
 const template = () => {
@@ -22,13 +23,8 @@ const template = () => {
 const getProfile = (user) => {
 	const avatarDiv = $('.profile-avatar');
 	const textDiv = $('.profile-text');
-	if (!user.avatar) {
-		avatarDiv.innerHTML = `
-			<div class="no-avatar">${user.usuario[0]}</div>
-		`;
-	} else {
-		// Añadir avatar en un futuro
-	}
+	avatarDiv.innerHTML = userAvatar(false, user);
+
 	textDiv.innerHTML = `
 		<div class="profile-usuario">
 			<i class="bx bx-at"></i>
