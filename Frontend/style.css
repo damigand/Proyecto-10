@@ -14,7 +14,7 @@
 	--light-shadow-05: rgba(0, 0, 0, 0.05);
 
 	--dark-bg: rgb(23, 23, 23);
-	--dark-text: rgb(203, 203, 203);
+	--dark-text: rgb(235, 235, 235);
 	--dark-shadow-15: rgba(255, 255, 255, 0.15);
 	--dark-shadow-10: rgba(255, 255, 255, 0.1);
 	--dark-shadow-05: rgba(255, 255, 255, 0.05);
@@ -175,7 +175,7 @@ body.loading .isLoading {
 	display: flex;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1400px) {
 	main,
 	#nav {
 		padding-left: var(--l-margin);
@@ -183,10 +183,21 @@ body.loading .isLoading {
 	}
 }
 
-@media (max-width: 500px) {
+@media (max-width: 1000px) {
 	main,
 	#nav {
 		padding-left: var(--s-margin);
 		padding-right: var(--s-margin);
+	}
+}
+
+@media (max-width: 800px) {
+	#nav {
+		font-size: var(--font-l);
+		gap: var(--px-20);
+	}
+
+	#theme {
+		margin-right: 0;
 	}
 }

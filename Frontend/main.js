@@ -39,3 +39,4 @@ linkAccess.addEventListener('click', () => {
 });
 
 //Llamo directamente a Events() para que cargue como primera página.
+Events();

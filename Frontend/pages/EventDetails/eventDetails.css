@@ -104,22 +104,18 @@ i {
 }
 
 .attendants.active .users {
+	width: 70%;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: repeat(3, 1fr);
 	gap: var(--px-20);
 	row-gap: var(--px-40);
 }
 
 .attendants:not(.active) .attendant span {
-	display: block;
 	display: none;
-	opacity: 0;
 }
 
 .attendants.active .attendant span {
-	animation-name: spanAnim;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
 	width: auto;
 	display: inline;
 	text-decoration: underline;
@@ -130,4 +126,5 @@ i {
 	display: flex;
 	align-items: center;
 	gap: var(--px-10);
+	width: 100%;
 }

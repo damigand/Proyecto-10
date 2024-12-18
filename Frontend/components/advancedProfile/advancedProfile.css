@@ -1,124 +1,141 @@
 #profile .actions {
-    padding: var(--px-20);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 40px;
+	padding: var(--px-20);
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 40px;
 }
 
 #profile .actions button {
-    color: var(--lightdark-text);
-    border-color: transparent;
-    background-color: transparent;
-    border-radius: var(--px-5);
-    cursor: pointer;
-    font-size: var(--font-l);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--px-10);
+	color: var(--lightdark-text);
+	border-color: transparent;
+	background-color: transparent;
+	border-radius: var(--px-5);
+	cursor: pointer;
+	font-size: var(--font-l);
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--px-10);
 }
 
 #profile .actions button::after {
-    z-index: -1;
-    transition: all 0.2s ease;
-    content: "";
-    position: absolute;
-    height: 100%;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0px;
+	z-index: -1;
+	transition: all 0.2s ease;
+	content: '';
+	position: absolute;
+	height: 100%;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 0px;
 }
 
 #profile .actions button:hover {
-    color: white;
+	color: white;
 }
 
 #profile .actions button:hover::after {
-    transition: all 0.2s ease;
-    width: 100%;
+	transition: all 0.2s ease;
+	width: 100%;
 }
 
 #profile .actions .remove-account {
-    border: 1px solid light-dark(red, rgb(172, 8, 8));
+	border: 1px solid light-dark(red, rgb(172, 8, 8));
 
-    &::after {
-        background-color: light-dark(red, rgb(172, 8, 8));
-    }
+	&::after {
+		background-color: light-dark(red, rgb(172, 8, 8));
+	}
 }
 
 #profile .actions .log-out {
-    border: 1px solid light-dark(orange, rgb(201, 134, 10));
+	border: 1px solid light-dark(orange, rgb(201, 134, 10));
 
-    &::after {
-        background-color: light-dark(orange, rgb(201, 134, 10));
-    }
+	&::after {
+		background-color: light-dark(orange, rgb(201, 134, 10));
+	}
 }
 
 #profile .actions .edit-password {
-    border: 1px solid light-dark(coral, rgb(208, 103, 65));
+	border: 1px solid light-dark(coral, rgb(208, 103, 65));
 
-    &::after {
-        background-color: light-dark(coral, rgb(208, 103, 65));
-    }
+	&::after {
+		background-color: light-dark(coral, rgb(208, 103, 65));
+	}
 }
 
 .edit-info {
-    align-self: flex-start;
-    margin-top: auto;
-    margin-left: var(--px-10);
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    color: light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
-    font-size: var(--font-s);
+	align-self: flex-start;
+	margin-top: auto;
+	margin-left: var(--px-10);
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	color: light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
+	font-size: var(--font-s);
 }
 
 #edit-form:not(.hidden) {
-    display: flex;
-    flex-direction: column;
-    gap: var(--px-20);
-    max-width: 300px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--px-20);
+	max-width: 300px;
 }
 
 #edit-form > div:not(.edit-actions) {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .edit-actions {
-    display: flex;
-    gap: var(--px-5);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--px-5);
 }
 
 .edit-actions button {
-    transition: all 0.2s ease;
-    border: none;
-    border-radius: 5px;
-    padding: var(--px-10) var(--px-20);
-    color: white;
-    cursor: pointer;
+	transition: all 0.2s ease;
+	border: none;
+	border-radius: 5px;
+	padding: var(--px-10) var(--px-20);
+	color: white;
+	cursor: pointer;
 }
 
 #save-edit {
-    background-color: light-dark(blue, var(--dark-orange));
+	background-color: light-dark(blue, var(--dark-orange));
 }
 
 #save-edit:hover {
-    background-color: light-dark(rgb(3, 3, 211), var(--dark-orange-hover));
+	background-color: light-dark(rgb(3, 3, 211), var(--dark-orange-hover));
 }
 
 #cancel-edit {
-    color: var(--lightdark-text);
-    background-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+	color: var(--lightdark-text);
+	background-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
 }
 
 #cancel-edit:hover {
-    background-color: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+	background-color: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
 }
 
 .optional {
-    font-size: var(--font-s);
-    opacity: 0.4;
+	font-size: var(--font-s);
+	opacity: 0.4;
+}
+
+@media (max-width: 800px) {
+	#profile .actions {
+		grid-template-columns: 1fr;
+		grid-template-rows: repeat(3, 1fr);
+	}
+
+	#profile .actions button {
+		height: 40px;
+		font-size: var(--font-s);
+	}
+
+	#edit-form {
+		width: 100%;
+	}
 }

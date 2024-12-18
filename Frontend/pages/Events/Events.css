@@ -111,3 +111,26 @@
 	content: 'No atender';
 	animation: fade 0.4s;
 }
+
+@media (max-width: 900px) {
+	#event-container {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 500px) {
+	.event h1 {
+		font-size: var(--font-xl);
+	}
+
+	.event {
+		padding: var(--px-20);
+		font-size: var(--font-s);
+	}
+}
+
+@media (max-width: 400px) {
+	.event h1 {
+		font-size: var(--font-l);
+	}
+}
