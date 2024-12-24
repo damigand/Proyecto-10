@@ -11,10 +11,6 @@ const eventBarHTML = () => {
             <div id="event-bar">
                 <button id="filter-button">Filtros</button>
                 <button id="create-button">Crear evento</button>
-                <div id="filter-container" class="hidden">
-                </div>
-                <div id="create-container" class="hidden">
-                </div>
             </div>
         </div>
     `;

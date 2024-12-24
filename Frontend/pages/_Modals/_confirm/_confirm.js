@@ -1,10 +1,8 @@
-import "./confirm.css";
+import "./_confirm.css";
+import { showModal, closeModal } from "../_base.js";
 
 const confirm = async (q, yes, no) => {
     return new Promise((resolve, reject) => {
-        const modal = document.querySelector("#modal");
-        modal.innerHTML = "";
-
         const div = document.createElement("div");
 
         const text = document.createElement("span");
@@ -21,13 +19,11 @@ const confirm = async (q, yes, no) => {
 
         yesButton.addEventListener("click", () => {
             resolve(true);
-            modal.classList.add("hidden");
-            modal.removeChild(div);
+            closeModal();
         });
         noButton.addEventListener("click", () => {
             resolve(false);
-            modal.classList.add("hidden");
-            modal.removeChild(div);
+            closeModal();
         });
 
         div.appendChild(text);
@@ -35,8 +31,7 @@ const confirm = async (q, yes, no) => {
         buttonsDiv.appendChild(noButton);
         div.appendChild(buttonsDiv);
 
-        modal.appendChild(div);
-        modal.classList.remove("hidden");
+        showModal(div);
     });
 };
 

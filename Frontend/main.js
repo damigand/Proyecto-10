@@ -4,8 +4,10 @@ import Access from "./pages/Access/Access.js";
 import Profile from "./pages//Profile/Profile.js";
 
 import changeTheme from "./components/theme/theme.js";
-import eventDetails from "./pages/EventDetails/eventDetails.js";
+import { baseModal } from "./pages/_Modals/_base.js";
+
 changeTheme();
+baseModal();
 
 const linkEvents = document.querySelector("#link_events");
 const linkProfile = document.querySelector("#link_profile");
