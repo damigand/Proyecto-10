@@ -1,1 +1,89 @@
+#create-event {
+	display: flex;
+	flex-direction: column;
+	gap: var(--px-20);
+}
 
+#create-event h1 {
+	text-align: center;
+}
+
+.form-title,
+.form-description,
+.form-date,
+.form-ubicacion {
+	display: flex;
+	flex-direction: column;
+}
+
+#create-event-form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--px-20);
+}
+
+#create-event-form div {
+	gap: var(--px-10);
+}
+
+#create-event-form input,
+#create-event-form textarea {
+	padding: var(--px-5);
+	font-size: var(--font-l);
+}
+
+#create-event-form textarea {
+	background-color: transparent;
+	resize: none;
+	border-radius: 5px;
+	border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+	&:focus {
+		outline: none;
+	}
+}
+
+.form-attend {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	gap: var(--px-5);
+}
+
+.form-attend input[type='checkbox'] {
+	width: 16px;
+	height: 16px;
+}
+
+.form-attend input[type='checkbox']:checked {
+	accent-color: light-dark(blue, var(--dark-orange));
+}
+
+.create-event-actions {
+	display: flex;
+	gap: var(--px-10);
+}
+
+.create-event-actions button {
+	padding: var(--px-10) var(--px-20);
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#submit-event {
+	transition: all 0.3s ease;
+	background-color: light-dark(blue, var(--dark-orange));
+}
+
+#submit-event:hover {
+	background-color: light-dark(rgb(3, 3, 211), var(--dark-orange-hover));
+}
+
+#cancel-event {
+	transition: all 0.3s ease;
+	background-color: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+}
+#cancel-event:hover {
+	background-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+}
