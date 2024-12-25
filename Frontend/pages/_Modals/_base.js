@@ -13,12 +13,16 @@ const template = () => {
 export const showModal = (content) => {
 	if (!modal) baseModal();
 
+	$('body').classList.add('noscroll');
+
 	modal.classList.remove('hidden');
 	modal.appendChild(content);
 };
 
 export const closeModal = () => {
 	if (!modal) baseModal();
+
+	$('body').classList.remove('noscroll');
 
 	modal.innerHTML = '';
 	modal.classList.add('hidden');

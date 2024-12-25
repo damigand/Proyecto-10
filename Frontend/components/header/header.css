@@ -4,7 +4,7 @@
 	border-color: var(--darklight-bg);
 	background-color: var(--lightdark-bg);
 	color: var(--lightdark-text);
-	z-index: 100;
+	z-index: 10;
 	display: flex;
 	list-style-type: none;
 	gap: var(--px-40);
@@ -99,5 +99,7 @@
 	#nav {
 		font-size: var(--font-l);
 		gap: var(--px-20);
+		padding-left: var(--xs-margin);
+		padding-right: var(--xs-margin);
 	}
 }
