@@ -1,28 +1,30 @@
-import "./_base.css";
+import './_base.css';
 
 const $ = (el) => document.querySelector(el);
 let modal;
 
 const template = () => {
-    return `
+	return `
         <div id="modal" class="hidden">
         </div>
     `;
 };
 
 export const showModal = (content) => {
-    if (!modal) return;
-    modal.classList.toggle("hidden");
-    modal.appendChild(content);
+	if (!modal) baseModal();
+
+	modal.classList.remove('hidden');
+	modal.appendChild(content);
 };
 
 export const closeModal = () => {
-    if (!modal) return;
-    modal.innerHTML = "";
-    modal.classList.toggle("hidden");
+	if (!modal) baseModal();
+
+	modal.innerHTML = '';
+	modal.classList.add('hidden');
 };
 
 export const baseModal = () => {
-    $("body").insertAdjacentHTML("afterbegin", template());
-    modal = $("#modal");
+	$('body').insertAdjacentHTML('afterbegin', template());
+	modal = $('#modal');
 };

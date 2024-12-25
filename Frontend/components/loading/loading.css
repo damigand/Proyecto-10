@@ -23,17 +23,17 @@
 	0% {
 		bottom: 0px;
 	}
-	50% {
-		bottom: 6px;
+	30% {
+		bottom: 3px;
 	}
-	100% {
+	60% {
 		bottom: 0px;
 	}
 }
 
 .isLoading .text span {
 	position: relative;
-	animation: loadingAnimation 0.5s infinite;
+	animation: loadingAnimation 0.6s infinite;
 }
 
 .isLoading .text span:nth-child(2) {

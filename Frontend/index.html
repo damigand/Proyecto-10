@@ -1,36 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style.css" />
-        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-        <title>Vite App</title>
-    </head>
-    <body>
-        <div class="isLoading">
-            <div class="text">Cargando <span>.</span> <span>.</span> <span>.</span></div>
-        </div>
-        <div id="messages"></div>
-        <div id="app">
-            <header>
-                <ul id="nav">
-                    <li id="theme">
-                        <i class="theme-icon bx bxs-sun"></i>
-                        <span class="theme-text">Light</span>
-                    </li>
-                    <li id="link_events" class="active">Eventos</li>
-                    <li id="link_profile" class="hidden">Mi perfil</li>
-                    <li id="link_access" class="hidden">
-                        <div id="link_login">
-                            <span class="text">Acceso</span>
-                        </div>
-                    </li>
-                </ul>
-            </header>
-            <main></main>
-            <footer></footer>
-        </div>
-        <script type="module" src="main.js"></script>
-    </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<link
+			href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+			rel="stylesheet"
+		/>
+		<title>Eventos | damigand</title>
+	</head>
+	<body>
+		<!-- div para mostrar mensaje de "cargando" animado -->
+		<div class="isLoading">
+			<div class="text">
+				Cargando <span>.</span> <span>.</span> <span>.</span>
+			</div>
+		</div>
+		<!-- div para los mensajes -->
+		<div id="messages"></div>
+		<div id="app">
+			<header></header>
+			<main></main>
+			<footer></footer>
+		</div>
+		<script type="module" src="main.js"></script>
+	</body>
 </html>
