@@ -1,4 +1,4 @@
-import removeTimer from '../removeTimer/removeTimer.js';
+import removeTimer from '@c/removeTimer/removeTimer.js';
 import './createMessage.css';
 
 const createMessage = (color, text) => {

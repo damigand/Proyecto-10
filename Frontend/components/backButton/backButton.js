@@ -1,5 +1,5 @@
-import eventDetails from '../../pages/EventDetails/eventDetails';
-import Events from '../../pages/Events/Events';
+import eventDetails from '@p/EventDetails/eventDetails';
+import Events from '@p/Events/Events';
 
 import './backButton.css';
 

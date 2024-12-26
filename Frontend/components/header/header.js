@@ -1,9 +1,9 @@
 import './header.css';
 const $ = (el) => document.querySelector(el);
 
-import Access from '../../pages/Access/Access';
-import Events from '../../pages/Events/Events';
-import Profile from '../../pages/Profile/Profile';
+import Access from '@p/Access/Access';
+import Events from '@p/Events/Events';
+import Profile from '@p/Profile/Profile';
 
 const template = () => {
 	return `

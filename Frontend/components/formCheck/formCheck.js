@@ -1,8 +1,8 @@
-import createMessage from '../createMessage/createMessage.js';
+import createMessage from '@c/createMessage/createMessage.js';
 
 //input es el valor del input.
 //Field es el nombre del campo para el mensaje de error.
-export const checkTextInput = (input, field, minLength = 0) => {
+export const checkTextInput = (input, field, minLength = 0, maxLength) => {
 	if (!input) {
 		const color = 'red';
 		const message = `"${field}" no puede estar vacío.`;

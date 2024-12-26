@@ -1,9 +1,9 @@
 //Pages
-import Events from './pages/Events/Events.js';
+import Events from '@p/Events/Events.js';
 
-import changeTheme from './components/theme/theme.js';
-import header from './components/header/header.js';
-import { baseModal } from './pages/_Modals/_base.js';
+import changeTheme from '@c/theme/theme.js';
+import header from '@c/header/header.js';
+import { baseModal } from '@m/_base.js';
 
 header();
 changeTheme();

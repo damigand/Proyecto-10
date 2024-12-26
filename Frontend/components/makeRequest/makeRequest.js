@@ -1,5 +1,5 @@
-import createMessage from '../createMessage/createMessage.js';
-import loading from '../loading/loading.js';
+import createMessage from '@c/createMessage/createMessage.js';
+import loading from '@c/loading/loading.js';
 
 const makeRequest = async (url, options) => {
 	try {
