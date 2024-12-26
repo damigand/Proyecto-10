@@ -1,89 +1,133 @@
 #create-event {
-	display: flex;
-	flex-direction: column;
-	gap: var(--px-20);
+    display: flex;
+    flex-direction: column;
+    gap: var(--px-20);
 }
 
 #create-event h1 {
-	text-align: center;
+    text-align: center;
 }
 
 .form-title,
 .form-description,
-.form-date,
+.form-datetime div,
 .form-ubicacion {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-datetime {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 #create-event-form {
-	display: flex;
-	flex-direction: column;
-	gap: var(--px-20);
+    display: flex;
+    flex-direction: column;
+    gap: var(--px-20);
 }
 
 #create-event-form div {
-	gap: var(--px-10);
+    gap: var(--px-10);
 }
 
 #create-event-form input,
 #create-event-form textarea {
-	padding: var(--px-5);
-	font-size: var(--font-l);
+    padding: var(--px-5);
+    font-size: var(--font-l);
 }
 
 #create-event-form textarea {
-	background-color: transparent;
-	resize: none;
-	border-radius: 5px;
-	border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
-	&:focus {
-		outline: none;
-	}
+    background-color: transparent;
+    resize: none;
+    border-radius: 5px;
+    border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+    &:focus {
+        outline: none;
+    }
+}
+
+.input-length {
+    font-size: var(--font-s);
+    color: light-dark(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
+}
+
+#create-event-form > div:has(.error) .current-length {
+    color: red;
 }
 
 .form-attend {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-start;
-	gap: var(--px-5);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--px-5);
 }
 
-.form-attend input[type='checkbox'] {
-	width: 16px;
-	height: 16px;
+.form-attend label {
+    cursor: pointer;
 }
 
-.form-attend input[type='checkbox']:checked {
-	accent-color: light-dark(blue, var(--dark-orange));
+#event-attend {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    background-color: var(--lightdark-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#event-attend::before {
+    content: "";
+    border-radius: 4px;
+    width: 16px;
+    height: 16px;
+    background-color: transparent;
+}
+
+#event-attend:checked::before {
+    transition: transform 0.3s ease;
+    background-color: var(--lightdark-bg);
+    transform: scale(0);
+}
+
+#event-attend:checked {
+    accent-color: light-dark(blue, var(--dark-orange));
 }
 
 .create-event-actions {
-	display: flex;
-	gap: var(--px-10);
+    display: flex;
+    gap: var(--px-10);
 }
 
 .create-event-actions button {
-	padding: var(--px-10) var(--px-20);
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
+    padding: var(--px-10) var(--px-20);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 #submit-event {
-	transition: all 0.3s ease;
-	background-color: light-dark(blue, var(--dark-orange));
+    color: white;
+    transition: all 0.3s ease;
+    background-color: light-dark(blue, var(--dark-orange));
 }
 
 #submit-event:hover {
-	background-color: light-dark(rgb(3, 3, 211), var(--dark-orange-hover));
+    background-color: light-dark(rgb(3, 3, 211), var(--dark-orange-hover));
 }
 
 #cancel-event {
-	transition: all 0.3s ease;
-	background-color: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+    transition: all 0.3s ease;
+    background-color: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
 }
 #cancel-event:hover {
-	background-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+    background-color: light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.1));
+}
+
+@media (max-width: 450px) {
+    .form-datetime {
+        grid-template-columns: 1fr;
+    }
 }

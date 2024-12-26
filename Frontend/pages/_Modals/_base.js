@@ -1,37 +1,41 @@
-import './_base.css';
-import createEvent from './_createEvent/_createEvent';
+import "./_base.css";
+import createEvent from "./_createEvent/_createEvent";
 
 const $ = (el) => document.querySelector(el);
 let modal;
 
 const template = () => {
-	return `
+    return `
         <div id="modal" class="">
         </div>
     `;
 };
 
 export const showModal = (content) => {
-	if (!modal) baseModal();
+    if (!modal) baseModal();
 
-	$('body').classList.add('noscroll');
+    $("body").classList.add("noscroll");
 
-	modal.classList.remove('hidden');
-	modal.appendChild(content);
+    modal.classList.remove("hidden");
+    modal.appendChild(content);
 };
 
 export const closeModal = () => {
-	if (!modal) baseModal();
+    if (!modal) baseModal();
 
-	$('body').classList.remove('noscroll');
+    $("body").classList.remove("noscroll");
 
-	modal.innerHTML = '';
-	modal.classList.add('hidden');
+    modal.innerHTML = "";
+    modal.classList.add("hidden");
 };
 
 export const baseModal = () => {
-	$('body').insertAdjacentHTML('afterbegin', template());
-	modal = $('#modal');
+    $("body").insertAdjacentHTML("afterbegin", template());
+    modal = $("#modal");
 
-	createEvent();
+    window.addEventListener("keydown", (event) => {
+        if (event.key == "Escape") closeModal();
+    });
+
+    createEvent();
 };
