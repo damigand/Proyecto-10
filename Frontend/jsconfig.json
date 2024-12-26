@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@c/*": ["./components/*"],
+			"@m/*": ["./pages/_Modals/*"],
+			"@p/*": ["./pages/*"]
+		}
+	}
+}

@@ -6,7 +6,7 @@ let modal;
 
 const template = () => {
 	return `
-        <div id="modal" class="">
+        <div id="modal" class="hidden">
         </div>
     `;
 };
@@ -36,6 +36,4 @@ export const baseModal = () => {
 	window.addEventListener('keydown', (event) => {
 		if (event.key == 'Escape') closeModal();
 	});
-
-	createEvent();
 };

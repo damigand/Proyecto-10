@@ -1,5 +1,9 @@
 import './_createEvent.css';
 import { showModal, closeModal } from '@m/_base.js';
+import * as formCheck from '@c/formCheck/formCheck.js';
+import makeRequest from '@c/makeRequest/makeRequest';
+import eventDetails from '@p/EventDetails/eventDetails';
+import createMessage from '@c/createMessage/createMessage';
 const $ = (el) => document.querySelector(el);
 
 const maxTitle = 50;
@@ -64,25 +68,6 @@ const template = () => {
     `;
 };
 
-const createEvent = () => {
-	const div = document.createElement('div');
-	div.id = 'create-modal';
-	div.innerHTML = template();
-
-	showModal(div);
-
-	const submitEventButton = $('#submit-event');
-	const cancelEventButton = $('#cancel-event');
-
-	submitEventButton.addEventListener('click', () => submitEvent());
-	cancelEventButton.addEventListener('click', () => closeModal());
-
-	//Linea que formatea la fecha actual a yyyy-mm-dd y la usa como
-	//"min" para que el usuario solo pueda crear eventos en futuras fechas
-	$('#event-date').min = new Date().toLocaleDateString('fr-ca');
-	inputCounters();
-};
-
 const inputCounters = () => {
 	const titleInput = $('#event-title');
 	const descInput = $('#event-desc');
@@ -119,7 +104,7 @@ const inputCounters = () => {
 	});
 };
 
-const submitEvent = () => {
+const submitEvent = async () => {
 	const title = $('#event-title').value;
 	const desc = $('#event-desc').value;
 	const date = $('#event-date').value;
@@ -129,7 +114,69 @@ const submitEvent = () => {
 
 	let check;
 
-	check = formCheck;
+	check = formCheck.checkTextInput(title, 'Título', 0, maxTitle);
+	if (!check) return;
+
+	check = formCheck.checkTextInput(desc, 'Descripción', 0, maxDesc, true);
+	if (!check) return;
+
+	check = formCheck.checkTextInput(location, 'Ubicación', 0, maxUbicacion);
+	if (!check) return;
+
+	const finalDate = formCheck.checkDatetimeInput(date, time);
+	if (!finalDate) return;
+
+	const url = 'http://localhost:3000/api/events/create';
+	const token = JSON.parse(localStorage.getItem('jwt'));
+
+	const body = {
+		titulo: title,
+		descripcion: desc,
+		fecha: finalDate,
+		ubicacion: location,
+		attending: attending,
+	};
+
+	const options = {
+		method: 'POST',
+		body: JSON.stringify(body),
+		headers: {
+			'Content-type': 'application/json',
+			Authorization: token,
+		},
+	};
+
+	const response = await makeRequest(url, options);
+	if (response.success) {
+		eventDetails(response.json._id);
+		const color = 'green';
+		const message = 'Evento creado con éxito.';
+		createMessage(color, message);
+		closeModal();
+	}
+};
+
+const createEvent = () => {
+	const div = document.createElement('div');
+	div.id = 'create-modal';
+	div.innerHTML = template();
+
+	showModal(div);
+
+	const submitEventButton = $('#submit-event');
+	const cancelEventButton = $('#cancel-event');
+
+	submitEventButton.addEventListener('click', () => submitEvent());
+	cancelEventButton.addEventListener('click', () => closeModal());
+
+	//Linea que formatea la fecha actual a yyyy-mm-dd y la usa como
+	//"min" para que el usuario solo pueda crear eventos en futuras fechas
+	$('#event-date').min = new Date().toLocaleDateString('fr-ca');
+	inputCounters();
+
+	const date = new Date();
+	const min = `${date.getHours()}:${date.getMinutes()}`;
+	$('#event-time').min = min;
 };
 
 export default createEvent;

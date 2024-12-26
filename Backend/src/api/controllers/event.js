@@ -28,6 +28,7 @@ const createEvent = async (req, res, next) => {
 	try {
 		const eventObject = new Event(req.body);
 
+		//Comprobamos campos obligatorios y su longitud máxima.
 		if (!eventObject.titulo)
 			return res.stauts(404).json('El evento necesita un título');
 		if (!eventObject.fecha)
@@ -38,9 +39,27 @@ const createEvent = async (req, res, next) => {
 		if (!eventObject.ubicacion)
 			return res.status(404).json('El evento necesita una ubicación');
 
+		if (eventObject.description?.length > 200)
+			return res
+				.status(404)
+				.json('La descripción no puede tener más de 200 caracteres.');
+
+		if (eventObject.ubicacion.length > 50)
+			return res
+				.status(404)
+				.json('La ubicación no puede tener más de 50 caracteres.');
+
+		if (eventObject.titulo.length > 50)
+			return res
+				.status(404)
+				.json('El título no puede tener más de 50 caracteres.');
+
 		eventObject.creador = req.user.id;
+		if (req.body.attending) eventObject.asistentes.push(req.user.id);
 
 		const event = await eventObject.save();
+
+		//Añadimos el evento a los eventos creados del usuario.
 		const change = {
 			eventosCreados: [...new Set([...req.user.eventosCreados, event.id])],
 		};
