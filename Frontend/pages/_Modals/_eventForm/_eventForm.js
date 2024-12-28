@@ -1,5 +1,5 @@
-import './_createEvent.css';
-import { showModal, closeModal } from '@m/_base.js';
+import "./_eventForm.css";
+import { showModal, closeModal } from "@m/_base.js";
 const $ = (el) => document.querySelector(el);
 
 const maxTitle = 50;
@@ -7,7 +7,7 @@ const maxDesc = 200;
 const maxUbicacion = 50;
 
 const template = () => {
-	return `
+    return `
         <div id="create-event">
             <h1>Crear nuevo evento</h1>
             <form id="create-event-form">
@@ -64,72 +64,69 @@ const template = () => {
     `;
 };
 
-const createEvent = () => {
-	const div = document.createElement('div');
-	div.id = 'create-modal';
-	div.innerHTML = template();
+const eventForm = (event) => {
+    const div = document.createElement("div");
+    div.id = "create-modal";
+    div.innerHTML = template();
 
-	showModal(div);
+    showModal(div);
 
-	const submitEventButton = $('#submit-event');
-	const cancelEventButton = $('#cancel-event');
+    const submitEventButton = $("#submit-event");
+    const cancelEventButton = $("#cancel-event");
 
-	submitEventButton.addEventListener('click', () => submitEvent());
-	cancelEventButton.addEventListener('click', () => closeModal());
+    submitEventButton.addEventListener("click", () => submitEvent());
+    cancelEventButton.addEventListener("click", () => closeModal());
 
-	//Linea que formatea la fecha actual a yyyy-mm-dd y la usa como
-	//"min" para que el usuario solo pueda crear eventos en futuras fechas
-	$('#event-date').min = new Date().toLocaleDateString('fr-ca');
-	inputCounters();
+    //Linea que formatea la fecha actual a yyyy-mm-dd y la usa como
+    //"min" para que el usuario solo pueda crear eventos en futuras fechas
+    $("#event-date").min = new Date().toLocaleDateString("fr-ca");
+    inputCounters();
 };
 
 const inputCounters = () => {
-	const titleInput = $('#event-title');
-	const descInput = $('#event-desc');
-	const ubicacionInput = $('#event-ubicacion');
+    const titleInput = $("#event-title");
+    const descInput = $("#event-desc");
+    const ubicacionInput = $("#event-ubicacion");
 
-	titleInput.addEventListener('keyup', () => {
-		$('.form-title .current-length').textContent =
-			titleInput.value?.length || 0;
-		if (titleInput.value?.length > maxTitle) {
-			titleInput.classList.add('error');
-		} else {
-			titleInput.classList.remove('error');
-		}
-	});
+    titleInput.addEventListener("keyup", () => {
+        $(".form-title .current-length").textContent = titleInput.value?.length || 0;
+        if (titleInput.value?.length > maxTitle) {
+            titleInput.classList.add("error");
+        } else {
+            titleInput.classList.remove("error");
+        }
+    });
 
-	descInput.addEventListener('keyup', () => {
-		$('.form-description .current-length').textContent =
-			descInput.value?.length || 0;
-		if (descInput.value?.length > maxDesc) {
-			descInput.classList.add('error');
-		} else {
-			descInput.classList.remove('error');
-		}
-	});
+    descInput.addEventListener("keyup", () => {
+        $(".form-description .current-length").textContent = descInput.value?.length || 0;
+        if (descInput.value?.length > maxDesc) {
+            descInput.classList.add("error");
+        } else {
+            descInput.classList.remove("error");
+        }
+    });
 
-	ubicacionInput.addEventListener('keyup', () => {
-		$('.form-ubicacion .current-length').textContent =
-			ubicacionInput.value?.length || 0;
-		if (ubicacionInput.value?.length > maxUbicacion) {
-			ubicacionInput.classList.add('error');
-		} else {
-			ubicacionInput.classList.remove('error');
-		}
-	});
+    ubicacionInput.addEventListener("keyup", () => {
+        $(".form-ubicacion .current-length").textContent = ubicacionInput.value?.length || 0;
+        if (ubicacionInput.value?.length > maxUbicacion) {
+            ubicacionInput.classList.add("error");
+        } else {
+            ubicacionInput.classList.remove("error");
+        }
+    });
 };
 
 const submitEvent = () => {
-	const title = $('#event-title').value;
-	const desc = $('#event-desc').value;
-	const date = $('#event-date').value;
-	const time = $('#event-time').value;
-	const location = $('#event-ubicacion').value;
-	const attending = $('#event-attend').checked;
+    const title = $("#event-title").value;
+    const desc = $("#event-desc").value;
+    const date = $("#event-date").value;
+    const time = $("#event-time").value;
+    const location = $("#event-ubicacion").value;
+    const attending = $("#event-attend").checked;
 
-	let check;
+    let check;
 
-	check = formCheck;
+    check = formCheck;
 };
 
-export default createEvent;
+export default eventForm;

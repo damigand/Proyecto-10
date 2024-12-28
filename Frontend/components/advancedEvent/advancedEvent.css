@@ -1,0 +1,62 @@
+#advanced-event-actions {
+    display: flex;
+    gap: var(--px-20);
+    padding-top: var(--px-10);
+    justify-content: flex-end;
+}
+
+.edit-event,
+.delete-event {
+    color: var(--lightdark-text);
+    display: flex;
+    align-items: center;
+    gap: var(--px-10);
+    padding: var(--px-5) var(--px-10);
+    border-radius: var(--px-5);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.edit-event {
+    border: 1px solid light-dark(orange, rgb(201, 134, 10));
+}
+
+.delete-event {
+    border: 1px solid light-dark(red, rgb(172, 8, 8));
+}
+
+.edit-event::after,
+.delete-event::after {
+    transition: all 0.3s ease;
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    width: 0px;
+    z-index: -1;
+}
+
+.edit-event:hover::after,
+.delete-event:hover::after {
+    width: 100%;
+}
+
+.edit-event:hover {
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.edit-event:hover::after {
+    background-color: light-dark(orange, rgb(201, 134, 10));
+}
+
+.delete-event:hover {
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.delete-event:hover::after {
+    background-color: light-dark(red, rgb(172, 8, 8));
+}

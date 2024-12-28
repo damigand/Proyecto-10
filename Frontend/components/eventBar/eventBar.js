@@ -1,4 +1,4 @@
-import createEvent from "@m/_createEvent/_createEvent";
+import createEvent from "@m/_eventForm/_eventForm.js";
 import "./eventBar.css";
 
 const $ = (el) => document.querySelector(el);
