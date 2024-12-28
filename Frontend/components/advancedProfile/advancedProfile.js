@@ -62,6 +62,8 @@ const editInfo = () => {
 	$('.profile-text').classList.add('hidden');
 	$('#edit-form').classList.remove('hidden');
 
+	console.log(localUser);
+
 	$('#usuario-input').value = localUser?.usuario;
 	$('#email-input').value = localUser?.email;
 };

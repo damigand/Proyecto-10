@@ -5,7 +5,7 @@ let modal;
 
 const template = () => {
 	return `
-        <div id="modal" class="">
+        <div id="modal" class="hidden">
         </div>
     `;
 };
