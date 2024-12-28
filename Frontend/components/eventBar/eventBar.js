@@ -1,10 +1,10 @@
-import createEvent from '@m/_createEvent/_createEvent';
-import './eventBar.css';
+import createEvent from "@m/_eventForm/_eventForm.js";
+import "./eventBar.css";
 
 const $ = (el) => document.querySelector(el);
 
 const eventBarHTML = () => {
-	return `
+    return `
         <div class="event-bar-container">
             <div class="toggle-container">
                 <i id="toggle-bar" class="bx bx-chevron-up"></i>
@@ -18,27 +18,31 @@ const eventBarHTML = () => {
 };
 
 const eventBar = (container) => {
-	const barHTML = eventBarHTML();
-	container.insertAdjacentHTML('afterbegin', barHTML);
+    const barHTML = eventBarHTML();
+    container.insertAdjacentHTML("afterbegin", barHTML);
 
-	const toggleBar = $('#toggle-bar');
-	const eventBar = $('#event-bar');
-	const filterButton = $('#filter-button');
-	const createButton = $('#create-button');
-	const filterContainer = $('#filter-container');
-	const createContainer = $('#create-container');
+    const toggleBar = $("#toggle-bar");
+    const eventBar = $("#event-bar");
+    const filterButton = $("#filter-button");
+    const createButton = $("#create-button");
 
-	toggleBar.addEventListener('click', () => {
-		eventBar.classList.toggle('hide');
-		toggleBar.classList.toggle('bx-chevron-down');
-		toggleBar.classList.toggle('bx-chevron-up');
-	});
+    toggleBar.addEventListener("click", () => {
+        eventBar.classList.toggle("hide");
+        toggleBar.classList.toggle("bx-chevron-down");
+        toggleBar.classList.toggle("bx-chevron-up");
+    });
 
-	filterButton.addEventListener('click', () => {});
+    filterButton.addEventListener("click", () => {});
 
-	createButton.addEventListener('click', () => {
-		createEvent();
-	});
+    createButton.addEventListener("click", () => {
+        createEvent();
+    });
+
+    window.addEventListener("scroll", () => {
+        if (!eventBar.classList.contains("hide")) {
+            toggleBar.click();
+        }
+    });
 };
 
 export default eventBar;

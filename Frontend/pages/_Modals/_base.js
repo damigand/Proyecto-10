@@ -1,12 +1,11 @@
 import './_base.css';
-import createEvent from '@m/_createEvent/_createEvent';
 
 const $ = (el) => document.querySelector(el);
 let modal;
 
 const template = () => {
 	return `
-        <div id="modal" class="hidden">
+        <div id="modal" class="">
         </div>
     `;
 };
