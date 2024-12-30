@@ -30,6 +30,9 @@ const handleResponse = async (response) => {
 		json: json,
 	};
 	switch (response.status) {
+		case 400:
+			createMessage('red', json);
+			break;
 		case 404:
 			createMessage('red', json);
 			break;

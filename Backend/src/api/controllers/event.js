@@ -117,6 +117,18 @@ const editEvent = async (req, res, next) => {
 				ubicacion: req.body.ubicacion || oldEvent.ubicacion,
 			};
 
+			//ESTO NO FUNCIONA
+			if (!req.body.attending) {
+				change.asistentes = oldEvent.asistentes.filter(
+					(a) => a == req.user.id
+				);
+				console.log(oldEvent);
+			} else {
+				change.asistentes = [
+					...new Set([...oldEvent.asistentes, req.user.id]),
+				];
+			}
+
 			const newEvent = await Event.findByIdAndUpdate(id, change, {
 				new: true,
 			});

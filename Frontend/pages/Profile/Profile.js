@@ -53,7 +53,8 @@ const Profile = async (id, backNav) => {
 		return;
 	}
 
-	//Si hay ID, carga los datos del usuario con ese ID.
+	//Si hay ID, carga los datos del usuario con ese ID, independientemente
+	//De si es el usuario local o no.
 	const url = `http://localhost:3000/api/users/${id}`;
 	const options = {
 		method: 'GET',
@@ -62,6 +63,7 @@ const Profile = async (id, backNav) => {
 	const response = await makeRequest(url, options);
 	if (!response.success) return;
 
+	//Cargamos los datos.
 	const visitedUser = response.json;
 	getProfile(visitedUser);
 

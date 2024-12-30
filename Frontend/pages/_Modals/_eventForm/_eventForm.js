@@ -10,7 +10,7 @@ const maxTitle = 50;
 const maxDesc = 200;
 const maxUbicacion = 50;
 
-const template = () => {
+const template = (isEditing) => {
 	return `
         <div id="create-event">
             <h1>Crear nuevo evento</h1>
@@ -61,30 +61,13 @@ const template = () => {
                 </div>
             </form>
             <div class="create-event-actions">
-                <button type="button" id="submit-event">Crear evento</button>
+                <button type="button" id="submit-event">
+				${isEditing ? 'Editar' : 'Crear'} evento
+				</button>
                 <button type="button" id="cancel-event">Cancelar</button>
             </div>
         </div>
     `;
-};
-
-const eventForm = (event) => {
-	const div = document.createElement('div');
-	div.id = 'create-modal';
-	div.innerHTML = template();
-
-	showModal(div);
-
-	const submitEventButton = $('#submit-event');
-	const cancelEventButton = $('#cancel-event');
-
-	submitEventButton.addEventListener('click', () => submitEvent());
-	cancelEventButton.addEventListener('click', () => closeModal());
-
-	//Linea que formatea la fecha actual a yyyy-mm-dd y la usa como
-	//"min" para que el usuario solo pueda crear eventos en futuras fechas
-	$('#event-date').min = new Date().toLocaleDateString('fr-ca');
-	inputCounters();
 };
 
 const inputCounters = () => {
@@ -123,7 +106,7 @@ const inputCounters = () => {
 	});
 };
 
-const submitEvent = async () => {
+const submitEvent = async (isEditing, id) => {
 	const title = $('#event-title').value;
 	const desc = $('#event-desc').value;
 	const date = $('#event-date').value;
@@ -146,7 +129,14 @@ const submitEvent = async () => {
 	const finalDate = formCheck.checkDatetimeInput(date, time);
 	if (!finalDate) return;
 
-	const url = 'http://localhost:3000/api/events/create';
+	let url;
+
+	if (isEditing) {
+		url = `http://localhost:3000/api/events/edit/${id}`;
+	} else {
+		url = 'http://localhost:3000/api/events/create';
+	}
+
 	const token = JSON.parse(localStorage.getItem('jwt'));
 
 	const body = {
@@ -158,7 +148,7 @@ const submitEvent = async () => {
 	};
 
 	const options = {
-		method: 'POST',
+		method: isEditing ? 'PUT' : 'POST',
 		body: JSON.stringify(body),
 		headers: {
 			'Content-type': 'application/json',
@@ -170,10 +160,48 @@ const submitEvent = async () => {
 	if (response.success) {
 		eventDetails(response.json._id);
 		const color = 'green';
-		const message = 'Evento creado con éxito.';
+		const message = `Evento ${isEditing ? 'editado' : 'creado'} con éxito.`;
 		createMessage(color, message);
 		closeModal();
 	}
+};
+
+const fillEditEvent = (event) => {
+	$('#event-title').value = event.titulo;
+	$('#event-desc').textContent = event?.descripcion;
+	$('#event-date').value = event.fecha.split('T')[0];
+	$('#event-time').value = event.fecha.split('T')[1].split('.')[0];
+	$('#event-ubicacion').value = event.ubicacion;
+
+	const attending = event.asistentes.find((a) => a._id == event.creador._id);
+
+	$('#event-attend').checked = attending ? true : false;
+};
+
+const eventForm = (event) => {
+	const isEditing = event ? true : false;
+
+	const div = document.createElement('div');
+	div.id = 'create-modal';
+	div.innerHTML = template(isEditing);
+
+	showModal(div);
+
+	const submitEventButton = $('#submit-event');
+	const cancelEventButton = $('#cancel-event');
+
+	if (isEditing) fillEditEvent(event);
+
+	submitEventButton.addEventListener('click', () =>
+		submitEvent(isEditing, event?._id)
+	);
+
+	cancelEventButton.addEventListener('click', () => closeModal());
+
+	//Linea que formatea la fecha actual a yyyy-mm-dd y la usa como
+	//"min" para que el usuario solo pueda crear eventos en futuras fechas
+	$('#event-date').min = new Date().toLocaleDateString('fr-ca');
+	inputCounters();
 };
 
 export default eventForm;
