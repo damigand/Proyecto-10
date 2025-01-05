@@ -1,5 +1,5 @@
 #nav {
-	padding: var(--px-20) var(--xl-margin);
+	padding: var(--px-20) var(--s-margin);
 	border-bottom: 1px solid;
 	border-color: var(--darklight-bg);
 	background-color: var(--lightdark-bg);
@@ -78,20 +78,6 @@
 
 	&:hover {
 		color: black;
-	}
-}
-
-@media (max-width: 1400px) {
-	#nav {
-		padding-left: var(--l-margin);
-		padding-right: var(--l-margin);
-	}
-}
-
-@media (max-width: 1000px) {
-	#nav {
-		padding-left: var(--s-margin);
-		padding-right: var(--s-margin);
 	}
 }
 

@@ -1,0 +1,67 @@
+#action-bar {
+	position: fixed;
+	top: 81px;
+	left: 0;
+	width: 300px;
+	height: 90%;
+	border-right: 1px solid var(--lightdark-text);
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	padding: var(--px-10) var(--xs-margin);
+	gap: var(--px-30);
+}
+
+#create-event-button {
+	transition: all 0.2s ease;
+	font-size: 20px;
+	text-transform: uppercase;
+	background-color: transparent;
+	border: 1px solid light-dark(blue, var(--dark-orange));
+	padding: var(--px-5) var(--px-10);
+	cursor: pointer;
+}
+
+#create-event-button:hover {
+	background-color: light-dark(blue, var(--dark-orange));
+	color: white;
+}
+
+.filter-events-container {
+	display: flex;
+	flex-direction: column;
+	gap: var(--px-10);
+}
+
+.quick-filters {
+	display: flex;
+	flex-direction: column;
+	gap: var(--px-10);
+}
+
+.quick-filters button {
+	background-color: transparent;
+	border: 1px solid light-dark(blue, var(--dark-orange));
+	font-size: 16px;
+	padding: 5px 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--px-10);
+	cursor: pointer;
+}
+
+button.most,
+button.least {
+	background-color: light-dark(blue, var(--dark-orange));
+	color: white;
+}
+
+.reverse {
+	transform: rotate(180deg);
+}
+
+.quick-filters button i {
+	transition: all 0.3s ease;
+	font-size: 14px;
+}

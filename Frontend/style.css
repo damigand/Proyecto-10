@@ -87,8 +87,7 @@
 main {
 	display: flex;
 	justify-content: center;
-	padding-left: var(--xl-margin);
-	padding-right: var(--xl-margin);
+	padding-left: 300px;
 	padding-top: 81px;
 	padding-bottom: var(--px-30);
 	position: relative;
