@@ -3,6 +3,7 @@ import advancedProfile from '@c/advancedProfile/advancedProfile.js';
 import makeRequest from '@c/makeRequest/makeRequest.js';
 import backButton from '@c/backButton/backButton.js';
 import userAvatar from '@c/userAvatar/userAvatar.js';
+import uploadImg from '@c/uploadImg/uploadImg';
 
 const $ = (el) => document.querySelector(el);
 const template = () => {
@@ -23,7 +24,7 @@ const template = () => {
 const getProfile = (user) => {
 	const avatarDiv = $('.profile-avatar');
 	const textDiv = $('.profile-text');
-	avatarDiv.innerHTML = userAvatar(false, user);
+	avatarDiv.insertAdjacentHTML('beforeend', userAvatar(false, user));
 
 	textDiv.innerHTML = `
 		<div class="profile-usuario">
@@ -43,6 +44,10 @@ const Profile = async (id, backNav) => {
 		const back = backButton(backNav);
 		$('.profile-container').insertAdjacentElement('afterbegin', back);
 	}
+
+	//Para poder cambiar la imagen de perfil.
+	const avatar = $('.profile-avatar');
+	avatar.addEventListener('click', () => uploadImg(avatar));
 
 	const user = JSON.parse(localStorage.getItem('user'));
 
