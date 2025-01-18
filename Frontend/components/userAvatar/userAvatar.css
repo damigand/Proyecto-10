@@ -1,60 +1,49 @@
+.user-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: gray;
+    color: white;
+}
+
 .no-avatar {
-	width: 100%;
-	max-width: 200px;
-	min-width: 150px;
-	border-radius: 50%;
-	background-color: gray;
-	color: white;
-	aspect-ratio: 1 / 1;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 72px;
-	position: relative;
-	overflow: hidden;
-}
-
-.no-avatar:hover::after {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 14px;
-	cursor: pointer;
-	content: '';
-	background-color: rgba(0, 0, 0, 0.6);
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-.no-avatar:hover #upload-avatar {
-	display: inline;
-	position: absolute;
-	z-index: 5;
-}
-
-#upload-avatar {
-	display: none;
+    width: 100%;
+    max-width: 200px;
+    min-width: 150px;
+    aspect-ratio: 1 / 1;
+    font-size: 72px;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
 }
 
 .small-no-avatar {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	background-color: gray;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 16px;
-	border: 1px solid white;
-	color: white;
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+    border: 1px solid white;
+}
+
+.user-avatar label {
+    display: none;
+    font-size: 16px;
+}
+
+.user-avatar:hover label {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
 }
 
 @media (max-width: 600px) {
-	.small-no-avatar {
-		width: 40px;
-		height: 40px;
-	}
+    .small-no-avatar {
+        width: 40px;
+        height: 40px;
+    }
 }
