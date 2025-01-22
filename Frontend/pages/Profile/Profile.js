@@ -44,14 +44,7 @@ const Profile = async (id, backNav) => {
         $(".profile-container").insertAdjacentElement("afterbegin", back);
     }
 
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    //Si no pasa ID pero hay usuario local, carga el propio usuario.
-    if (!id && user) {
-        getProfile(user);
-        advancedProfile(user);
-        return;
-    }
+    let user = JSON.parse(localStorage.getItem("user"));
 
     //Si hay ID, carga los datos del usuario con ese ID, independientemente
     //De si es el usuario local o no.
@@ -69,7 +62,11 @@ const Profile = async (id, backNav) => {
 
     //Si el usuario cargado es el usuario local, muestro los controles
     //De editar, cerrar sesión, etcétera.
-    if (user?.userId == visitedUser._id) advancedProfile(user);
+    if (user?._id == visitedUser._id) {
+        user = visitedUser;
+        localStorage.setItem("user", JSON.stringify(user));
+        advancedProfile(user);
+    }
 };
 
 export default Profile;

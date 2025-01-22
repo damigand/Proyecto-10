@@ -43,6 +43,8 @@
     --px-30: 30px;
     --px-40: 40px;
     --px-50: 50px;
+
+    --sidebar-width: 230px;
 }
 
 .light {
@@ -84,7 +86,7 @@ main {
 }
 
 #app:has(#events) #events {
-    padding-left: 230px;
+    padding-left: var(--sidebar-width);
 }
 
 .hidden {

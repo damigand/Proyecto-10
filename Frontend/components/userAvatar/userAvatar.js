@@ -7,7 +7,11 @@ const userAvatar = (isSmall, user) => {
 			</div>
 		`;
     } else {
-        // Añadir avatar en un futuro
+        return `
+            <div class="${isSmall ? "small-" : ""}avatar user-avatar">
+                <img src="${user.avatar}" />
+			</div>
+        `;
     }
 };
 

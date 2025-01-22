@@ -2,7 +2,7 @@
     position: fixed;
     top: 81px;
     left: 0;
-    width: 230px;
+    width: var(--sidebar-width);
     height: 90%;
     border-right: 1px solid var(--lightdark-text);
     margin-bottom: 10px;

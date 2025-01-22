@@ -2,7 +2,8 @@ const uploadImg = (element) => {
     const file = element?.files[0];
     if (!file) return;
 
-    console.log(file);
+    const url = "";
+    //request
 };
 
 export default uploadImg;
