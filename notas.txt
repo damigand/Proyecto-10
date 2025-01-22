@@ -1,0 +1,3 @@
+hacer petición desde frontend a backend
+borrar el avatar anterior en caso de cambiar
+optimizar imágenes antes de subir (300x300);
