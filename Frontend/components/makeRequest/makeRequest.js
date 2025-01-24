@@ -39,6 +39,9 @@ const handleResponse = async (response) => {
 		case 500:
 			createMessage('red', json);
 			break;
+		case 202:
+			createMessage('yellow', json);
+			break;
 		case 200:
 			status.success = true;
 		case 201:

@@ -1,5 +1,6 @@
+import createMessage from '@c/createMessage/createMessage';
 import './userAvatar.css';
-import uploadImg from '@c/uploadImg/uploadImg';
+import { uploadImg, removeImg } from '@c/uploadImg/imgHandler';
 
 const $ = (el) => document.querySelector(el);
 
@@ -25,34 +26,62 @@ const changeAvatar = async (input) => {
 		user.avatar = response.json;
 		localStorage.setItem('user', JSON.stringify(user));
 		userAvatar(false, user, true);
+
+		const message = 'Foto de perfil subida con éxito.';
+		const color = 'green';
+		createMessage(color, message);
+	}
+};
+
+const removeAvatar = async () => {
+	const response = await removeImg();
+	if (response?.success) {
+		const user = JSON.parse(localStorage.getItem('user'));
+		user.avatar = '';
+		localStorage.setItem('user', JSON.stringify(user));
+		userAvatar(false, user, true);
+
+		const message = response.json;
+		const color = 'green';
+		createMessage(color, message);
 	}
 };
 
 const userAvatar = (isSmall, user, allowEdit) => {
 	//Si el icono es pequeño, no estamos visitando un perfil
-	//Por lo que no hace falta nada más que el template.
+	//En este caso, hay que retornarlo porque no estamos cambiando el "profile-avatar".
 	if (isSmall) return template(isSmall, user);
 
 	//Si es un icono grande, estamos visitando un perfil.
 	$('.profile-avatar').innerHTML = template(isSmall, user);
 
-	const div = $('.profile-avatar div');
-	const label = document.createElement('label');
-	label.setAttribute('for', 'upload-avatar');
-	label.textContent = 'Subir foto';
-
-	const input = document.createElement('input');
-	input.type = 'file';
-	input.id = 'upload-avatar';
-	input.classList.add('hidden');
-	input.accept = '.png,.jpg,.jpeg,.webp';
-
 	//Si el perfil es nuestro, enganchamos todo lo que tenga que ver
 	//Con cambiar el avatar.
 	if (allowEdit) {
+		const div = $('.profile-avatar div');
+		const labelUpload = document.createElement('label');
+		labelUpload.setAttribute('for', 'upload-avatar');
+		labelUpload.textContent = 'Subir foto';
+
+		const labelRemove = document.createElement('label');
+		labelRemove.textContent = 'Eliminar foto';
+
+		const input = document.createElement('input');
+		input.type = 'file';
+		input.id = 'upload-avatar';
+		input.classList.add('hidden');
+		input.accept = '.png,.jpg,.jpeg,.webp';
+
+		const container = document.createElement('div');
+		container.classList.add('avatar-controls');
+
+		container.appendChild(labelUpload);
+		container.appendChild(labelRemove);
+		container.appendChild(input);
+
 		input.addEventListener('change', () => changeAvatar(input));
-		div.appendChild(label);
-		div.appendChild(input);
+		labelRemove.addEventListener('click', () => removeAvatar());
+		div.appendChild(container);
 	}
 };
 
