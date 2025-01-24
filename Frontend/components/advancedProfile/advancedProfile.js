@@ -5,6 +5,7 @@ import makeRequest from "@c/makeRequest/makeRequest.js";
 import createMessage from "@c/createMessage/createMessage.js";
 import * as formCheck from "@c/formCheck/formCheck.js";
 import uploadImg from "@c/uploadImg/uploadImg";
+import userAvatar from "@c/userAvatar/userAvatar";
 
 const $ = (el) => document.querySelector(el);
 
@@ -63,8 +64,6 @@ const editInfo = () => {
     $(".profile-text").classList.add("hidden");
     $("#edit-form").classList.remove("hidden");
 
-    console.log(localUser);
-
     $("#usuario-input").value = localUser?.usuario;
     $("#email-input").value = localUser?.email;
 };
@@ -89,7 +88,7 @@ const saveEdit = async (profile, form) => {
     }
 
     const token = "Bearer " + JSON.parse(localStorage.getItem("jwt"));
-    const url = `http://localhost:3000/api/users/edit/${localUser.userId}`;
+    const url = `http://localhost:3000/api/users/edit/${localUser._id}`;
     const reqBody = {
         usuario: newUsuario,
         email: newEmail,
@@ -112,7 +111,7 @@ const saveEdit = async (profile, form) => {
         const newUser = {
             usuario: response.json.usuario,
             email: response.json.email,
-            userId: response.json._id,
+            _id: response.json._id,
         };
         localStorage.setItem("user", JSON.stringify(newUser));
         localUser = newUser;
@@ -153,8 +152,8 @@ const removeAccount = async () => {
     if (!confirmation) return;
 
     const token = "Bearer " + JSON.parse(localStorage.getItem("jwt"));
-    const userId = JSON.parse(localStorage.getItem("user")).userId;
-    const url = `http://localhost:3000/api/users/delete/${userId}`;
+    const id = JSON.parse(localStorage.getItem("user"))._id;
+    const url = `http://localhost:3000/api/users/delete/${id}`;
     const options = {
         method: "DELETE",
         headers: {
@@ -168,19 +167,6 @@ const removeAccount = async () => {
         logOut(true);
         createMessage("green", response.json);
     }
-};
-
-const loadAvatarHTML = () => {
-    const avatarDiv = $(".profile-avatar div");
-    const html = `
-		<label for="upload-avatar">Subir foto</label>
-		<input type="file" id="upload-avatar" class="hidden" accept=".png,.svg,.jpg,.jpeg"/>
-	`;
-
-    avatarDiv.insertAdjacentHTML("beforeend", html);
-
-    const input = $("#upload-avatar");
-    input.addEventListener("change", () => uploadImg(input));
 };
 
 const advancedProfile = (user) => {
@@ -208,9 +194,6 @@ const advancedProfile = (user) => {
     logOutButton.addEventListener("click", () => logOut());
     removeAccountButton.addEventListener("click", () => removeAccount());
     form.addEventListener("submit", (event) => event.preventDefault());
-
-    //Para poder cambiar la imagen de perfil.
-    loadAvatarHTML();
 };
 
 export default advancedProfile;

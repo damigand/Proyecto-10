@@ -17,7 +17,7 @@ const getEventById = async (req, res, next) => {
         const { id } = req.params;
         const event = await Event.findById(id)
             .populate("creador", "usuario email _id")
-            .populate("asistentes", "usuario _id");
+            .populate("asistentes", "usuario _id avatar");
         return res.status(200).json(event);
     } catch (error) {
         return res.status(500).json(`Error (getEventById): ${error}`);
@@ -109,7 +109,6 @@ const editEvent = async (req, res, next) => {
                 ubicacion: req.body.ubicacion || oldEvent.ubicacion,
             };
 
-            //ESTO NO FUNCIONA
             if (!req.body.attending) {
                 change.asistentes = oldEvent.asistentes.filter((a) => a == req.user.id);
                 console.log(oldEvent);

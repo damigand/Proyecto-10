@@ -21,9 +21,7 @@ const template = () => {
 };
 
 const getProfile = (user) => {
-    const avatarDiv = $(".profile-avatar");
     const textDiv = $(".profile-text");
-    avatarDiv.insertAdjacentHTML("beforeend", userAvatar(false, user));
 
     textDiv.innerHTML = `
 		<div class="profile-usuario">
@@ -56,6 +54,8 @@ const Profile = async (id, backNav) => {
     const response = await makeRequest(url, options);
     if (!response.success) return;
 
+    //Variable para saber si el usuario puede editar la foto del perfil.
+    let allowEdit = false;
     //Cargamos los datos.
     const visitedUser = response.json;
     getProfile(visitedUser);
@@ -63,10 +63,13 @@ const Profile = async (id, backNav) => {
     //Si el usuario cargado es el usuario local, muestro los controles
     //De editar, cerrar sesión, etcétera.
     if (user?._id == visitedUser._id) {
+        allowEdit = true;
         user = visitedUser;
         localStorage.setItem("user", JSON.stringify(user));
         advancedProfile(user);
     }
+
+    userAvatar(false, visitedUser, allowEdit);
 };
 
 export default Profile;

@@ -2,6 +2,7 @@ const User = require("../models/User");
 const Event = require("../models/Event");
 const bcrypt = require("bcrypt");
 const { generarToken } = require("../../utils/jwt");
+const { removeImg } = require("../../middlewares/cloudinary");
 
 const getAllUsers = async (req, res, next) => {
     try {
@@ -52,7 +53,7 @@ const login = async (req, res, next) => {
             const user = {
                 usuario: userCheck.usuario,
                 email: userCheck.email,
-                userId: userCheck._id,
+                _id: userCheck._id,
             };
             return res.status(200).json({ user: user, token: token });
         }
@@ -111,11 +112,23 @@ const deleteUser = async (req, res, next) => {
 
 const changeAvatar = async (req, res, next) => {
     try {
+        if (!req.file) {
+            return res.status(500).json(`Error, prueba de nuevo más tarde.`);
+        }
+
+        let user = await User.findById(req.user.id);
+
+        if (!user) return res.status(500).json(`Error, prueba de nuevo más tarde.`);
+
         const change = {
-            avatar: req.file?.path,
+            avatar: req.file.path,
         };
 
-        const user = await User.findByIdAndUpdate(req.user.id, change, { new: true });
+        if (user.avatar) {
+            removeImg(user.avatar);
+        }
+
+        user = await User.findByIdAndUpdate(req.user.id, change, { new: true });
 
         return res.status(201).json(user.avatar);
     } catch (error) {
