@@ -14,6 +14,8 @@ const template = () => {
             <div class="profile-info">
                 <div class="profile-avatar">
                 </div>
+				<div class="mobile-avatar-controls">
+				</div>
                 <div class="profile-text">
                 </div>
             </div>
