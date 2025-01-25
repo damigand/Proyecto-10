@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     gap: var(--px-20);
     justify-content: center;
+    margin-top: 10px;
 }
 
 .event {

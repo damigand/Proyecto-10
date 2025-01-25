@@ -1,9 +1,9 @@
-import eventForm from '@m/_eventForm/_eventForm';
-import './actionsBar.css';
+import eventForm from "@m/_eventForm/_eventForm";
+import "./actionsBar.css";
 const $ = (el) => document.querySelector(el);
 
 const template = () => {
-	return `
+    return `
         <div id="action-bar">
             <button id="create-event-button">Crear evento</button>
             <div class="filter-events-container">
@@ -22,6 +22,7 @@ const template = () => {
                 <form id="filter-events-form">
                 </form>
             </div>
+			<span class="show-action-bar">Filtros</span>
         </div>
     `;
 };
@@ -30,46 +31,58 @@ let assistIndex = 0;
 let dateIndex = 0;
 
 const actionBar = () => {
-	$('main').insertAdjacentHTML('afterbegin', template());
-	$('#create-event-button').addEventListener('click', () => eventForm());
+    $("main").insertAdjacentHTML("afterbegin", template());
+    $("#create-event-button").addEventListener("click", () => eventForm());
 
-	const assistFilterButton = $('.assistants-filter');
-	assistFilterButton.addEventListener('click', () => {
-		assistIndex = changeQuickFilter(assistIndex, assistFilterButton);
-	});
+    const assistFilterButton = $(".assistants-filter");
+    assistFilterButton.addEventListener("click", () => {
+        assistIndex = changeQuickFilter(assistIndex, assistFilterButton);
+    });
 
-	const dateFilterButton = $('.date-filter');
-	dateFilterButton.addEventListener('click', () => {
-		dateIndex = changeQuickFilter(dateIndex, dateFilterButton);
-	});
+    const dateFilterButton = $(".date-filter");
+    dateFilterButton.addEventListener("click", () => {
+        dateIndex = changeQuickFilter(dateIndex, dateFilterButton);
+    });
+
+    const showActionBar = $(".show-action-bar");
+    showActionBar.addEventListener("click", () => {
+        $("#action-bar").classList.toggle("active");
+        if ($("#action-bar").classList.contains("active")) {
+            showActionBar.innerHTML = `
+				<i class='bx bx-x'></i>
+			`;
+        } else {
+            showActionBar.innerHTML = "Filtros";
+        }
+    });
 };
 
 //Cambia aspectos visuales de los botones.
 const changeQuickFilter = (index, button) => {
-	const icon = button.querySelector('i');
-	switch (index) {
-		case 0:
-			index = 1;
-			button.classList.add('most');
-			icon.classList.toggle('bx-up-arrow');
-			icon.classList.toggle('bxs-up-arrow');
-			break;
-		case 1:
-			index = 2;
-			button.classList.remove('most');
-			button.classList.add('least');
-			icon.classList.toggle('reverse');
-			break;
-		case 2:
-			index = 0;
-			button.classList.remove('least');
-			icon.classList.toggle('bx-up-arrow');
-			icon.classList.toggle('bxs-up-arrow');
-			icon.classList.remove('reverse');
-			break;
-	}
+    const icon = button.querySelector("i");
+    switch (index) {
+        case 0:
+            index = 1;
+            button.classList.add("most");
+            icon.classList.toggle("bx-up-arrow");
+            icon.classList.toggle("bxs-up-arrow");
+            break;
+        case 1:
+            index = 2;
+            button.classList.remove("most");
+            button.classList.add("least");
+            icon.classList.toggle("reverse");
+            break;
+        case 2:
+            index = 0;
+            button.classList.remove("least");
+            icon.classList.toggle("bx-up-arrow");
+            icon.classList.toggle("bxs-up-arrow");
+            icon.classList.remove("reverse");
+            break;
+    }
 
-	return index;
+    return index;
 };
 
 export default actionBar;
