@@ -5,6 +5,7 @@ import Profile from "@p/Profile/Profile";
 import changeTheme from "@c/theme/theme.js";
 import header from "@c/header/header.js";
 import { baseModal } from "@m/_base.js";
+import changePassword from "@m/_changePassword/_changePassword";
 
 header();
 changeTheme();
@@ -18,5 +19,6 @@ window.addEventListener("popstate", function () {
 });
 
 //Llamo directamente a Events() para que cargue como primera página.
-Events();
-//Profile();
+//Events();
+Profile(JSON.parse(localStorage.getItem("user"))._id);
+changePassword();
