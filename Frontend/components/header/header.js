@@ -4,6 +4,7 @@ const $ = (el) => document.querySelector(el);
 import Access from "@p/Access/Access";
 import Events from "@p/Events/Events";
 import Profile from "@p/Profile/Profile";
+import { emptyNavStack } from "@c/backButton/backButton";
 
 const template = () => {
     return `
@@ -43,6 +44,7 @@ const header = () => {
     //Realiza la acción y cambia estilos del header.
     linkEvents.addEventListener("click", () => {
         Events();
+        emptyNavStack();
         linkProfile.classList.remove("active");
         linkEvents.classList.add("active");
     });
@@ -50,6 +52,7 @@ const header = () => {
     linkProfile.addEventListener("click", () => {
         const id = JSON.parse(localStorage.getItem("user"))._id;
         Profile(id);
+        emptyNavStack();
         linkProfile.classList.add("active");
         linkEvents.classList.remove("active");
     });

@@ -24,6 +24,24 @@ const getEventById = async (req, res, next) => {
     }
 };
 
+const getUserEvents = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const response = {
+            createdEvents: [],
+            attendingEvents: [],
+        };
+
+        response.createdEvents = await Event.find({ creador: id }).select("_id titulo");
+        response.attendingEvents = await Event.find({ asistentes: id }).select("_id titulo");
+
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json(`Error (getUserEvents): ${error}`);
+    }
+};
+
 const createEvent = async (req, res, next) => {
     try {
         const eventObject = new Event(req.body);
@@ -157,6 +175,7 @@ const deleteEvent = async (req, res, next) => {
 module.exports = {
     getAllEvents,
     getEventById,
+    getUserEvents,
     createEvent,
     editEvent,
     attendEvent,

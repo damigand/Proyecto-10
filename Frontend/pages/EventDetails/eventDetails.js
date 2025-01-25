@@ -1,5 +1,5 @@
 import makeRequest from "@c/makeRequest/makeRequest.js";
-import backButton from "@c/backButton/backButton.js";
+import { backButton } from "@c/backButton/backButton.js";
 import userAvatar from "@c/userAvatar/userAvatar.js";
 import advancedEvent from "@c/advancedEvent/advancedEvent.js";
 import Profile from "@p/Profile/Profile.js";
@@ -122,9 +122,9 @@ const attendantsHTML = (attendantsDiv, attendants, eventId) => {
     return attendantsDiv;
 };
 
-const eventDetails = async (eventId, backNav) => {
+const eventDetails = async (eventId, backNav, unload) => {
     $("main").innerHTML = template();
-    const back = backButton(backNav);
+    const back = backButton(backNav, unload);
     $("#event-details").insertAdjacentElement("afterbegin", back);
 
     const url = `http://localhost:3000/api/events/${eventId}`;
