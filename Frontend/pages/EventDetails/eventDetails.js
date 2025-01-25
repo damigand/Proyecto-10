@@ -11,8 +11,6 @@ const $$ = (els) => document.querySelector(els);
 const template = () => {
     return `
         <div id="event-details">
-            
-            
         </div>
     `;
 };
@@ -101,6 +99,11 @@ const attendantsHTML = (attendantsDiv, attendants, eventId) => {
     span.textContent = more > 0 ? text : "Ver detalles";
 
     seeMoreDiv.appendChild(span);
+
+    if (attendants.length < 1) {
+        seeMoreDiv.classList.add("hidden");
+        avatarsDiv.classList.add("empty");
+    }
 
     //Alternamos aspectos visuales al dar click en el botón
     //De ver participantes o ver menos.
