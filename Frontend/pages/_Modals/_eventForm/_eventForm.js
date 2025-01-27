@@ -9,6 +9,7 @@ const $ = (el) => document.querySelector(el);
 const maxTitle = 50;
 const maxDesc = 200;
 const maxUbicacion = 50;
+let isImageRemoved = false;
 
 const template = (isEditing) => {
     return `
@@ -67,13 +68,14 @@ const template = (isEditing) => {
 						<label class="select-image" for="event-image-input">Seleccionar</label>
 						<span class="image-name"></span>
 					</div>
-					<input type="file" id="event-image-input" class="hidden"/>
+					<input type="file" id="event-image-input" class="hidden" name="image"/>
+                    <span class="hidden remove-image">Borrar foto</span>
 					<img src="" id="event-image" class="hidden"/>
 				</div>
             </form>
             <div class="create-event-actions">
                 <button type="button" id="submit-event">
-				${isEditing ? "Editar" : "Crear"} evento
+				${isEditing ? "Guardar cambios" : "Crear evento"} 
 				</button>
                 <button type="button" id="cancel-event">Cancelar</button>
             </div>
@@ -122,7 +124,6 @@ const submitEvent = async (isEditing, id) => {
     const location = $("#event-ubicacion").value;
     const attending = $("#event-attend").checked;
     const image = $("#event-image-input")?.files[0];
-    console.log(image);
 
     let check;
 
@@ -149,19 +150,19 @@ const submitEvent = async (isEditing, id) => {
 
     const token = JSON.parse(localStorage.getItem("jwt"));
 
-    const body = {
-        titulo: title,
-        descripcion: desc,
-        fecha: finalDate,
-        ubicacion: location,
-        attending: attending
-    };
+    const formData = new FormData();
+    formData.append("titulo", title);
+    formData.append("descripcion", desc);
+    formData.append("fecha", finalDate);
+    formData.append("ubicacion", location);
+    formData.append("attending", attending);
+    formData.append("image", image);
+    formData.append("removeImage", isImageRemoved);
 
     const options = {
         method: isEditing ? "PUT" : "POST",
-        body: JSON.stringify(body),
+        body: formData,
         headers: {
-            "Content-type": "application/json",
             Authorization: token
         }
     };
@@ -186,6 +187,12 @@ const fillEditEvent = (event) => {
     const attending = event.asistentes.find((a) => a._id == event.creador._id);
 
     $("#event-attend").checked = attending ? true : false;
+
+    if (event.imagen) {
+        $("#event-image").src = event.imagen;
+        $("#event-image").classList.remove("hidden");
+        $(".remove-image").classList.remove("hidden");
+    }
 };
 
 const showImage = (input) => {
@@ -229,6 +236,18 @@ const showImage = (input) => {
 
     imgElement.classList.remove("hidden");
     imgName.textContent = image.name;
+    $(".remove-image").classList.remove("hidden");
+
+    isImageRemoved = false;
+};
+
+const removeImage = () => {
+    $("#event-image").src = "";
+    $("#event-image").classList.add("hidden");
+    $(".image-name").textContent = "";
+    $(".remove-image").classList.add("hidden");
+
+    isImageRemoved = true;
 };
 
 const eventForm = (event) => {
@@ -251,6 +270,9 @@ const eventForm = (event) => {
 
     const imageInput = $("#event-image-input");
     imageInput.addEventListener("change", () => showImage(imageInput));
+
+    const removeImageInput = $(".remove-image");
+    removeImageInput.addEventListener("click", () => removeImage());
 
     //Linea que formatea la fecha actual a yyyy-mm-dd y la usa como
     //"min" para que el usuario solo pueda crear eventos en futuras fechas

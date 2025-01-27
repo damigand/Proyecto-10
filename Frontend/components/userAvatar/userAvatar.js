@@ -22,7 +22,8 @@ const template = (isSmall, user) => {
 };
 
 const changeAvatar = async (input) => {
-    const response = await uploadImg(input);
+    const url = "http://localhost:3000/api/users/avatar";
+    const response = await uploadImg(input, url);
     if (response.success) {
         const user = JSON.parse(localStorage.getItem("user"));
         user.avatar = response.json;
@@ -36,7 +37,8 @@ const changeAvatar = async (input) => {
 };
 
 const removeAvatar = async () => {
-    const response = await removeImg();
+    const url = "http://localhost:3000/api/users/avatar";
+    const response = await removeImg(url);
     if (response?.success) {
         const user = JSON.parse(localStorage.getItem("user"));
         user.avatar = "";

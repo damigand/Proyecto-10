@@ -1,5 +1,6 @@
 const Event = require("../models/Event");
 const User = require("../models/User");
+const { removeImg } = require("../../middlewares/cloudinary");
 
 const getAllEvents = async (req, res, next) => {
     try {
@@ -30,7 +31,7 @@ const getUserEvents = async (req, res, next) => {
 
         const response = {
             createdEvents: [],
-            attendingEvents: [],
+            attendingEvents: []
         };
 
         response.createdEvents = await Event.find({ creador: id }).select("_id titulo");
@@ -45,6 +46,7 @@ const getUserEvents = async (req, res, next) => {
 const createEvent = async (req, res, next) => {
     try {
         const eventObject = new Event(req.body);
+        eventObject.imagen = req.file?.path || "";
 
         //Comprobamos campos obligatorios y su longitud máxima.
         if (!eventObject.titulo) return res.stauts(404).json("El evento necesita un título");
@@ -69,11 +71,11 @@ const createEvent = async (req, res, next) => {
 
         //Añadimos el evento a los eventos creados del usuario.
         const change = {
-            eventosCreados: [...new Set([...req.user.eventosCreados, event.id])],
+            eventosCreados: [...new Set([...req.user.eventosCreados, event.id])]
         };
 
         await User.findByIdAndUpdate(req.user.id, change, {
-            new: true,
+            new: true
         });
 
         return res.status(201).json(event);
@@ -97,7 +99,7 @@ const attendEvent = async (req, res, next) => {
             return res.status(200).json({
                 message: "Ya no atenderás este evento.",
                 attending: false,
-                count: event.asistentes.length,
+                count: event.asistentes.length
             });
         } else {
             event.asistentes.push(req.user.id);
@@ -105,7 +107,7 @@ const attendEvent = async (req, res, next) => {
             return res.status(200).json({
                 message: "Atenderás este evento.",
                 attending: true,
-                count: event.asistentes.length,
+                count: event.asistentes.length
             });
         }
     } catch (error) {
@@ -118,6 +120,14 @@ const editEvent = async (req, res, next) => {
         const { id } = req.params;
         const oldEvent = await Event.findById(id);
 
+        //Si el evento ya tenia foto pero llega una nueva por req.file,
+        //borramos la antigua.
+        const removeImage = JSON.parse(req.body.removeImage);
+        if (oldEvent.imagen && (req.file || removeImage)) {
+            removeImg(oldEvent.imagen);
+            oldEvent.imagen = "";
+        }
+
         //Si el creador es el que edita el evento, creamos el cambio y lo ejecutamos.
         if (oldEvent.creador == req.user.id) {
             const change = {
@@ -125,17 +135,22 @@ const editEvent = async (req, res, next) => {
                 descripcion: req.body.descripcion || oldEvent.descripcion,
                 fecha: req.body.fecha || oldEvent.fecha,
                 ubicacion: req.body.ubicacion || oldEvent.ubicacion,
+                imagen: req.file?.path || oldEvent.imagen || ""
             };
 
-            if (!req.body.attending) {
-                change.asistentes = oldEvent.asistentes.filter((a) => a == req.user.id);
-                console.log(oldEvent);
-            } else {
-                change.asistentes = [...new Set([...oldEvent.asistentes, req.user.id])];
+            const attending = JSON.parse(req.body.attending);
+
+            if (attending && !oldEvent.asistentes.includes(req.user.id)) {
+                oldEvent.asistentes.push(req.user.id);
             }
 
+            if (!attending) {
+                oldEvent.asistentes = oldEvent.asistentes.filter((a) => a != req.user.id);
+            }
+
+            oldEvent.save();
             const newEvent = await Event.findByIdAndUpdate(id, change, {
-                new: true,
+                new: true
             });
             return res.status(200).json(newEvent);
         }
@@ -160,7 +175,7 @@ const deleteEvent = async (req, res, next) => {
             ));
 
             const change = {
-                eventosCreados: userEvents,
+                eventosCreados: userEvents
             };
 
             await User.findByIdAndUpdate(req.user.id, change, { new: true });
@@ -179,5 +194,5 @@ module.exports = {
     createEvent,
     editEvent,
     attendEvent,
-    deleteEvent,
+    deleteEvent
 };

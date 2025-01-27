@@ -132,7 +132,8 @@
     flex-direction: column;
 }
 
-.select-image {
+.select-image,
+.remove-image {
     color: light-dark(blue, var(--dark-orange));
     transition: all 0.2s ease;
     border: 1px solid light-dark(blue, var(--dark-orange));
@@ -142,7 +143,8 @@
     cursor: pointer;
 }
 
-.select-image:hover {
+.select-image:hover,
+.remove-image:hover {
     color: white;
     background-color: light-dark(blue, var(--dark-orange));
 }

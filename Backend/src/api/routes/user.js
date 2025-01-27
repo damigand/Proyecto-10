@@ -3,7 +3,7 @@ const controller = require("../controllers/user");
 const { isAuth } = require("../../middlewares/auth");
 const { uploadImg } = require("../../middlewares/cloudinary");
 
-const uploadAvatar = uploadImg("user_avatars").single("avatar");
+const uploadAvatar = uploadImg("user_avatars", 300, 300).single("avatar");
 
 userRouter.get("/", controller.getAllUsers);
 userRouter.get("/:id", controller.getUserById);
