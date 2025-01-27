@@ -1,104 +1,104 @@
 .user-avatar {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 50%;
-	background-color: gray;
-	color: white;
-	overflow: hidden;
-	aspect-ratio: 1 / 1;
-	position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: gray;
+    color: white;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    position: relative;
 }
 
 .user-avatar:not(.small-no-avatar):not(.small-avatar) {
-	width: 100%;
-	min-width: 150px;
-	max-width: 150px;
+    width: 100%;
+    min-width: 150px;
+    max-width: 150px;
 }
 
 .small-avatar {
-	max-width: 50px;
-	max-height: 50px;
-	border: 1px solid white;
+    max-width: 50px;
+    max-height: 50px;
+    border: 1px solid white;
 }
 
 .no-avatar {
-	width: 100%;
-	font-size: 72px;
-	overflow: hidden;
-	position: relative;
-	cursor: default;
+    width: 100%;
+    font-size: 72px;
+    overflow: hidden;
+    position: relative;
+    cursor: default;
 }
 
 .small-no-avatar {
-	max-width: 50px;
-	width: 50px;
-	height: 50px;
-	font-size: 16px;
-	border: 1px solid white;
+    max-width: 50px;
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+    border: 1px solid white;
 }
 
 .avatar-controls {
-	display: none;
+    display: none;
 }
 
 .avatar-controls label {
-	transition: color 0.2s ease;
-	font-size: 16px;
-	cursor: pointer;
-	padding: 2px 6px;
-	border-radius: 5px;
+    transition: color 0.2s ease;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 5px;
 }
 
 .avatar-controls label:hover {
-	color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .user-avatar:hover .avatar-controls {
-	position: absolute;
-	display: flex;
-	flex-direction: column;
-	gap: var(--px-10);
-	justify-content: center;
-	align-items: center;
-	background-color: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	height: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: var(--px-10);
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
 }
 
 .user-avatar img {
-	aspect-ratio: 1 / 1;
-	max-height: 100%;
-	object-fit: cover;
+    aspect-ratio: 1 / 1;
+    max-height: 100%;
+    object-fit: cover;
 }
 
 .mobile-avatar-controls {
-	gap: var(--px-20);
-	color: var(--lightdark-text);
+    gap: var(--px-20);
+    color: var(--lightdark-text);
 }
 
 .mobile-avatar-controls label {
-	transition: all 0.2s ease;
-	cursor: pointer;
+    transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .mobile-avatar-controls label:hover {
-	color: light-dark(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
+    color: light-dark(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
 }
 
 @media (max-width: 800px) {
-	.mobile-avatar-controls {
-		display: flex;
-	}
+    .mobile-avatar-controls {
+        display: flex;
+    }
 
-	.user-avatar:hover .avatar-controls {
-		display: none;
-	}
+    .user-avatar:hover .avatar-controls {
+        display: none;
+    }
 }
 
 @media (max-width: 600px) {
-	.small-no-avatar {
-		width: 40px;
-		height: 40px;
-	}
+    .small-no-avatar {
+        width: 40px;
+        height: 40px;
+    }
 }
