@@ -1,9 +1,9 @@
-import './_eventForm.css';
-import { showModal, closeModal } from '@m/_base.js';
-import * as formCheck from '@c/formCheck/formCheck.js';
-import makeRequest from '@c/makeRequest/makeRequest';
-import eventDetails from '@p/EventDetails/eventDetails';
-import createMessage from '@c/createMessage/createMessage';
+import "./_eventForm.css";
+import { showModal, closeModal } from "@m/_base.js";
+import * as formCheck from "@c/formCheck/formCheck.js";
+import makeRequest from "@c/makeRequest/makeRequest";
+import eventDetails from "@p/EventDetails/eventDetails";
+import createMessage from "@c/createMessage/createMessage";
 const $ = (el) => document.querySelector(el);
 
 const maxTitle = 50;
@@ -11,7 +11,7 @@ const maxDesc = 200;
 const maxUbicacion = 50;
 
 const template = (isEditing) => {
-	return `
+    return `
         <div id="create-event">
             <h1>Crear nuevo evento</h1>
             <form id="create-event-form">
@@ -59,10 +59,21 @@ const template = (isEditing) => {
                     <input type="checkbox" id="event-attend" />
                     <label for="event-attend">Atenderé al evento.</label>
                 </div>
+				<div class="form-image">
+					<span>Imagen del evento
+						<span class="optional">(Opcional)</span>
+					</span>
+					<div>
+						<label class="select-image" for="event-image-input">Seleccionar</label>
+						<span class="image-name"></span>
+					</div>
+					<input type="file" id="event-image-input" class="hidden"/>
+					<img src="" id="event-image" class="hidden"/>
+				</div>
             </form>
             <div class="create-event-actions">
                 <button type="button" id="submit-event">
-				${isEditing ? 'Editar' : 'Crear'} evento
+				${isEditing ? "Editar" : "Crear"} evento
 				</button>
                 <button type="button" id="cancel-event">Cancelar</button>
             </div>
@@ -71,137 +82,180 @@ const template = (isEditing) => {
 };
 
 const inputCounters = () => {
-	const titleInput = $('#event-title');
-	const descInput = $('#event-desc');
-	const ubicacionInput = $('#event-ubicacion');
+    const titleInput = $("#event-title");
+    const descInput = $("#event-desc");
+    const ubicacionInput = $("#event-ubicacion");
 
-	titleInput.addEventListener('keyup', () => {
-		$('.form-title .current-length').textContent =
-			titleInput.value?.length || 0;
-		if (titleInput.value?.length > maxTitle) {
-			titleInput.classList.add('error');
-		} else {
-			titleInput.classList.remove('error');
-		}
-	});
+    titleInput.addEventListener("keyup", () => {
+        $(".form-title .current-length").textContent = titleInput.value?.length || 0;
+        if (titleInput.value?.length > maxTitle) {
+            titleInput.classList.add("error");
+        } else {
+            titleInput.classList.remove("error");
+        }
+    });
 
-	descInput.addEventListener('keyup', () => {
-		$('.form-description .current-length').textContent =
-			descInput.value?.length || 0;
-		if (descInput.value?.length > maxDesc) {
-			descInput.classList.add('error');
-		} else {
-			descInput.classList.remove('error');
-		}
-	});
+    descInput.addEventListener("keyup", () => {
+        $(".form-description .current-length").textContent = descInput.value?.length || 0;
+        if (descInput.value?.length > maxDesc) {
+            descInput.classList.add("error");
+        } else {
+            descInput.classList.remove("error");
+        }
+    });
 
-	ubicacionInput.addEventListener('keyup', () => {
-		$('.form-ubicacion .current-length').textContent =
-			ubicacionInput.value?.length || 0;
-		if (ubicacionInput.value?.length > maxUbicacion) {
-			ubicacionInput.classList.add('error');
-		} else {
-			ubicacionInput.classList.remove('error');
-		}
-	});
+    ubicacionInput.addEventListener("keyup", () => {
+        $(".form-ubicacion .current-length").textContent = ubicacionInput.value?.length || 0;
+        if (ubicacionInput.value?.length > maxUbicacion) {
+            ubicacionInput.classList.add("error");
+        } else {
+            ubicacionInput.classList.remove("error");
+        }
+    });
 };
 
 const submitEvent = async (isEditing, id) => {
-	const title = $('#event-title').value;
-	const desc = $('#event-desc').value;
-	const date = $('#event-date').value;
-	const time = $('#event-time').value;
-	const location = $('#event-ubicacion').value;
-	const attending = $('#event-attend').checked;
+    const title = $("#event-title").value;
+    const desc = $("#event-desc").value;
+    const date = $("#event-date").value;
+    const time = $("#event-time").value;
+    const location = $("#event-ubicacion").value;
+    const attending = $("#event-attend").checked;
+    const image = $("#event-image-input")?.files[0];
+    console.log(image);
 
-	let check;
+    let check;
 
-	check = formCheck;
-	check = formCheck.checkTextInput(title, 'Título', 0, maxTitle);
-	if (!check) return;
+    check = formCheck;
+    check = formCheck.checkTextInput(title, "Título", 0, maxTitle);
+    if (!check) return;
 
-	check = formCheck.checkTextInput(desc, 'Descripción', 0, maxDesc, true);
-	if (!check) return;
+    check = formCheck.checkTextInput(desc, "Descripción", 0, maxDesc, true);
+    if (!check) return;
 
-	check = formCheck.checkTextInput(location, 'Ubicación', 0, maxUbicacion);
-	if (!check) return;
+    check = formCheck.checkTextInput(location, "Ubicación", 0, maxUbicacion);
+    if (!check) return;
 
-	const finalDate = formCheck.checkDatetimeInput(date, time);
-	if (!finalDate) return;
+    const finalDate = formCheck.checkDatetimeInput(date, time);
+    if (!finalDate) return;
 
-	let url;
+    let url;
 
-	if (isEditing) {
-		url = `http://localhost:3000/api/events/edit/${id}`;
-	} else {
-		url = 'http://localhost:3000/api/events/create';
-	}
+    if (isEditing) {
+        url = `http://localhost:3000/api/events/edit/${id}`;
+    } else {
+        url = "http://localhost:3000/api/events/create";
+    }
 
-	const token = JSON.parse(localStorage.getItem('jwt'));
+    const token = JSON.parse(localStorage.getItem("jwt"));
 
-	const body = {
-		titulo: title,
-		descripcion: desc,
-		fecha: finalDate,
-		ubicacion: location,
-		attending: attending,
-	};
+    const body = {
+        titulo: title,
+        descripcion: desc,
+        fecha: finalDate,
+        ubicacion: location,
+        attending: attending
+    };
 
-	const options = {
-		method: isEditing ? 'PUT' : 'POST',
-		body: JSON.stringify(body),
-		headers: {
-			'Content-type': 'application/json',
-			Authorization: token,
-		},
-	};
+    const options = {
+        method: isEditing ? "PUT" : "POST",
+        body: JSON.stringify(body),
+        headers: {
+            "Content-type": "application/json",
+            Authorization: token
+        }
+    };
 
-	const response = await makeRequest(url, options);
-	if (response.success) {
-		eventDetails(response.json._id);
-		const color = 'green';
-		const message = `Evento ${isEditing ? 'editado' : 'creado'} con éxito.`;
-		createMessage(color, message);
-		closeModal();
-	}
+    const response = await makeRequest(url, options);
+    if (response.success) {
+        eventDetails(response.json._id);
+        const color = "green";
+        const message = `Evento ${isEditing ? "editado" : "creado"} con éxito.`;
+        createMessage(color, message);
+        closeModal();
+    }
 };
 
 const fillEditEvent = (event) => {
-	$('#event-title').value = event.titulo;
-	$('#event-desc').textContent = event?.descripcion;
-	$('#event-date').value = event.fecha.split('T')[0];
-	$('#event-time').value = event.fecha.split('T')[1].split('.')[0];
-	$('#event-ubicacion').value = event.ubicacion;
+    $("#event-title").value = event.titulo;
+    $("#event-desc").textContent = event?.descripcion;
+    $("#event-date").value = event.fecha.split("T")[0];
+    $("#event-time").value = event.fecha.split("T")[1].split(".")[0];
+    $("#event-ubicacion").value = event.ubicacion;
 
-	const attending = event.asistentes.find((a) => a._id == event.creador._id);
+    const attending = event.asistentes.find((a) => a._id == event.creador._id);
 
-	$('#event-attend').checked = attending ? true : false;
+    $("#event-attend").checked = attending ? true : false;
+};
+
+const showImage = (input) => {
+    const image = input.files[0];
+    const imgElement = $("#event-image");
+    const imgName = $(".image-name");
+    if (!image) {
+        imgElement.classList.add("hidden");
+        imgElement.src = "";
+        input.value = "";
+        imgName.textContent = "";
+        return;
+    }
+
+    const split = image.name.split(".");
+    const extension = split[split.length - 1];
+
+    const supported = ["jpg", "png", "jpeg", "webp"];
+    if (!supported.includes(extension)) {
+        createMessage("red", "solo se admiten imágenes ('jpg', 'png', 'jpeg' o 'webp')");
+        input.value = "";
+        imgName.textContent = "";
+        imgElement.src = "";
+        return;
+    }
+
+    try {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            imgElement.src = e.target.result;
+        };
+
+        reader.readAsDataURL(image);
+    } catch (error) {
+        createMessage("red", "Ha habido un error cargando la imagen.");
+        input.value = "";
+        imgName.textContent = "";
+        imgElement.src = "";
+        return;
+    }
+
+    imgElement.classList.remove("hidden");
+    imgName.textContent = image.name;
 };
 
 const eventForm = (event) => {
-	const isEditing = event ? true : false;
+    const isEditing = event ? true : false;
 
-	const div = document.createElement('div');
-	div.id = 'create-modal';
-	div.innerHTML = template(isEditing);
+    const div = document.createElement("div");
+    div.id = "create-modal";
+    div.innerHTML = template(isEditing);
 
-	showModal(div);
+    showModal(div);
 
-	const submitEventButton = $('#submit-event');
-	const cancelEventButton = $('#cancel-event');
+    const submitEventButton = $("#submit-event");
+    const cancelEventButton = $("#cancel-event");
 
-	if (isEditing) fillEditEvent(event);
+    if (isEditing) fillEditEvent(event);
 
-	submitEventButton.addEventListener('click', () =>
-		submitEvent(isEditing, event?._id)
-	);
+    submitEventButton.addEventListener("click", () => submitEvent(isEditing, event?._id));
 
-	cancelEventButton.addEventListener('click', () => closeModal());
+    cancelEventButton.addEventListener("click", () => closeModal());
 
-	//Linea que formatea la fecha actual a yyyy-mm-dd y la usa como
-	//"min" para que el usuario solo pueda crear eventos en futuras fechas
-	$('#event-date').min = new Date().toLocaleDateString('fr-ca');
-	inputCounters();
+    const imageInput = $("#event-image-input");
+    imageInput.addEventListener("change", () => showImage(imageInput));
+
+    //Linea que formatea la fecha actual a yyyy-mm-dd y la usa como
+    //"min" para que el usuario solo pueda crear eventos en futuras fechas
+    $("#event-date").min = new Date().toLocaleDateString("fr-ca");
+    inputCounters();
 };
 
 export default eventForm;

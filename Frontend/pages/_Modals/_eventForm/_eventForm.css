@@ -127,9 +127,33 @@
     background-color: light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.1));
 }
 
+.form-image {
+    display: flex;
+    flex-direction: column;
+}
+
+.select-image {
+    color: light-dark(blue, var(--dark-orange));
+    transition: all 0.2s ease;
+    border: 1px solid light-dark(blue, var(--dark-orange));
+    width: fit-content;
+    padding: 2px 6px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.select-image:hover {
+    color: white;
+    background-color: light-dark(blue, var(--dark-orange));
+}
+
+#event-image {
+    max-width: 90%;
+}
+
 @media (max-width: 600px) {
     #create-event {
-        width: 100%;
+        max-width: 100%;
     }
 }
 
