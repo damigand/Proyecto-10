@@ -22,4 +22,3 @@ window.addEventListener("popstate", function () {
 
 //Llamo directamente a Events() para que cargue como primera página.
 Events();
-eventForm();

@@ -3,13 +3,13 @@
     top: 71px;
     left: 0;
     width: var(--sidebar-width);
-    height: 90%;
+    height: calc(100dvh - 71px);
     border-right: 1px solid var(--lightdark-text);
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
-    padding: var(--px-10) var(--px-20);
-    gap: var(--px-30);
+    padding: var(--px-10) var(--px-10);
+    gap: var(--px-10);
 }
 
 #create-event-button {
@@ -28,6 +28,10 @@
 }
 
 .filter-events-container {
+    border-top: 1px solid light-dark(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
+    border-bottom: 1px solid light-dark(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
+    padding: var(--px-10) var(--px-10);
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     gap: var(--px-10);
@@ -47,6 +51,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     gap: var(--px-10);
     cursor: pointer;
 }
@@ -68,6 +73,93 @@ button.least {
 
 .show-action-bar {
     display: none;
+}
+
+.assistants-order div,
+.date-order div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--px-10);
+}
+
+.assistants-order span,
+.date-order span {
+    font-size: 14px;
+    opacity: 0.5;
+}
+
+#filter-events-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--px-20);
+}
+
+#filter-events-form h4 {
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+#filter-events-form input {
+    width: 100%;
+}
+
+#filter-assistants,
+#filter-date {
+    display: flex;
+    flex-direction: column;
+    gap: var(--px-10);
+}
+
+#filter-assistants div {
+    display: flex;
+    align-items: center;
+}
+
+#filter-assistants input {
+    width: 70px;
+    margin-left: auto;
+}
+
+#filter-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--px-5);
+}
+
+#filter-actions button {
+    padding: 2px 6px;
+    font-size: 16px;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--px-10);
+    cursor: pointer;
+}
+
+#filter-actions i {
+    font-size: 14px;
+}
+
+#filter-submit {
+    transition: all 0.2s ease;
+    border: 1px solid light-dark(blue, var(--dark-orange));
+}
+
+#filter-submit:hover {
+    background-color: light-dark(blue, var(--dark-orange));
+    color: white;
+}
+
+#filter-clear {
+    transition: all 0.2s ease;
+    opacity: 0.6;
+    border: 1px solid transparent;
+}
+
+#filter-clear:hover {
+    opacity: 1;
 }
 
 @media (max-width: 800px) {
