@@ -32,7 +32,11 @@ let dateIndex = 0;
 
 const actionBar = () => {
     $("main").insertAdjacentHTML("afterbegin", template());
-    $("#create-event-button").addEventListener("click", () => eventForm());
+    $("#create-event-button").addEventListener("click", () => {
+        eventForm();
+        $("#action-bar").classList.remove("active-bar");
+        $(".show-action-bar").textContent = "Filtros";
+    });
 
     const assistFilterButton = $(".assistants-filter");
     assistFilterButton.addEventListener("click", () => {
@@ -46,8 +50,8 @@ const actionBar = () => {
 
     const showActionBar = $(".show-action-bar");
     showActionBar.addEventListener("click", () => {
-        $("#action-bar").classList.toggle("active");
-        if ($("#action-bar").classList.contains("active")) {
+        $("#action-bar").classList.toggle("active-bar");
+        if ($("#action-bar").classList.contains("active-bar")) {
             showActionBar.innerHTML = `
 				<i class='bx bx-x'></i>
 			`;

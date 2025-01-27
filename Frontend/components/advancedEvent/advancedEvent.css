@@ -1,7 +1,6 @@
 #advanced-event-actions {
     display: flex;
     gap: var(--px-20);
-    padding-top: var(--px-10);
     justify-content: flex-end;
 }
 

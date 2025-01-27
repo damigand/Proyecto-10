@@ -1,85 +1,98 @@
 .profile-events {
-	display: flex;
-	flex-direction: column;
-	padding: var(--px-20);
-	gap: var(--px-10);
+    display: flex;
+    flex-direction: column;
+    padding: var(--px-20);
+    gap: var(--px-10);
 }
 
 .created-events {
-	margin-bottom: var(--px-20);
-	padding-bottom: var(--px-30);
-	border-bottom: 1px solid
-		light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
+    margin-bottom: var(--px-20);
+    padding-bottom: var(--px-30);
+    border-bottom: 1px solid light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
 }
 
 .created-events,
 .attending-events {
-	display: flex;
-	flex-direction: column;
-	gap: var(--px-10);
+    display: flex;
+    flex-direction: column;
+    gap: var(--px-10);
 }
 
 .profile-event {
-	cursor: pointer;
-	transition: border 0.2s ease;
-	border-radius: 5px;
-	border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
-	padding: var(--px-10);
-	display: flex;
-	justify-content: space-between;
+    cursor: pointer;
+    transition: border 0.2s ease;
+    border-radius: 5px;
+    border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+    padding: var(--px-10);
+    display: flex;
+    justify-content: space-between;
 }
 
 .profile-event h3 {
-	overflow: hidden;
-	max-width: 80%;
-	text-wrap: nowrap;
-	text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 70%;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
 }
 
 .profile-event:hover {
-	transition: all 0.2s ease;
-	border: 1px solid light-dark(blue, var(--dark-orange));
+    transition: all 0.2s ease;
+    border: 1px solid light-dark(blue, var(--dark-orange));
 }
 
 .profile-event:hover .visit-event {
-	color: light-dark(blue, var(--dark-orange));
+    color: light-dark(blue, var(--dark-orange));
 }
 
 @keyframes fade {
-	0% {
-		visibility: 0;
-	}
+    0% {
+        visibility: 0;
+    }
 
-	100% {
-		visibility: 1;
-	}
+    100% {
+        visibility: 1;
+    }
 }
 
 .profile-event:hover .visit-event {
-	transition: all 0.2s ease;
-	display: flex;
-	align-items: center;
-	gap: var(--px-10);
-	animation-name: fade;
-	animation-duration: 200ms;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: var(--px-10);
+    animation-name: fade;
+    animation-duration: 200ms;
 }
 
 .profile-event:hover .visit-event::before {
-	transition: all 0.2s ease;
-	content: 'Ver evento';
+    transition: all 0.2s ease;
+    content: "Ver evento";
 }
 
 @media (max-width: 500px) {
-	.profile-event:hover .visit-event::before {
-		content: '';
-	}
+    .profile-event:hover .visit-event::before {
+        content: "";
+    }
 
-	.profile-event h3 {
-		font-size: 14px;
-	}
+    .profile-event h3 {
+        font-size: 14px;
+    }
 
-	.profile-events h2 {
-		text-align: center;
-		font-size: 16px;
-	}
+    .profile-events h2 {
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .profile-event:hover .visit-event {
+        animation: none;
+        height: 20px;
+    }
+
+    .profile-event:hover .visit-event::before {
+        content: "";
+    }
+
+    .visit-event {
+        display: flex;
+        animation: none;
+    }
 }

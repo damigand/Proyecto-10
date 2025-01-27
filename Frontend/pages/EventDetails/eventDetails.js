@@ -4,6 +4,7 @@ import userAvatar from "@c/userAvatar/userAvatar.js";
 import advancedEvent from "@c/advancedEvent/advancedEvent.js";
 import Profile from "@p/Profile/Profile.js";
 import "./eventDetails.css";
+import createMessage from "@c/createMessage/createMessage";
 
 const $ = (el) => document.querySelector(el);
 const $$ = (els) => document.querySelector(els);
@@ -43,6 +44,11 @@ const eventHTML = (event) => {
     };
 
     const date = new Date(event.fecha).toLocaleDateString("es-ES", options);
+
+    const userId = JSON.parse(localStorage.getItem("user"))._id;
+
+    const check = event.asistentes.some((t) => t._id == userId);
+
     return `
         <h1>${event.titulo}</h1>
         <div class="creador">Creado por <span class="creador-usuario">${
@@ -58,6 +64,10 @@ const eventHTML = (event) => {
         <div class="location">
             <i class="bx bxs-map"></i>
             <span>${event.ubicacion}</span>
+        </div>
+        <div class="attend-event ${check ? "attending" : ""}">
+            <i class="bx bx-user-${check ? "minus" : "plus"}"></i>
+            <span>${check ? "No atender evento" : "Atender evento"}</span>
         </div>
     `;
 };
@@ -125,6 +135,28 @@ const attendantsHTML = (attendantsDiv, attendants, eventId) => {
     return attendantsDiv;
 };
 
+const attendEvent = async (element, eventId) => {
+    const url = `http://localhost:3000/api/events/attend/${eventId}`;
+    const token = "Bearer " + JSON.parse(localStorage.getItem("jwt"));
+
+    const options = {
+        method: "POST",
+        headers: {
+            Authorization: token,
+        },
+    };
+
+    const response = await makeRequest(url, options);
+    if (response.success) {
+        const json = response.json;
+        const message = json.message;
+        const attending = json.attending;
+        let color = attending ? "green" : "yellow";
+
+        createMessage(color, message);
+    }
+};
+
 const eventDetails = async (eventId, backNav, unload) => {
     $("main").innerHTML = template();
     const back = backButton(backNav, unload);
@@ -142,10 +174,16 @@ const eventDetails = async (eventId, backNav, unload) => {
 
         const localUser = JSON.parse(localStorage.getItem("user"));
 
-        if (event.creador._id == localUser?.id) {
+        if (event.creador._id == localUser?._id) {
             advancedEvent(event);
         }
     }
+
+    const attendButton = $(".attend-event");
+    attendButton.addEventListener("click", async () => {
+        await attendEvent(attendButton, eventId);
+        eventDetails(eventId, backNav, true);
+    });
 };
 
 export default eventDetails;

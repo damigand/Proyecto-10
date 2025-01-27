@@ -32,10 +32,10 @@
     --font-xl: 20px;
 
     /*Spacing*/
-    --xs-margin: 2%;
-    --s-margin: 5%;
-    --l-margin: 10%;
-    --xl-margin: 20%;
+    --xs-margin: 15px;
+    --s-margin: 40px;
+    --l-margin: 75px;
+    --xl-margin: 150px;
     --px-3: 3px;
     --px-5: 5px;
     --px-10: 10px;
@@ -83,6 +83,8 @@ main {
     padding-top: 71px;
     padding-bottom: var(--px-30);
     position: relative;
+    padding-left: var(--xl-margin);
+    padding-right: var(--xl-margin);
 }
 
 #app:has(#events) #events {
@@ -102,6 +104,27 @@ body.loading .isLoading {
     display: flex;
 }
 
+@media (max-width: 1500px) {
+    main {
+        padding-left: var(--l-margin);
+        padding-right: var(--l-margin);
+    }
+}
+
+@media (max-width: 1200px) {
+    main {
+        padding-left: var(--s-margin);
+        padding-right: var(--s-margin);
+    }
+}
+
+@media (max-width: 1000px) {
+    main {
+        padding-left: var(--xs-margin);
+        padding-right: var(--xs-margin);
+    }
+}
+
 @media (max-width: 800px) {
     main {
         padding-left: var(--xs-margin);
@@ -112,11 +135,11 @@ body.loading .isLoading {
         padding-left: 0px;
     }
 
-    body:has(main .active) {
+    body:has(main .active-bar) {
         overflow-y: hidden;
     }
 
-    main:has(.active)::after {
+    main:has(.active-bar)::after {
         position: fixed;
         content: "";
         width: 100%;

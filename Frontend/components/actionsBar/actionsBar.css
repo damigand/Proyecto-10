@@ -76,7 +76,7 @@ button.least {
         transform: translateX(calc(-100% - 1px));
     }
 
-    #action-bar.active {
+    #action-bar.active-bar {
         background-color: var(--lightdark-bg);
         transform: translateX(0);
         z-index: 100;
@@ -99,7 +99,7 @@ button.least {
         display: none;
     }
 
-    #action-bar.active .show-action-bar {
+    #action-bar.active-bar .show-action-bar {
         width: 30px;
         height: 30px;
         padding: 0;
@@ -108,7 +108,7 @@ button.least {
         justify-content: center;
     }
 
-    #action-bar.active .show-action-bar i {
+    #action-bar.active-bar .show-action-bar i {
         display: inline;
     }
 }

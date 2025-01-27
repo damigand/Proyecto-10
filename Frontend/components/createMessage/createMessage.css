@@ -8,6 +8,8 @@
     flex-direction: column;
     align-items: center;
     gap: var(--px-5);
+    width: 100%;
+    max-width: 600px;
 }
 
 .message {
