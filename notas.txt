@@ -3,3 +3,4 @@ generalizar CSS:
 - píxeles
 - light-dark
 - card shadows
+- fuentes
