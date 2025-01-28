@@ -8,7 +8,7 @@ import "./backButton.css";
 //Es mi primer stack de navegación en toda mi vida, pero lo he intentado.
 let navStack = [];
 
-const handleNavigation = (nav) => {
+const handleNavigation = (nav, params) => {
     const lastNav = navStack[navStack.length - 1];
     const nextNav = navStack[navStack.length - 2];
     switch (nav?.url) {
@@ -21,7 +21,7 @@ const handleNavigation = (nav) => {
             navStack.pop();
             break;
         default:
-            Events();
+            Events(params);
             break;
     }
 };
@@ -30,7 +30,7 @@ export const emptyNavStack = () => {
     navStack = [];
 };
 
-export const backButton = (nav, unload) => {
+export const backButton = (nav, unload, params) => {
     if (nav && !unload) navStack.push(nav);
     const div = document.createElement("div");
     div.id = "backButton";
@@ -44,7 +44,7 @@ export const backButton = (nav, unload) => {
     div.appendChild(i);
     div.appendChild(span);
 
-    div.addEventListener("click", () => handleNavigation(nav));
+    div.addEventListener("click", () => handleNavigation(nav, params));
 
     return div;
 };

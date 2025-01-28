@@ -1,0 +1,5 @@
+generalizar CSS:
+- colores
+- píxeles
+- light-dark
+- card shadows

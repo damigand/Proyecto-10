@@ -32,13 +32,13 @@ const getEvents = async (params) => {
         const events = response.json;
 
         for (const event of events) {
-            const element = eventElement(event);
+            const element = eventElement(event, params);
             container.appendChild(element);
         }
     }
 };
 
-const eventElement = (event) => {
+const eventElement = (event, params) => {
     const div = document.createElement("div");
     div.classList.add("event");
 
@@ -71,7 +71,9 @@ const eventElement = (event) => {
 
     const detailsButton = document.createElement("button");
     detailsButton.classList.add("details");
-    detailsButton.addEventListener("click", () => eventDetails(event._id));
+    detailsButton.addEventListener("click", () =>
+        eventDetails(event._id, undefined, false, params)
+    );
 
     const detailsIcon = document.createElement("i");
     detailsIcon.classList.add("bx");
@@ -155,11 +157,11 @@ const attendEvent = async (event, button, assistants) => {
 };
 
 const Events = (params) => {
-    if (!params) $("main").innerHTML = template();
+    $("main").innerHTML = template();
 
     getEvents(params);
 
-    if (!params) actionBar();
+    actionBar();
 };
 
 export default Events;

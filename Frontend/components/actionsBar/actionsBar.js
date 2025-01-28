@@ -71,7 +71,16 @@ const template = () => {
 let assistIndex = 0;
 let dateIndex = 0;
 
+let localParams;
+
 const setUpFilters = () => {
+    changeQuickFilter(assistIndex, $(".assistants-order"), false, true);
+    changeQuickFilter(dateIndex, $(".date-order"), true, true);
+    $("#less-assistants").value = localParams?.get("assistLower");
+    $("#more-assistants").value = localParams?.get("assistHigher");
+    $("#before-date").value = localParams?.get("beforeDate");
+    $("#after-date").value = localParams?.get("afterDate");
+
     const assistFilterButton = $(".assistants-order");
     assistFilterButton.addEventListener("click", () => {
         assistIndex = changeQuickFilter(assistIndex, assistFilterButton, false);
@@ -142,11 +151,71 @@ const filterEvents = async () => {
     if (beforeDate) params.append("beforeDate", beforeDate);
     if (afterDate) params.append("afterDate", afterDate);
 
-    Events(params.toString());
+    //Guarda los filtros para que se re-apliquen si el usuario entra
+    // a un evento filtrado y después vuelve hacia atrás.
+    localParams = params;
+
+    Events(params);
 };
 
 const resetFilters = () => {
-    console.log("reseteando");
+    $("#filter-events-form").reset();
+    assistIndex = 0;
+    dateIndex = 0;
+
+    const assistButton = $(".assistants-order");
+    const dateButton = $(".date-order");
+
+    updateButton(assistIndex, assistButton, false);
+    updateButton(dateIndex, dateButton, true);
+};
+
+const updateButton = (index, button, isDate) => {
+    const icon = button.querySelector("i");
+    const text = button.querySelector("span");
+    switch (index) {
+        case 0:
+            button.classList.remove("least");
+            button.classList.remove("most");
+            icon.classList.add("bx-up-arrow");
+            icon.classList.remove("bxs-up-arrow");
+            icon.classList.remove("reverse");
+            text.textContent = "( - )";
+            break;
+        case 1:
+            button.classList.add("most");
+            icon.classList.toggle("bx-up-arrow");
+            icon.classList.toggle("bxs-up-arrow");
+            text.textContent = isDate ? "(Más cerano)" : "(Mayor a menor)";
+            break;
+        case 2:
+            button.classList.remove("most");
+            button.classList.add("least");
+            icon.classList.toggle("reverse");
+            text.textContent = isDate ? "(Más lejano)" : "(Menor a mayor)";
+            break;
+    }
+};
+
+//Cambia aspectos visuales de los botones y su valor
+//Para ir rotando.
+const changeQuickFilter = (index, button, isDate, loading) => {
+    switch (index) {
+        case 0:
+            if (!loading) index = 1;
+            updateButton(index, button, isDate);
+            break;
+        case 1:
+            if (!loading) index = 2;
+            updateButton(index, button, isDate);
+            break;
+        case 2:
+            if (!loading) index = 0;
+            updateButton(index, button, isDate);
+            break;
+    }
+
+    return index;
 };
 
 const actionBar = () => {
@@ -170,39 +239,6 @@ const actionBar = () => {
             showActionBar.innerHTML = "Filtros";
         }
     });
-};
-
-//Cambia aspectos visuales de los botones y su valor
-//Para ir rotando.
-const changeQuickFilter = (index, button, isDate) => {
-    const icon = button.querySelector("i");
-    const text = button.querySelector("span");
-    switch (index) {
-        case 0:
-            index = 1;
-            button.classList.add("most");
-            icon.classList.toggle("bx-up-arrow");
-            icon.classList.toggle("bxs-up-arrow");
-            text.textContent = isDate ? "(Más cerano)" : "(Mayor a menor)";
-            break;
-        case 1:
-            index = 2;
-            button.classList.remove("most");
-            button.classList.add("least");
-            icon.classList.toggle("reverse");
-            text.textContent = isDate ? "(Más lejano)" : "(Menor a mayor)";
-            break;
-        case 2:
-            index = 0;
-            button.classList.remove("least");
-            icon.classList.toggle("bx-up-arrow");
-            icon.classList.toggle("bxs-up-arrow");
-            icon.classList.remove("reverse");
-            text.textContent = "( - )";
-            break;
-    }
-
-    return index;
 };
 
 export default actionBar;

@@ -40,7 +40,7 @@ const eventHTML = (event) => {
         weekday: "long",
         year: "numeric",
         month: "long",
-        day: "numeric",
+        day: "numeric"
     };
 
     const date = new Date(event.fecha).toLocaleDateString("es-ES", options);
@@ -142,8 +142,8 @@ const attendEvent = async (element, eventId) => {
     const options = {
         method: "POST",
         headers: {
-            Authorization: token,
-        },
+            Authorization: token
+        }
     };
 
     const response = await makeRequest(url, options);
@@ -157,14 +157,14 @@ const attendEvent = async (element, eventId) => {
     }
 };
 
-const eventDetails = async (eventId, backNav, unload) => {
+const eventDetails = async (eventId, backNav, unload, params) => {
     $("main").innerHTML = template();
-    const back = backButton(backNav, unload);
+    const back = backButton(backNav, unload, params);
     $("#event-details").insertAdjacentElement("afterbegin", back);
 
     const url = `http://localhost:3000/api/events/${eventId}`;
     const options = {
-        method: "GET",
+        method: "GET"
     };
 
     const response = await makeRequest(url, options);
