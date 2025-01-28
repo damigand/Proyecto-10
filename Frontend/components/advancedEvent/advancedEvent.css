@@ -27,7 +27,7 @@
 
 .edit-event::after,
 .delete-event::after {
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     content: "";
     position: absolute;
     left: 50%;
@@ -43,7 +43,7 @@
 }
 
 .edit-event:hover {
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     color: white;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .delete-event:hover {
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     color: white;
 }
 

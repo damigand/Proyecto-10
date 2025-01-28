@@ -24,7 +24,7 @@
 
 .no-avatar {
     width: 100%;
-    font-size: 72px;
+    font-size: var(--font-72);
     overflow: hidden;
     position: relative;
     cursor: default;
@@ -34,7 +34,7 @@
     max-width: 50px;
     width: 50px;
     height: 50px;
-    font-size: 16px;
+    font-size: var(--font-16);
     border: 1px solid white;
 }
 
@@ -44,10 +44,10 @@
 
 .avatar-controls label {
     transition: color 0.2s ease;
-    font-size: 16px;
+    font-size: var(--font-16);
     cursor: pointer;
-    padding: 2px 6px;
-    border-radius: 5px;
+    padding: var(--px-2) var(--px-6);
+    border-radius: var(--px-5);
 }
 
 .avatar-controls label:hover {
@@ -83,7 +83,7 @@
 }
 
 .mobile-avatar-controls label:hover {
-    color: light-dark(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
+    color: var(--lightdark-04);
 }
 
 @media (max-width: 800px) {

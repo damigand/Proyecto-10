@@ -8,14 +8,13 @@
     display: flex;
     list-style-type: none;
     gap: var(--px-40);
-    font-size: var(--font-xl);
+    font-size: var(--font-20);
     align-items: center;
     justify-content: flex-end;
     height: 71px;
     position: fixed;
     top: 0;
     width: 100%;
-    box-shadow: 0px 0px 15px 3px var(--lightdark-shadow);
 }
 
 #nav li {
@@ -31,7 +30,7 @@
     bottom: -10px;
     width: 0px;
     height: 3px;
-    background-color: light-dark(blue, var(--dark-orange));
+    background-color: var(--lightdark-primary);
     transform: translateX(-50%);
 }
 
@@ -50,8 +49,8 @@
 }
 
 #link_login {
-    background-color: light-dark(blue, var(--dark-orange));
-    border: 1px solid light-dark(blue, var(--dark-orange));
+    background-color: var(--lightdark-primary);
+    border: 1px solid var(--lightdark-primary);
     color: light-dark(white, var(--dark-text));
     transition: all 0.2s ease-out;
     position: relative;
@@ -90,7 +89,7 @@
 
 @media (max-width: 800px) {
     #nav {
-        font-size: var(--font-l);
+        font-size: var(--font-16);
         gap: var(--px-20);
         padding-left: var(--s-margin);
         padding-right: var(--s-margin);

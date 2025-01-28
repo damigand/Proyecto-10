@@ -1,5 +1,5 @@
 #theme {
-    padding-left: 25px;
+    padding-left: var(--px-25);
     margin-right: auto;
     display: flex;
     gap: var(--px-5);
@@ -7,7 +7,7 @@
 }
 
 .theme-text {
-    font-size: var(--font-s);
+    font-size: var(--font-14);
 }
 
 .theme-icon {

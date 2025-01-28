@@ -7,39 +7,51 @@
     --dark-orange: rgb(217, 123, 89);
     --dark-orange-hover: rgb(157, 91, 65);
 
+    --light-blue: blue;
+    --light-blue-hover: rgb(3, 3, 182);
+
     --light-bg: white;
     --light-text: black;
-    --light-shadow-15: rgba(0, 0, 0, 0.15);
-    --light-shadow-10: rgba(0, 0, 0, 0.1);
-    --light-shadow-05: rgba(0, 0, 0, 0.05);
 
     --dark-bg: rgb(23, 23, 23);
     --dark-text: rgb(235, 235, 235);
-    --dark-shadow-15: rgba(255, 255, 255, 0.15);
-    --dark-shadow-10: rgba(255, 255, 255, 0.1);
-    --dark-shadow-05: rgba(255, 255, 255, 0.05);
 
+    --lightdark-01: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+    --lightdark-02: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+    --lightdark-03: light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
+    --lightdark-04: light-dark(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
+    --lightdark-05: light-dark(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.5));
+
+    --lightdark-primary: light-dark(var(--light-blue), var(--dark-orange));
+    --lightdark-primary-hover: light-dark(var(--light-blue-hover), var(--dark-orange-hover));
     --lightdark-bg: light-dark(var(--light-bg), var(--dark-bg));
     --lightdark-text: light-dark(var(--light-text), var(--dark-text));
-    --lightdark-shadow-15: light-dark(var(--light-shadow-15), var(--dark-shadow-15));
-    --lightdark-shadow-10: light-dark(var(--light-shadow-10), var(--dark-shadow-10));
-    --lightdark-shadow-05: light-dark(var(--light-shadow-05), var(--dark-shadow-05));
 
     /*Fonts*/
     --font: "Poppins", sans-serif;
-    --font-s: 14px;
-    --font-l: 16px;
-    --font-xl: 20px;
+    --font-14: 14px; /*font-s*/
+    --font-16: 16px; /*font-l*/
+    --font-18: 18px;
+    --font-20: 20px; /*font-xl*/
+    --font-22: 22px;
+    --font-30: 30px;
+    --font-40: 40px;
+    --font-72: 72px;
 
     /*Spacing*/
     --xs-margin: 15px;
     --s-margin: 40px;
     --l-margin: 75px;
     --xl-margin: 150px;
+    --px-2: 2px;
     --px-3: 3px;
+    --px-4: 4px;
     --px-5: 5px;
+    --px-6: 6px;
     --px-10: 10px;
+    --px-15: 15px;
     --px-20: 20px;
+    --px-25: 25px;
     --px-30: 30px;
     --px-40: 40px;
     --px-50: 50px;

@@ -4,13 +4,12 @@
     flex-wrap: wrap;
     gap: var(--px-20);
     justify-content: center;
-    margin-top: 10px;
+    margin-top: var(--px-10);
 }
 
 .event {
     transition: all 0.2s ease;
     border: 1px solid transparent;
-    box-shadow: 0px 0px 10px 2px var(--lightdark-shadow-05);
     display: flex;
     flex-direction: column;
     gap: var(--px-10);
@@ -40,7 +39,7 @@
 }
 
 .date i {
-    font-size: var(--font-xl);
+    font-size: var(--font-20);
 }
 
 .actions {
@@ -57,20 +56,20 @@
     gap: var(--px-10);
     transition: all 0.2s ease, color 1ms, background-color 1ms;
     background: none;
-    border: 2px solid light-dark(blue, var(--dark-orange));
-    color: light-dark(blue, var(--dark-orange));
+    border: 2px solid var(--lightdark-primary);
+    color: var(--lightdark-primary);
     padding: var(--px-10);
     cursor: pointer;
 
     & i {
         transition: all 0.2s ease;
-        font-size: 18px;
+        font-size: var(--font-18);
     }
 }
 
 .attending {
-    border: 2px solid light-dark(blue, var(--dark-orange));
-    background-color: light-dark(blue, var(--dark-orange));
+    border: 2px solid var(--lightdark-primary);
+    background-color: var(--lightdark-primary);
     color: white;
 }
 
@@ -117,7 +116,7 @@
 
 .event-assistants {
     align-self: flex-end;
-    color: light-dark(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
+    color: var(--lightdark-04);
 }
 
 @media (max-width: 900px) {
@@ -128,17 +127,17 @@
 
 @media (max-width: 500px) {
     .event h1 {
-        font-size: var(--font-xl);
+        font-size: var(--font-20);
     }
 
     .event {
         padding: var(--px-20);
-        font-size: var(--font-s);
+        font-size: var(--font-14);
     }
 }
 
 @media (max-width: 400px) {
     .event h1 {
-        font-size: var(--font-l);
+        font-size: var(--font-16);
     }
 }

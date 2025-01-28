@@ -35,22 +35,22 @@
 #create-event-form input,
 #create-event-form textarea {
     padding: var(--px-5);
-    font-size: var(--font-l);
+    font-size: var(--font-16);
 }
 
 #create-event-form textarea {
     background-color: transparent;
     resize: none;
-    border-radius: 5px;
-    border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+    border-radius: var(--px-5);
+    border: 1px solid var(--lightdark-02);
     &:focus {
         outline: none;
     }
 }
 
 .input-length {
-    font-size: var(--font-s);
-    color: light-dark(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
+    font-size: var(--font-14);
+    color: var(--lightdark-04);
 }
 
 #create-event-form > div:has(.error) .current-length {
@@ -81,20 +81,20 @@
 
 #event-attend::before {
     content: "";
-    border-radius: 4px;
+    border-radius: var(--px-4);
     width: 16px;
     height: 16px;
     background-color: transparent;
 }
 
 #event-attend:checked::before {
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
     background-color: var(--lightdark-bg);
     transform: scale(0);
 }
 
 #event-attend:checked {
-    accent-color: light-dark(blue, var(--dark-orange));
+    accent-color: var(--lightdark-primary);
 }
 
 .create-event-actions {
@@ -105,26 +105,26 @@
 .create-event-actions button {
     padding: var(--px-10) var(--px-20);
     border: none;
-    border-radius: 5px;
+    border-radius: var(--px-5);
     cursor: pointer;
 }
 
 #submit-event {
     color: white;
-    transition: all 0.3s ease;
-    background-color: light-dark(blue, var(--dark-orange));
+    transition: all 0.2s ease;
+    background-color: var(--lightdark-primary);
 }
 
 #submit-event:hover {
-    background-color: light-dark(rgb(3, 3, 211), var(--dark-orange-hover));
+    background-color: var(--lightdark-primary-hover);
 }
 
 #cancel-event {
-    transition: all 0.3s ease;
-    background-color: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+    transition: all 0.2s ease;
+    background-color: var(--lightdark-02);
 }
 #cancel-event:hover {
-    background-color: light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.1));
+    background-color: var(--lightdark-03);
 }
 
 .form-image {
@@ -134,19 +134,19 @@
 
 .select-image,
 .remove-image {
-    color: light-dark(blue, var(--dark-orange));
+    color: var(--lightdark-primary);
     transition: all 0.2s ease;
-    border: 1px solid light-dark(blue, var(--dark-orange));
+    border: 1px solid var(--lightdark-primary);
     width: fit-content;
-    padding: 2px 6px;
-    border-radius: 5px;
+    padding: var(--px-2) var(--px-6);
+    border-radius: var(--px-5);
     cursor: pointer;
 }
 
 .select-image:hover,
 .remove-image:hover {
     color: white;
-    background-color: light-dark(blue, var(--dark-orange));
+    background-color: var(--lightdark-primary);
 }
 
 #event-image {

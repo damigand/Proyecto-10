@@ -5,7 +5,7 @@
     width: var(--sidebar-width);
     height: calc(100dvh - 71px);
     border-right: 1px solid var(--lightdark-text);
-    margin-bottom: 10px;
+    margin-bottom: var(--px-10);
     display: flex;
     flex-direction: column;
     padding: var(--px-10) var(--px-10);
@@ -14,22 +14,22 @@
 
 #create-event-button {
     transition: all 0.2s ease;
-    font-size: 18px;
+    font-size: var(--font-18);
     text-transform: uppercase;
     background-color: transparent;
-    border: 1px solid light-dark(blue, var(--dark-orange));
+    border: 1px solid var(--lightdark-primary);
     padding: var(--px-5) var(--px-10);
     cursor: pointer;
 }
 
 #create-event-button:hover {
-    background-color: light-dark(blue, var(--dark-orange));
+    background-color: var(--lightdark-primary);
     color: white;
 }
 
 .filter-events-container {
-    border-top: 1px solid light-dark(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
-    border-bottom: 1px solid light-dark(rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.4));
+    border-top: 1px solid var(--lightdark-04);
+    border-bottom: 1px solid var(--lightdark-04);
     padding: var(--px-10) var(--px-10);
     overflow-y: scroll;
     display: flex;
@@ -45,9 +45,9 @@
 
 .quick-filters button {
     background-color: transparent;
-    border: 1px solid light-dark(blue, var(--dark-orange));
-    font-size: 16px;
-    padding: 5px 10px;
+    border: 1px solid var(--lightdark-primary);
+    font-size: var(--font-16);
+    padding: var(--px-5) var(--px-10);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,7 +58,7 @@
 
 button.most,
 button.least {
-    background-color: light-dark(blue, var(--dark-orange));
+    background-color: var(--lightdark-primary);
     color: white;
 }
 
@@ -67,8 +67,8 @@ button.least {
 }
 
 .quick-filters button i {
-    transition: all 0.3s ease;
-    font-size: 14px;
+    transition: all 0.2s ease;
+    font-size: var(--font-14);
 }
 
 .show-action-bar {
@@ -85,7 +85,7 @@ button.least {
 
 .assistants-order span,
 .date-order span {
-    font-size: 14px;
+    font-size: var(--font-14);
     opacity: 0.5;
 }
 
@@ -128,8 +128,8 @@ button.least {
 }
 
 #filter-actions button {
-    padding: 2px 6px;
-    font-size: 16px;
+    padding: var(--px-2) var(--px-6);
+    font-size: var(--font-16);
     background-color: transparent;
     display: flex;
     justify-content: center;
@@ -139,16 +139,16 @@ button.least {
 }
 
 #filter-actions i {
-    font-size: 14px;
+    font-size: var(--font-14);
 }
 
 #filter-submit {
     transition: all 0.2s ease;
-    border: 1px solid light-dark(blue, var(--dark-orange));
+    border: 1px solid var(--lightdark-primary);
 }
 
 #filter-submit:hover {
-    background-color: light-dark(blue, var(--dark-orange));
+    background-color: var(--lightdark-primary);
     color: white;
 }
 
@@ -177,13 +177,13 @@ button.least {
     .show-action-bar {
         display: block;
         position: absolute;
-        top: 2px;
+        top: var(--px-2);
         right: 0;
         transform: translateX(110%);
-        padding: 4px 8px;
+        padding: var(--px-4) var(--px-8);
         cursor: pointer;
-        background-color: light-dark(blue, var(--dark-orange));
-        border-radius: 5px;
+        background-color: var(--lightdark-primary);
+        border-radius: var(--px-5);
         color: white;
     }
 

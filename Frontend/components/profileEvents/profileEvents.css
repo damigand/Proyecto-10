@@ -8,7 +8,7 @@
 .created-events {
     margin-bottom: var(--px-20);
     padding-bottom: var(--px-30);
-    border-bottom: 1px solid light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
+    border-bottom: 1px solid var(--lightdark-03);
 }
 
 .created-events,
@@ -21,8 +21,8 @@
 .profile-event {
     cursor: pointer;
     transition: border 0.2s ease;
-    border-radius: 5px;
-    border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+    border-radius: var(--px-5);
+    border: 1px solid var(--lightdark-02);
     padding: var(--px-10);
     display: flex;
     justify-content: space-between;
@@ -37,11 +37,11 @@
 
 .profile-event:hover {
     transition: all 0.2s ease;
-    border: 1px solid light-dark(blue, var(--dark-orange));
+    border: 1px solid var(--lightdark-primary);
 }
 
 .profile-event:hover .visit-event {
-    color: light-dark(blue, var(--dark-orange));
+    color: var(--lightdark-primary);
 }
 
 @keyframes fade {
@@ -74,12 +74,12 @@
     }
 
     .profile-event h3 {
-        font-size: 14px;
+        font-size: var(--font-14);
     }
 
     .profile-events h2 {
         text-align: center;
-        font-size: 16px;
+        font-size: var(--font-16);
     }
 
     .profile-event:hover .visit-event {

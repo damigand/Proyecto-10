@@ -1,14 +1,14 @@
 #event-details {
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
+    margin-top: var(--px-10);
     gap: var(--px-10);
     width: 100%;
     max-width: 800px;
 }
 
 i {
-    font-size: var(--font-xl);
+    font-size: var(--font-20);
 }
 
 .event-info {
@@ -17,15 +17,14 @@ i {
     transition: all 0.2s ease, color 1ms;
     min-height: 300px;
     padding: var(--px-20);
-    box-shadow: 0px 0px 5px 2px var(--lightdark-shadow-05);
-    border-radius: 3px;
+    border-radius: var(--px-3);
     display: flex;
     flex-direction: column;
 }
 
 .event-info:hover,
 .attendants:hover {
-    border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+    border: 1px solid var(--lightdark-02);
 }
 
 .date {
@@ -39,8 +38,7 @@ i {
     height: 100px;
     width: 100%;
     max-width: 400px;
-    box-shadow: 0px 0px 5px 2px var(--lightdark-shadow-05);
-    border-radius: 3px;
+    border-radius: var(--px-3);
     display: flex;
     align-items: center;
     padding: var(--px-20) var(--px-30);
@@ -51,7 +49,7 @@ i {
     display: flex;
     align-items: center;
     margin-left: auto;
-    color: light-dark(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.5));
+    color: var(--lightdark-05);
     text-decoration: underline;
     cursor: pointer;
     margin-right: var(--px-30);
@@ -87,7 +85,7 @@ i {
 }
 
 .attendant {
-    transition: margin 0.1s ease;
+    transition: margin 0.2s ease;
 }
 
 .attendants:not(.active) .attendant {
@@ -156,22 +154,22 @@ i {
     display: flex;
     gap: var(--px-5);
     align-items: center;
-    border: 1px solid light-dark(blue, var(--dark-orange));
+    border: 1px solid var(--lightdark-primary);
     align-self: flex-start;
-    padding: 4px 10px;
+    padding: var(--px-4) var(--px-10);
     margin-top: var(--px-10);
-    border-radius: 5px;
-    color: light-dark(blue, var(--dark-orange));
+    border-radius: var(--px-5);
+    color: var(--lightdark-primary);
     cursor: pointer;
 }
 
 .attend-event:hover {
-    background-color: light-dark(blue, var(--dark-orange));
+    background-color: var(--lightdark-primary);
     color: white;
 }
 
 .attend-event.attending {
-    background-color: light-dark(blue, var(--dark-orange));
+    background-color: var(--lightdark-primary);
     color: white;
 }
 
@@ -197,12 +195,12 @@ i {
     }
 
     .event-info h1 {
-        font-size: var(--font-xl);
+        font-size: var(--font-20);
     }
 
     .event-info,
     .attendants.active {
-        font-size: var(--font-s);
+        font-size: var(--font-14);
     }
 }
 
