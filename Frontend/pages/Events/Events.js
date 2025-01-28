@@ -20,9 +20,10 @@ const template = () => {
 };
 
 const getEvents = async (params) => {
-    const url = `http://localhost:3000/api/events${params ? "/" + params : ""}`;
+    $("#event-container").innerHTML = "";
+    const url = `http://localhost:3000/api/events?${params}`;
     const options = {
-        method: "GET",
+        method: "GET"
     };
 
     const response = await makeRequest(url, options);
@@ -55,7 +56,7 @@ const eventElement = (event) => {
         weekday: "long",
         year: "numeric",
         month: "long",
-        day: "numeric",
+        day: "numeric"
     };
 
     dateText.innerText = dateObject.toLocaleDateString("es-ES", options);
@@ -79,8 +80,8 @@ const eventElement = (event) => {
 
     //Variables usadas para controlar el aspecto de los botones al cargar.
     const user = localStorage.getItem("user");
-    const usuario = JSON.parse(user)?.usuario;
-    const attending = event.asistentes.some((e) => e.usuario == usuario);
+    const userId = JSON.parse(user)?._id;
+    const attending = event.asistentes.some((e) => e == userId);
 
     const assistants = document.createElement("span");
     assistants.classList.add("event-assistants");
@@ -120,8 +121,8 @@ const attendEvent = async (event, button, assistants) => {
     const options = {
         method: "POST",
         headers: {
-            Authorization: token,
-        },
+            Authorization: token
+        }
     };
 
     const response = await makeRequest(url, options);
@@ -154,11 +155,11 @@ const attendEvent = async (event, button, assistants) => {
 };
 
 const Events = (params) => {
-    $("main").innerHTML = template();
+    if (!params) $("main").innerHTML = template();
 
     getEvents(params);
 
-    actionBar();
+    if (!params) actionBar();
 };
 
 export default Events;

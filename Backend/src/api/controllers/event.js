@@ -1,12 +1,82 @@
 const Event = require("../models/Event");
 const User = require("../models/User");
 const { removeImg } = require("../../middlewares/cloudinary");
+const { getOrderValue } = require("../../utils/orderValue");
 
 const getAllEvents = async (req, res, next) => {
     try {
-        const events = await Event.find()
-            .populate("creador", "usuario email -_id")
-            .populate("asistentes", "usuario -_id");
+        const { dateOrder, assistOrder, assistLower, assistHigher, beforeDate, afterDate } =
+            req.query;
+
+        const aggregateArray = [];
+
+        //Construimos el $project del aggregate.
+        const project = {
+            $project: {
+                _id: 1,
+                titulo: 1,
+                fecha: 1,
+                ubicacion: 1,
+                asistentes: 1,
+                //Fecha sin hora para poder ordenar correctamente por asistentes
+                //En el caso de que haya varios eventos el mismo día.
+                fechaSinHora: { $dateToString: { format: "%Y-%m-%d", date: "$fecha" } },
+                //Contador de asistentes para poder ordenar bien.
+                asistentesCount: { $size: "$asistentes" }
+            }
+        };
+
+        aggregateArray.push(project);
+
+        //Construimos el $match del aggregate.
+        const match = {};
+
+        if (assistLower && assistHigher) {
+            match.asistentesCount = {
+                $lt: parseInt(assistLower),
+                $gte: parseInt(assistHigher)
+            };
+        } else {
+            if (assistLower) match.asistentesCount = { $lt: parseInt(assistLower) };
+            if (assistHigher) match.asistentesCount = { $gte: parseInt(assistHigher) };
+        }
+
+        if (beforeDate && afterDate) {
+            match.fecha = {
+                $lt: new Date(beforeDate),
+                $gte: new Date(afterDate)
+            };
+        } else {
+            if (beforeDate) match.fecha = { $lt: new Date(beforeDate) };
+            if (afterDate) match.fecha = { $gte: new Date(afterDate) };
+        }
+
+        if (Object.keys(match).length > 0) {
+            aggregateArray.push({ $match: match });
+        }
+
+        //Construimos el $sort del aggregate.
+        const sort = {};
+        if (dateOrder) sort.fechaSinHora = getOrderValue(dateOrder);
+        if (assistOrder) sort.asistentesCount = getOrderValue(assistOrder);
+
+        //Si hay algún $sort, lo metemos al aggregate.
+        if (Object.keys(sort).length > 0) {
+            aggregateArray.push({ $sort: sort });
+        }
+
+        let events;
+
+        //aggregateArray siempre tendrá "project", ya que es lo que tiene que devolver.
+        // Por lo que chequeamos si su longitud es mayor a 1 para filtrar con aggregate.
+        if (Object.keys(aggregateArray).length > 1) {
+            events = await Event.aggregate(aggregateArray);
+        } else {
+            //Si no se filtra con aggregate, no hay filtros, por lo que
+            //Devolvemos todos los eventos (hacer un aggregate vacío da error).
+            events = await Event.find();
+        }
+
         return res.status(200).json(events);
     } catch (error) {
         return res.status(500).json(`Error (getAllEvents): ${error}`);

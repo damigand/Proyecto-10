@@ -1,5 +1,7 @@
 import eventForm from "@m/_eventForm/_eventForm";
 import "./actionsBar.css";
+import makeRequest from "@c/makeRequest/makeRequest";
+import Events from "@p/Events/Events";
 const $ = (el) => document.querySelector(el);
 
 const template = () => {
@@ -31,11 +33,11 @@ const template = () => {
                         <h4>Asistentes</h4>
                         <div>
                             <label for="less-assistants">Menos de</label>
-                            <input type="number" id="less-assistants" />
+                            <input type="number" id="less-assistants"/>
                         </div>
                         <div>
                             <label for="more-assistants">Más de</label>
-                            <input type="number" id="more-assistants" />
+                            <input type="number" id="more-assistants"/>
                         </div>
                     </div>
                     <div id="filter-date">
@@ -87,8 +89,60 @@ const setUpFilters = () => {
     clearButton.addEventListener("click", () => resetFilters());
 };
 
-const filterEvents = () => {
-    console.log("filtrando");
+const getOrderValues = () => {
+    let assistOrder, dateOrder;
+    switch (assistIndex) {
+        case 1:
+            assistOrder = "asc";
+            break;
+        case 2:
+            assistOrder = "desc";
+            break;
+        case 3:
+            assistOrder = "";
+            break;
+    }
+
+    switch (dateIndex) {
+        case 1:
+            dateOrder = "desc";
+            break;
+        case 2:
+            dateOrder = "asc";
+            break;
+        case 3:
+            dateOrder = "";
+            break;
+    }
+
+    return { assistOrder, dateOrder };
+};
+
+const filterEvents = async () => {
+    //Objeto "params" que se irá construyendo para ir metiendo los filtros
+    //Y ordenes determinados por el usuario.
+    const params = new URLSearchParams();
+
+    //Obtengo los valores de cada filtro de "ordenar por".
+    const { assistOrder, dateOrder } = getOrderValues();
+
+    if (dateOrder) params.append("dateOrder", dateOrder);
+    if (assistOrder) params.append("assistOrder", assistOrder);
+
+    //obtengo los valores de cada filtro de "filtros".
+    const assistLower = $("#less-assistants").value;
+    const assistHigher = $("#more-assistants").value;
+
+    if (assistLower) params.append("assistLower", assistLower);
+    if (assistHigher) params.append("assistHigher", assistHigher);
+
+    const beforeDate = $("#before-date").value;
+    const afterDate = $("#after-date").value;
+
+    if (beforeDate) params.append("beforeDate", beforeDate);
+    if (afterDate) params.append("afterDate", afterDate);
+
+    Events(params.toString());
 };
 
 const resetFilters = () => {
@@ -129,14 +183,14 @@ const changeQuickFilter = (index, button, isDate) => {
             button.classList.add("most");
             icon.classList.toggle("bx-up-arrow");
             icon.classList.toggle("bxs-up-arrow");
-            text.textContent = isDate ? "(Más reciente)" : "(Mayor a menor)";
+            text.textContent = isDate ? "(Más cerano)" : "(Mayor a menor)";
             break;
         case 1:
             index = 2;
             button.classList.remove("most");
             button.classList.add("least");
             icon.classList.toggle("reverse");
-            text.textContent = isDate ? "(Más antiguo)" : "(Menor a mayor)";
+            text.textContent = isDate ? "(Más lejano)" : "(Menor a mayor)";
             break;
         case 2:
             index = 0;
