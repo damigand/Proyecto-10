@@ -1,2 +1,1 @@
-mostrar foto en detalles de evento.
-mostrar hora en detalles de evento.
+crear datos de ejemplo antes de entregar.
