@@ -59,3 +59,12 @@
 .delete-event:hover::after {
     background-color: light-dark(red, rgb(172, 8, 8));
 }
+
+@media (max-width: 400px) {
+    #advanced-event-actions {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: var(--px-5);
+        margin-bottom: var(--px-10);
+    }
+}

@@ -40,10 +40,18 @@ const eventHTML = (event) => {
         weekday: "long",
         year: "numeric",
         month: "long",
-        day: "numeric"
+        day: "numeric",
     };
 
-    const date = new Date(event.fecha).toLocaleDateString("es-ES", options);
+    const dateObject = new Date(event.fecha);
+
+    const date = dateObject.toLocaleDateString("es-ES", options);
+    const hours = dateObject.getHours();
+    let minutes = dateObject.getMinutes();
+    if (minutes.toString().length < 2) {
+        minutes = "0" + minutes;
+    }
+    const time = ` - ${hours}:${minutes}`;
 
     const userId = JSON.parse(localStorage.getItem("user"))._id;
 
@@ -59,7 +67,7 @@ const eventHTML = (event) => {
         }</p>
         <div class="date">
             <i class="bx bxs-calendar"></i>
-            <span>${date}</span>
+            <span>${date + time}</span>
         </div>
         <div class="location">
             <i class="bx bxs-map"></i>
@@ -69,6 +77,15 @@ const eventHTML = (event) => {
             <i class="bx bx-user-${check ? "minus" : "plus"}"></i>
             <span>${check ? "No atender evento" : "Atender evento"}</span>
         </div>
+        ${
+            event.imagen
+                ? `
+            <div class="event-image">
+                <img src="${event.imagen}" />
+            </div>
+            `
+                : ""
+        }
     `;
 };
 
@@ -142,8 +159,8 @@ const attendEvent = async (element, eventId) => {
     const options = {
         method: "POST",
         headers: {
-            Authorization: token
-        }
+            Authorization: token,
+        },
     };
 
     const response = await makeRequest(url, options);
@@ -164,7 +181,7 @@ const eventDetails = async (eventId, backNav, unload, params) => {
 
     const url = `http://localhost:3000/api/events/${eventId}`;
     const options = {
-        method: "GET"
+        method: "GET",
     };
 
     const response = await makeRequest(url, options);

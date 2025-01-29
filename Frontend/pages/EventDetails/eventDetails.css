@@ -103,6 +103,19 @@ i {
     cursor: pointer;
 }
 
+.event-image {
+    margin-top: var(--px-10);
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.event-image img {
+    max-width: 100%;
+    max-height: 500px;
+}
+
 @keyframes attendantAnim {
     20% {
         height: 100px;
