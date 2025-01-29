@@ -13,6 +13,12 @@
     width: 100%;
     max-width: 800px;
     border-radius: var(--px-5);
+    border: 1px solid var(--lightdark-01);
+    transition: border-color 0.2s ease;
+}
+
+#profile:hover {
+    border-color: var(--lightdark-03);
 }
 
 .profile-info {

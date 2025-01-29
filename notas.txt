@@ -1,6 +1,2 @@
-generalizar CSS:
-- colores
-- píxeles
-- light-dark
-- card shadows
-- fuentes
+mostrar foto en detalles de evento.
+mostrar hora en detalles de evento.

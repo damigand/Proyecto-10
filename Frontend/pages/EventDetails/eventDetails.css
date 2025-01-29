@@ -13,7 +13,7 @@ i {
 
 .event-info {
     color: var(--lightdark-text);
-    border: 1px solid transparent;
+    border: 1px solid var(--lightdark-01);
     transition: all 0.2s ease, color 1ms;
     min-height: 300px;
     padding: var(--px-20);
@@ -24,7 +24,7 @@ i {
 
 .event-info:hover,
 .attendants:hover {
-    border: 1px solid var(--lightdark-02);
+    border: 1px solid var(--lightdark-03);
 }
 
 .date {
@@ -34,7 +34,7 @@ i {
 .attendants {
     overflow: hidden;
     transition: all 0.5s ease, color 0ms;
-    border: 1px solid transparent;
+    border: 1px solid var(--lightdark-01);
     height: 100px;
     width: 100%;
     max-width: 400px;

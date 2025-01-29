@@ -1,5 +1,6 @@
 #access {
     margin: auto;
+    margin-top: var(--px-10);
     height: 500px;
     color: var(--lightdark-text);
     overflow: hidden;
@@ -29,17 +30,16 @@
 }
 
 #login {
+    transition: transform 0.5s ease-in-out;
     border-top: 1px solid var(--lightdark-02);
     border-top-left-radius: 25%;
     border-top-right-radius: 25%;
     height: 435px;
-    transition: all 0.5s ease-in-out;
     z-index: 2;
     transform: translateY(-65px);
 }
 
 #login.active {
-    transition: all 0.5s ease-in-out;
     transform: translateY(-440px);
     border-radius: var(--px-25);
 }
@@ -82,7 +82,7 @@ button[type="submit"] {
 
     &:hover {
         color: white;
-        background-color: var(--lightdark-primary-hover);
+        background-color: var(--lightdark-primary);
     }
 }
 
