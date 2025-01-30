@@ -1,7 +1,7 @@
 import createMessage from "@c/createMessage/createMessage.js";
 import loading from "@c/loading/loading.js";
 
-const url = "http://localhost:3000/api";
+const url = "https://proy10-back-damigand.vercel.app/api";
 
 const makeRequest = async (endpoint, options) => {
     try {
