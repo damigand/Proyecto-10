@@ -143,9 +143,9 @@ const submitEvent = async (isEditing, id) => {
     let url;
 
     if (isEditing) {
-        url = `http://localhost:3000/api/events/edit/${id}`;
+        url = `/events/edit/${id}`;
     } else {
-        url = "http://localhost:3000/api/events/create";
+        url = "/events/create";
     }
 
     const token = JSON.parse(localStorage.getItem("jwt"));
