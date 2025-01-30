@@ -37,18 +37,18 @@ const checkOldPassword = async (password) => {
 
     const body = {
         usuario: username,
-        password: password,
+        password: password
     };
 
     const options = {
         method: "POST",
         body: JSON.stringify(body),
         headers: {
-            "Content-type": "application/json",
-        },
+            "Content-type": "application/json"
+        }
     };
 
-    const url = "http://localhost:3000/api/users/login";
+    const url = "/users/login";
 
     const response = await makeRequest(url, options);
     return response.success;
@@ -68,18 +68,18 @@ const savePassword = async () => {
 
     if (!check) return;
 
-    const url = "http://localhost:3000/api/users/password";
+    const url = "/users/password";
     const token = "Bearer " + JSON.parse(localStorage.getItem("jwt"));
     const body = {
-        password: newPassword,
+        password: newPassword
     };
     const options = {
         method: "POST",
         body: JSON.stringify(body),
         headers: {
             "Content-type": "application/json",
-            Authorization: token,
-        },
+            Authorization: token
+        }
     };
 
     const response = await makeRequest(url, options);

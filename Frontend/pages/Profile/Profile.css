@@ -52,7 +52,7 @@
     display: flex;
     align-items: center;
     gap: var(--px-5);
-    font-size: var(--font-xxl);
+    font-size: var(--font-22);
 }
 
 .profile-email span {
@@ -123,5 +123,11 @@
 
     .profile-text .edit-info {
         align-self: flex-end;
+    }
+
+    .profile-email span {
+        font-size: var(--font-14);
+        max-width: 100%;
+        word-break: break-all;
     }
 }

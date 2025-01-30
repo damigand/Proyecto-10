@@ -35,7 +35,7 @@ const eventElement = (event, userId) => {
 };
 
 const getUserEvents = async (user) => {
-    const url = `http://localhost:3000/api/events/user/${user._id}`;
+    const url = `/events/user/${user._id}`;
     const options = {
         method: "GET"
     };

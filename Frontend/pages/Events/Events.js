@@ -21,7 +21,7 @@ const template = () => {
 
 const getEvents = async (params) => {
     $("#event-container").innerHTML = "";
-    const url = `http://localhost:3000/api/events?${params}`;
+    const url = `/events?${params}`;
     const options = {
         method: "GET"
     };
@@ -118,7 +118,7 @@ const attendEvent = async (event, button, assistants) => {
         createMessage("red", "Necesitas acceso para atender un evento.");
     }
 
-    const url = `http://localhost:3000/api/events/attend/${event._id}`;
+    const url = `/events/attend/${event._id}`;
 
     const options = {
         method: "POST",

@@ -29,14 +29,14 @@ const deleteEvent = async (event) => {
 
     if (!check) return;
 
-    const url = `http://localhost:3000/api/events/delete/${event._id}`;
+    const url = `/events/delete/${event._id}`;
     const token = JSON.parse(localStorage.getItem("jwt"));
 
     const options = {
         method: "DELETE",
         headers: {
-            Authorization: token,
-        },
+            Authorization: token
+        }
     };
 
     const response = await makeRequest(url, options);

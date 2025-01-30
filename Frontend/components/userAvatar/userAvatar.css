@@ -97,7 +97,8 @@
 }
 
 @media (max-width: 600px) {
-    .small-no-avatar {
+    .small-no-avatar,
+    .small-avatar {
         width: 40px;
         height: 40px;
     }

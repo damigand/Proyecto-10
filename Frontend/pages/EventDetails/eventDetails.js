@@ -156,7 +156,7 @@ const attendantsHTML = (attendantsDiv, attendants, eventId) => {
 };
 
 const attendEvent = async (element, eventId) => {
-    const url = `http://localhost:3000/api/events/attend/${eventId}`;
+    const url = `/events/attend/${eventId}`;
     const token = "Bearer " + JSON.parse(localStorage.getItem("jwt"));
 
     const options = {
@@ -182,7 +182,7 @@ const eventDetails = async (eventId, backNav, unload, params) => {
     const back = backButton(backNav, unload, params);
     $("#event-details").insertAdjacentElement("afterbegin", back);
 
-    const url = `http://localhost:3000/api/events/${eventId}`;
+    const url = `/events/${eventId}`;
     const options = {
         method: "GET"
     };
