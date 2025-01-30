@@ -33,7 +33,7 @@ const register = async (req, res, next) => {
         if (check) return res.status(404).json("El nombre de usuario no está disponible.");
 
         const user = new User(req.body);
-        user.save();
+        await user.save();
 
         return res.status(201).json("Usuario registrado con éxito.");
     } catch (error) {
@@ -53,7 +53,7 @@ const login = async (req, res, next) => {
             const user = {
                 usuario: userCheck.usuario,
                 email: userCheck.email,
-                _id: userCheck._id,
+                _id: userCheck._id
             };
             return res.status(200).json({ user: user, token: token });
         }
@@ -72,7 +72,7 @@ const editUser = async (req, res, next) => {
         if (req.user.id == oldUser.id) {
             const change = {
                 usuario: req.body.usuario || oldUser.usuario,
-                email: req.body.email,
+                email: req.body.email
             };
 
             //Comprobamos que el nuevo nombre de usuario no esté en uso.
@@ -82,7 +82,7 @@ const editUser = async (req, res, next) => {
             }
 
             const newUser = await User.findByIdAndUpdate(id, change, {
-                new: true,
+                new: true
             }).select("-password");
 
             return res.status(201).json(newUser);
@@ -121,7 +121,7 @@ const changeAvatar = async (req, res, next) => {
         if (!user) return res.status(500).json(`Error, prueba de nuevo más tarde.`);
 
         const change = {
-            avatar: req.file.path,
+            avatar: req.file.path
         };
 
         if (user.avatar) {
@@ -147,7 +147,7 @@ const removeAvatar = async (req, res, next) => {
         }
 
         const change = {
-            avatar: "",
+            avatar: ""
         };
 
         removeImg(user.avatar);
@@ -183,5 +183,5 @@ module.exports = {
     deleteUser,
     changeAvatar,
     removeAvatar,
-    changePassword,
+    changePassword
 };

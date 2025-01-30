@@ -40,7 +40,7 @@ const eventHTML = (event) => {
         weekday: "long",
         year: "numeric",
         month: "long",
-        day: "numeric",
+        day: "numeric"
     };
 
     const dateObject = new Date(event.fecha);
@@ -53,9 +53,12 @@ const eventHTML = (event) => {
     }
     const time = ` - ${hours}:${minutes}`;
 
-    const userId = JSON.parse(localStorage.getItem("user"))._id;
+    const userId = JSON.parse(localStorage.getItem("user"))?._id;
+    let check = false;
 
-    const check = event.asistentes.some((t) => t._id == userId);
+    if (userId) {
+        check = event.asistentes.some((t) => t._id == userId);
+    }
 
     return `
         <h1>${event.titulo}</h1>
@@ -159,8 +162,8 @@ const attendEvent = async (element, eventId) => {
     const options = {
         method: "POST",
         headers: {
-            Authorization: token,
-        },
+            Authorization: token
+        }
     };
 
     const response = await makeRequest(url, options);
@@ -181,7 +184,7 @@ const eventDetails = async (eventId, backNav, unload, params) => {
 
     const url = `http://localhost:3000/api/events/${eventId}`;
     const options = {
-        method: "GET",
+        method: "GET"
     };
 
     const response = await makeRequest(url, options);
