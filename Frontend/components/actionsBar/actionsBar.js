@@ -63,7 +63,7 @@ const template = () => {
                     </div>
                 </form>
             </div>
-			<span class="show-action-bar">Filtros</span>
+			<span class="show-action-bar">Acciones</span>
         </div>
     `;
 };
@@ -223,7 +223,7 @@ const actionBar = () => {
     $("#create-event-button").addEventListener("click", () => {
         eventForm();
         $("#action-bar").classList.remove("active-bar");
-        $(".show-action-bar").textContent = "Filtros";
+        $(".show-action-bar").textContent = "Acciones";
     });
 
     setUpFilters();
@@ -236,7 +236,7 @@ const actionBar = () => {
 				<i class='bx bx-x'></i>
 			`;
         } else {
-            showActionBar.innerHTML = "Filtros";
+            showActionBar.innerHTML = "Acciones";
         }
     });
 };
