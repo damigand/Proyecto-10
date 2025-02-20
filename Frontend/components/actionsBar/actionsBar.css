@@ -160,6 +160,7 @@ button.least {
     transition: all 0.2s ease;
     border: none;
     background-color: var(--lightdark-primary);
+    color: white;
 }
 
 #filter-submit:hover {
