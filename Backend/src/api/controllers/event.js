@@ -125,7 +125,7 @@ const createEvent = async (req, res, next) => {
 
         if (!eventObject.ubicacion) return res.status(404).json("El evento necesita una ubicación");
 
-        if (eventObject.description?.length > 200)
+        if (eventObject.descripcion?.length > 200)
             return res.status(404).json("La descripción no puede tener más de 200 caracteres.");
 
         if (eventObject.ubicacion.length > 50)
