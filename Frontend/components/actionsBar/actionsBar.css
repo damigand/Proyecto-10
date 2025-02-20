@@ -13,7 +13,7 @@
     padding: var(--px-10) var(--px-10);
     gap: var(--px-10);
     transform: translateX(calc(-100% - 1px));
-    transition: all 0.2s ease;
+    transition: all 0.2s ease, background-color 1ms;
 }
 
 #action-bar.showing {
@@ -79,7 +79,7 @@ button.least {
 }
 
 .quick-filters button i {
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease;
     font-size: var(--font-14);
 }
 
