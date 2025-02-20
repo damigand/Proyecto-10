@@ -4,6 +4,7 @@ import * as formCheck from "@c/formCheck/formCheck.js";
 import makeRequest from "@c/makeRequest/makeRequest";
 import eventDetails from "@p/EventDetails/eventDetails";
 import createMessage from "@c/createMessage/createMessage";
+import Access from "@p/Access/Access";
 const $ = (el) => document.querySelector(el);
 
 const maxTitle = 50;
@@ -252,6 +253,13 @@ const removeImage = () => {
 
 const eventForm = (event) => {
     const isEditing = event ? true : false;
+
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+        Access();
+        createMessage("red", "Necesitas iniciar sesión.");
+        return;
+    }
 
     const div = document.createElement("div");
     div.id = "create-modal";

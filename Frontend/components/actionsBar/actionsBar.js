@@ -1,13 +1,11 @@
-import eventForm from "@m/_eventForm/_eventForm";
 import "./actionsBar.css";
-import makeRequest from "@c/makeRequest/makeRequest";
 import Events from "@p/Events/Events";
 const $ = (el) => document.querySelector(el);
 
 const template = () => {
     return `
         <div id="action-bar">
-            <button id="create-event-button">Crear evento</button>
+        <i class="bx bx-x close-bar"></i>
             <div class="filter-events-container">
                 <h3>Ordenar por</h3>
                 <div class="quick-filters">
@@ -63,7 +61,6 @@ const template = () => {
                     </div>
                 </form>
             </div>
-			<span class="show-action-bar">Acciones</span>
         </div>
     `;
 };
@@ -220,24 +217,11 @@ const changeQuickFilter = (index, button, isDate, loading) => {
 
 const actionBar = () => {
     $("main").insertAdjacentHTML("afterbegin", template());
-    $("#create-event-button").addEventListener("click", () => {
-        eventForm();
-        $("#action-bar").classList.remove("active-bar");
-        $(".show-action-bar").textContent = "Acciones";
-    });
 
     setUpFilters();
 
-    const showActionBar = $(".show-action-bar");
-    showActionBar.addEventListener("click", () => {
-        $("#action-bar").classList.toggle("active-bar");
-        if ($("#action-bar").classList.contains("active-bar")) {
-            showActionBar.innerHTML = `
-				<i class='bx bx-x'></i>
-			`;
-        } else {
-            showActionBar.innerHTML = "Acciones";
-        }
+    $(".close-bar").addEventListener("click", () => {
+        $("#action-bar").classList.remove("showing");
     });
 };
 

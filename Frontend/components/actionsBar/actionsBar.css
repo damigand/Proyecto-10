@@ -1,4 +1,6 @@
 #action-bar {
+    background-color: var(--lightdark-bg);
+    font-size: var(--font-14);
     position: fixed;
     top: 71px;
     left: 0;
@@ -10,6 +12,13 @@
     flex-direction: column;
     padding: var(--px-10) var(--px-10);
     gap: var(--px-10);
+    transform: translateX(calc(-100% - 1px));
+    transition: all 0.2s ease;
+}
+
+#action-bar.showing {
+    transform: translateX(0);
+    z-index: 1000;
 }
 
 #create-event-button {
@@ -28,8 +37,6 @@
 }
 
 .filter-events-container {
-    border-top: 1px solid var(--lightdark-04);
-    border-bottom: 1px solid var(--lightdark-04);
     padding: var(--px-10) var(--px-10);
     overflow-y: scroll;
     display: flex;
@@ -44,22 +51,27 @@
 }
 
 .quick-filters button {
+    transition: all 0.2s ease;
     background-color: transparent;
-    border: 1px solid var(--lightdark-primary);
+    border: 1px solid transparent;
     font-size: var(--font-16);
     padding: var(--px-5) var(--px-10);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: var(--px-10);
+    gap: var(--px-2);
     cursor: pointer;
+}
+
+.quick-filters button:hover {
+    border: 1px solid var(--lightdark-primary);
 }
 
 button.most,
 button.least {
-    background-color: var(--lightdark-primary);
     color: white;
+    background-color: var(--lightdark-primary);
 }
 
 .reverse {
@@ -127,7 +139,8 @@ button.least {
     gap: var(--px-5);
 }
 
-#filter-actions button {
+#filter-submit,
+#filter-clear {
     padding: var(--px-2) var(--px-6);
     font-size: var(--font-16);
     background-color: transparent;
@@ -143,12 +156,14 @@ button.least {
 }
 
 #filter-submit {
+    font-size: var(--font-18);
     transition: all 0.2s ease;
-    border: 1px solid var(--lightdark-primary);
+    border: none;
+    background-color: var(--lightdark-primary);
 }
 
 #filter-submit:hover {
-    background-color: var(--lightdark-primary);
+    background-color: var(--lightdark-primary-hover);
     color: white;
 }
 
@@ -162,45 +177,9 @@ button.least {
     opacity: 1;
 }
 
-@media (max-width: 800px) {
-    #action-bar {
-        transition: all 0.2s ease;
-        transform: translateX(calc(-100% - 1px));
-    }
-
-    #action-bar.active-bar {
-        background-color: var(--lightdark-bg);
-        transform: translateX(0);
-        z-index: 100;
-    }
-
-    .show-action-bar {
-        display: block;
-        position: absolute;
-        top: var(--px-2);
-        right: 0;
-        transform: translateX(110%);
-        padding: var(--px-4) var(--px-8);
-        cursor: pointer;
-        background-color: var(--lightdark-primary);
-        border-radius: var(--px-5);
-        color: white;
-    }
-
-    .show-action-bar i {
-        display: none;
-    }
-
-    #action-bar.active-bar .show-action-bar {
-        width: 30px;
-        height: 30px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    #action-bar.active-bar .show-action-bar i {
-        display: inline;
-    }
+.close-bar {
+    position: absolute;
+    right: 5px;
+    font-size: var(--font-22);
+    cursor: pointer;
 }

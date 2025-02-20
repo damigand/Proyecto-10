@@ -1,13 +1,9 @@
 //Pages
 import Events from "@p/Events/Events.js";
-import Profile from "@p/Profile/Profile";
 
 import changeTheme from "@c/theme/theme.js";
 import header from "@c/header/header.js";
 import { baseModal } from "@m/_base.js";
-import changePassword from "@m/_changePassword/_changePassword";
-import eventDetails from "@p/EventDetails/eventDetails";
-import eventForm from "@m/_eventForm/_eventForm";
 
 header();
 changeTheme();

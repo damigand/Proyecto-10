@@ -1,0 +1,71 @@
+#actions {
+    width: 50px;
+    height: 110px;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+}
+
+#actions > div {
+    transition: all 0.2s ease;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    position: absolute;
+    right: 0;
+    background-color: var(--lightdark-primary);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 13px;
+    padding-right: 13px;
+}
+
+#actions > div i {
+    font-size: 24px;
+    margin-left: auto;
+}
+
+#actions > div:hover {
+    width: 150px;
+    border-radius: 25px;
+}
+
+@keyframes text-fade {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#actions > div:hover::before {
+    font-size: 14px;
+    margin: auto;
+    animation-name: text-fade;
+    animation-duration: 400ms;
+    display: flex;
+    justify-content: center;
+}
+
+.action-create-event {
+    bottom: 0;
+}
+
+.action-create-event:hover::before {
+    content: "Crear evento";
+}
+
+.action-show-filters {
+    top: 0;
+}
+
+.action-show-filters:hover::before {
+    content: "Ver filtros";
+}

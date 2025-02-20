@@ -100,7 +100,7 @@ main {
     padding-right: var(--xl-margin);
 }
 
-#app:has(#events) #events {
+#app:has(#action-bar.showing) #events {
     padding-left: var(--sidebar-width);
 }
 
@@ -144,7 +144,21 @@ body.loading .isLoading {
         padding-right: var(--xs-margin);
     }
 
-    #app:has(#events) #events {
+    body:has(#action-bar.showing) {
+        overflow-y: hidden;
+    }
+
+    body:has(#action-bar.showing)::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #app:has(#action-bar.showing) #events {
         padding-left: 0px;
     }
 

@@ -4,6 +4,7 @@ import "./Events.css";
 import createMessage from "@c/createMessage/createMessage.js";
 import makeRequest from "@c/makeRequest/makeRequest.js";
 import actionBar from "@c/actionsBar/actionsBar";
+import actions from "@c/actions/actions";
 
 const $ = (el) => document.querySelector(el);
 const $$ = (els) => document.querySelectorAll(els);
@@ -162,6 +163,7 @@ const Events = (params) => {
     getEvents(params);
 
     actionBar();
+    actions();
 };
 
 export default Events;
