@@ -117,6 +117,7 @@ const attendEvent = async (event, button, assistants) => {
     if (!token) {
         Access();
         createMessage("red", "Necesitas acceso para atender un evento.");
+        return;
     }
 
     const url = `/events/attend/${event._id}`;

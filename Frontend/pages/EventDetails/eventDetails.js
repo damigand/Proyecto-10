@@ -26,7 +26,11 @@ const getDetails = (event) => {
     eventDiv.innerHTML = eventHTML(event);
     attendants = attendantsHTML(attendants, event.asistentes, event._id);
 
+    const h2 = document.createElement("h2");
+    h2.textContent = "Asistentes";
+
     $("#event-details").appendChild(eventDiv);
+    $("#event-details").appendChild(h2);
     $("#event-details").appendChild(attendants);
 
     const creador = $(".creador-usuario");
