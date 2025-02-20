@@ -1,4 +1,5 @@
 import "./actionsBar.css";
+import createMessage from "@c/createMessage/createMessage";
 import Events from "@p/Events/Events";
 const $ = (el) => document.querySelector(el);
 
@@ -68,7 +69,7 @@ const template = () => {
 let assistIndex = 0;
 let dateIndex = 0;
 
-let localParams;
+let localParams = new URLSearchParams();
 
 const setUpFilters = () => {
     changeQuickFilter(assistIndex, $(".assistants-order"), false, true);
@@ -150,9 +151,13 @@ const filterEvents = async () => {
 
     //Guarda los filtros para que se re-apliquen si el usuario entra
     // a un evento filtrado y después vuelve hacia atrás.
+    if (localParams.toString() == params.toString()) {
+        createMessage("yellow", "Ya has filtrado de esta manera.");
+        return;
+    }
     localParams = params;
 
-    Events(params);
+    Events(params, true);
 };
 
 const resetFilters = () => {

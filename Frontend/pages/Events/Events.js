@@ -7,7 +7,6 @@ import actionBar from "@c/actionsBar/actionsBar";
 import actions from "@c/actions/actions";
 
 const $ = (el) => document.querySelector(el);
-const $$ = (els) => document.querySelectorAll(els);
 
 const template = () => {
     $("#link_events").classList.add("active");
@@ -158,13 +157,14 @@ const attendEvent = async (event, button, assistants) => {
     }
 };
 
-const Events = (params) => {
-    $("main").innerHTML = template();
+const Events = (params, filtering) => {
+    if (!filtering) {
+        $("main").innerHTML = template();
+        actionBar();
+        actions();
+    }
 
     getEvents(params);
-
-    actionBar();
-    actions();
 };
 
 export default Events;

@@ -26,7 +26,8 @@ const actions = () => {
     });
 
     showFilters.addEventListener("click", () => {
-        $("#action-bar").classList.toggle("showing");
+        const bar = $("#action-bar");
+        bar.classList.toggle("showing");
     });
 };
 
