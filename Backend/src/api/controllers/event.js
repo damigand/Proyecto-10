@@ -119,7 +119,7 @@ const createEvent = async (req, res, next) => {
         eventObject.imagen = req.file?.path || "";
 
         //Comprobamos campos obligatorios y su longitud máxima.
-        if (!eventObject.titulo) return res.stauts(404).json("El evento necesita un título");
+        if (!eventObject.titulo) return res.status(404).json("El evento necesita un título");
         if (!eventObject.fecha)
             return res.status(404).json("El evento necesita una fecha (YYYY-MM-DD)");
 
@@ -133,6 +133,10 @@ const createEvent = async (req, res, next) => {
 
         if (eventObject.titulo.length > 50)
             return res.status(404).json("El título no puede tener más de 50 caracteres.");
+
+        if (eventObject.fecha < new Date()) {
+            return res.status(404).json("La fecha no puede ser anterior a hoy.");
+        }
 
         eventObject.creador = req.user.id;
         if (req.body.attending) eventObject.asistentes.push(req.user.id);
